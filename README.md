@@ -6,10 +6,10 @@ Benchmarks for sending data from PS to PL and vice versa
 * [x] Get basic loop back working for baremetal
 * [x] Test cache coherency for baremetal (confirmed for HPC0 and HPC1 ACE is a different story ...)
 * [x] get OCM working for baremetal
-* [] Add AXU PMU for performance measurements
-* [] Create read write API's 
-* [] Add pictures 
-* [] Tidy up readme making how to steps clear
+* [ ] Add AXU PMU for performance measurements
+* [ ] Create read write API's 
+* [ ] Add pictures 
+* [ ] Tidy up readme making how to steps clear
 
 # Initial loop back test
 
