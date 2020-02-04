@@ -1,6 +1,16 @@
 # AXI_Benchmarks
 Benchmarks for sending data from PS to PL and vice versa
 
+# Todos
+
+* [x] Get basic loop back working for baremetal
+* [x] Test cache coherency for baremetal (confirmed for HPC0 and HPC1 ACE is a different story ...)
+* [x] get OCM working for baremetal
+* [] Add AXU PMU for performance measurements
+* [] Create read write API's 
+* [] Add pictures 
+* [] Tidy up readme making how to steps clear
+
 # Initial loop back test
 
 the loopback_bsp.cpp and loobpack HLS code will pair together to run a simple loop back test that can demonstrate the following:
@@ -112,3 +122,4 @@ volatile int* ocm_buff2 = (int*)OCM_BUFF2;
  https://www.xilinx.com/support/documentation/sw_manuals/xilinx2017_4/ug902-vivado-high-level-synthesis.pdf
  https://www.xilinx.com/support/documentation/user_guides/ug1085-zynq-ultrascale-trm.pdf
  https://www.zynq-mpsoc-book.com/wp-content/uploads/2019/04/MPSoC_ebook_web_v1.0.pdf
+ http://infocenter.arm.com/help/topic/com.arm.doc.ddi0470i/DDI0470I_cci400_r1p3_trm.pdf
