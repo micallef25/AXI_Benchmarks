@@ -1,3 +1,8 @@
+//#define COMPILE_STREAM_TEST
+
+#ifdef COMPILE_STREAM_TEST
+
+
 #include <stdio.h>
 #include <string.h>
 #include <hls_stream.h>
@@ -32,3 +37,5 @@ void example_tx(volatile int *input,int outbuffer[100]/*,hls::stream<int> stream
 		}
 	}
  }
+
+#endif

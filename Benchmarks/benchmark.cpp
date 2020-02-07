@@ -1,21 +1,21 @@
-
-
+// libs
 #include <stdio.h>
-#include "platform.h"
 #include "xexample_tx.h"
 #include "xexample_rx.h"
 #include <stdlib.h>
 #include "xil_cache.h"
 #include "xil_mmu.h"
 #include "xpseudo_asm.h"
-
 #include "xil_types.h"
-
 #include "xparameters.h"
-
 #include "xil_io.h"
 #include "xil_exception.h"
 #include "xscugic.h"
+
+#include "../axipmon/axipmon_imp.h"
+// ny stuff
+#include "../Overlays/stream.h"
+
 
 #define PSU_OCM_RAM_0	(0xFFFC0000)
 #define OCM_BUFF1 (0xFFFC0000)
@@ -35,14 +35,13 @@ void delay(int delay)
 volatile int count = 0;
 XScuGic InterruptController; /* Instance of the Interrupt Controller */
 static XScuGic_Config *GicConfig;/* The configuration parameters of the controller */
-XExample_tx* AXI_Config;
-XExample_rx* AXI_Configrx;
+
 
 void XTmrCtr_InterruptHandler()
 {
-	printf("XExample_IsDone() %d\n",XExample_rx_IsDone(AXI_Configrx));
-	printf("XExample_InterruptGetStatus() %d\n",XExample_rx_InterruptGetStatus(AXI_Configrx));
-	XExample_rx_InterruptClear(AXI_Configrx,XExample_rx_InterruptGetStatus(AXI_Configrx));
+	//printf("XExample_IsDone() %d\n",XExample_rx_IsDone(AXI_Configrx));
+	//printf("XExample_InterruptGetStatus() %d\n",XExample_rx_InterruptGetStatus(AXI_Configrx));
+	//XExample_rx_InterruptClear(AXI_Configrx,XExample_rx_InterruptGetStatus(AXI_Configrx));
 	count = 10;
 }
 
@@ -100,25 +99,79 @@ int Status;
 	return XST_SUCCESS;
 }
 
-int main()
+int run_benchmark()
 {
-    //
-	printf("Starting Loop Back Test \n");
+	u32 Metrics;
+	u32 ClkCntHigh = 0x0;
+	u32 ClkCntLow = 0x0;
+	int Status;
 
-    //
-    init_platform();
+	// Start AXIPMON
+//	Status = Setup_AxiPmon();
+//	if (Status != XST_SUCCESS) {
+//		xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
+//		return XST_FAILURE;
+//	}
+	printf("Starting Test Run\n");
 
-    //
-    // select which memory type allocate memory
-    // and setup the PL ports 
-    // instantiate a port object with RD / WR
+	//
+	//
+	// Create Stream
+	stream* write_stream = new stream(100);
+	write_stream->init_tx(stream::HPC0, 0);
+	//
+	//
+	// Create out stream
+	stream* read_stream = new stream(100);
+	read_stream->init_rx(stream::HPC0, 0);
 
 
-    //
-    // 
-    //
+	write_stream->start_tx();
+	read_stream->start_rx();
 
+	//
+	// 
+	// Send data 
+	for(int i = 0; i < 100; i++)
+	{
+		write_stream->simple_write(i);
+	}
 
-    cleanup_platform();
-    return 0;
+	write_stream->simple_write(0xdeadbeef);
+
+	//
+	//
+	//
+	// Wait for data back
+	while(true)
+	{
+		printf("sleeping\n");
+		delay(1000);
+		if(read_stream->is_stream_done())
+			break;
+	}
+	//
+	//
+	//
+	// Read data and confirm
+	for(int i = 0; i < 100; i++)
+	{
+		printf("read_stream->simple_read(%d)\n",read_stream->simple_read());
+	}
+
+	//
+	//
+	// shut down and destory streams
+//	Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
+//	if (Status != XST_SUCCESS) {
+//		xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");
+//		return XST_FAILURE;
+//	}
+
+	printf("Metrics %d\n",Metrics);
+
+	//
+	//
+	// print results
+	return XST_SUCCESS;
 }

@@ -1,6 +1,11 @@
 /*
 * Basic loop back example
 */
+
+//#define COMPILE_LOOPBACK_TEST
+
+#ifdef COMPILE_LOOPBACK_TEST
+
 void example(volatile int *input, volatile int* output)
 {
 
@@ -25,3 +30,6 @@ void example(volatile int *input, volatile int* output)
 		}
 	}
  }
+
+
+#endif
