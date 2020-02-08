@@ -13,36 +13,22 @@
 #include "xil_types.h"
 #include "xparameters.h"
 
-// TODO first create the generic API's showing that it works
-// then we can complicate and do per port design
-//
-//
-#define NUM_INSTANCES 1
 
-// TODO figure this out 
-// typedef read
-// typedef write
+#define MAX_NUM_PORTS INVALID_PORT
+#define MAX_NUM_MEMORIES INVALID_MEMORY
 
 
-// func_ptrs ptr_table[NUM_INSTANCES] = 
-// {
-// 	{
-// 		.read = simple_read;
-// 		.write = simple_write;
-// 	}
-// };
+
+// pointer to stream instances
+static stream_t* streams[MAX_NUMBER_OF_STREAMS];
 
 
-// InterruptHandler()
-// {
-
-// }
 
 /*
 * useful conversions
 *
 */
-stream::axi_port_type stream::port_str_to_type( char* str )
+axi_port_type port_str_to_type( char* str )
 {
 	if( !str )
 		return INVALID_PORT;
@@ -56,7 +42,7 @@ stream::axi_port_type stream::port_str_to_type( char* str )
 	return INVALID_PORT;
 }
 
-const char* stream::port_type_to_str( axi_port_type port )
+const char* port_type_to_str( axi_port_type port )
 {
 	switch(port)
 	{
@@ -71,7 +57,7 @@ const char* stream::port_type_to_str( axi_port_type port )
 }
 
 
-stream::memory_type stream::mem_str_to_type( char* str )
+memory_type mem_str_to_type( char* str )
 {
 	if( !str )
 		return INVALID_MEMORY;
@@ -85,7 +71,7 @@ stream::memory_type stream::mem_str_to_type( char* str )
 	return INVALID_MEMORY;
 }
 
-const char* stream::mem_type_to_str( memory_type memory )
+const char* mem_type_to_str( memory_type memory )
 {
 	switch(memory)
 	{
@@ -97,48 +83,145 @@ const char* stream::mem_type_to_str( memory_type memory )
 }
 
 
+static stream_t* safe_get_stream( stream_id_t stream_id )
+{
+	// bounds check
+	assert(stream_id >= 0 && stream_id < MAX_NUMBER_OF_STREAMS)
 
+	//
+	stream_t* stream streams[stream_id];
+
+	return stream;
+}
 
 
 // should consider making ports a singleton paradigm and streams contain ports
-stream::stream( uint32_t buff_size )
+stream_id_t stream_create( uint32_t buff_size, direction_type direction,memory_type mem, axi_port_type port  );
 {
-	this->ptr = 0;
-	this->buff = (volatile uint32_t*)malloc( sizeof(uint32_t)*buff_size );
-	this->axi_config_tx = (XExample_tx*)malloc(sizeof(XExample_tx));
-	this->axi_config_rx = (XExample_rx*)malloc(sizeof(XExample_rx));
-	this->buff_size = buff_size;
-	assert(this->buff != NULL && this->axi_config_tx != NULL && this->axi_config_rx != NULL);
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should not be created already this cases a memory leak
+	assert( stream == NULL );
+	
+	// create instance
+	stream = (stream_t*)malloc( sizeof(stream_t) );
+	assert(stream != NULL);
+
+	// create buffer and set ptr
+	stream->ptr = 0;
+	stream->buff = (volatile uint32_t*)malloc( sizeof(uint32_t)*buff_size );
+
+	// depending on the direction get the correct IP instance
+	if( direction == TX )
+	{
+		stream->axi_config_tx = (XExample_tx*)malloc(sizeof(XExample_tx));
+		stream->axi_config_rx = NULL;
+		stream->X_ID = XPAR_EXAMPLE_TX_0_DEVICE_ID;
+		assert(stream->axi_config_rx != NULL);
+	}
+	else if( direction == RX )
+	{
+		stream->axi_config_tx = NULL;
+		stream->axi_config_rx = (XExample_rx*)malloc(sizeof(XExample_rx));
+		stream->X_ID = XPAR_EXAMPLE_RX_0_DEVICE_ID;
+		assert(stream->axi_config_rx != NULL);
+	}
+	else
+	{
+		// invalid arg crash the program
+		assert(0);
+	}
+
+
+	// set the unique characteristics of the stream
+	stream->memory = mem;
+	stream->port = port;
+	stream->buff_size = buff_size;
+	stream->direction = direction;
 }
 
-stream::~stream()
+void stream_destroy( stream_id_t stream_id)
 {
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+
 	// actually only need one buffer
-	free((void*)this->buff);
-	free((void*)this->axi_config_tx);
-	free((void*)this->axi_config_rx);
-	this->buff = NULL;
+	free((void*)stream->buff);
+	stream->buff = NULL;
+
+	// depending on the direction get the correct IP instance
+	if( direction == TX )
+	{
+		free((void*)stream->axi_config_tx);
+		stream->axi_config_tx = NULL;
+	}
+	else if( direction == RX )
+	{
+		free((void*)stream->axi_config_rx);
+		stream->axi_config_rx = NULL;
+	}
+	else
+	{
+		// invalid arg crash the program
+		assert(0);
+	}
+
+	// Finally free our stream and our table entry
+	free(stream);
+	streams[stream_id] = NULL;
 }
 
 // pass in which port you want and who is master and slave for this stream
-int stream::init_tx( axi_port_type port_type, uint32_t ps_id )
+int stream_init( stream_id_t stream_id )
 {
-	//some set up may be for just running in software 
-	// need to check output if the CPU needs to register this in the TLB
-	// may need to create alot of memory up front so that in PS to PS we can share pointers
-	ps_id = XPAR_EXAMPLE_TX_0_DEVICE_ID;
-	int rval = XExample_tx_Initialize( axi_config_tx, ps_id);
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+	int rval = XST_FAILURE;
+
+	// initialize our drivers
+	if(stream->direction == TX )
+	{
+		rval = XExample_tx_Initialize( stream->axi_config_tx, stream->X_ID );
+	}
+	else if(stream->direction == RX)
+	{
+		rval = XExample_rx_Initialize( stream->axi_config_rx, stream->X_ID );
+	}
+	else
+	{
+		// invalid arg crash the program
+		assert(0);
+	}
+
+	// ensure drivers are created successfully
     if(rval != XST_SUCCESS)
     {
        	xil_printf("error in init\r\n");
        	return XST_FAILURE;
     }
 
-    // comppilers are stupid and this is the only way I can get rid of the error without losing precision when passed to set input
-    u32 offset = *((u32*)(&buff));
 
-	// point FPGA to buffer
-    XExample_tx_Set_input_r( axi_config_tx,offset );
+    // comppilers are stupid and this is the only way I can get rid of the error without losing precision when passed to set input
+    // u32 offset = *((u32*)(&buff));
+
+	// point FPGA to buffers
+	if(stream->direction == TX )
+	{
+		XExample_tx_Set_input_r( axi_config_tx,(u32)stream->buff );
+	}
+	else if(stream->direction == RX)
+	{
+		XExample_rx_Set_output_r( axi_config_tx,(u32)stream->buff );
+	}
 
 	// tell it to restart immediately
 	// Xexample_autorestart()
@@ -158,93 +241,85 @@ int stream::init_tx( axi_port_type port_type, uint32_t ps_id )
     Xil_SetTlbAttributes((UINTPTR)buff, 0x605);
     dmb();
 
-    //XExample_tx_Start(axi_config_tx);
-
     return XST_SUCCESS;
 }
 
-// pass in which port you want and who is master and slave for this stream
-int stream::init_rx( axi_port_type port_type, uint32_t ps_id )
-{
-	//some set up may be for just running in software
-	// need to check output if the CPU needs to register this in the TLB
-	// may need to create alot of memory up front so that in PS to PS we can share pointers
-	ps_id = XPAR_EXAMPLE_TX_0_DEVICE_ID;
-	int rval = XExample_rx_Initialize( axi_config_rx, ps_id);
-    if(rval != XST_SUCCESS)
-    {
-       	xil_printf("error in init\r\n");
-       	return XST_FAILURE;
-    }
-
-    // comppilers are stupid and this is the only way I can get rid of the error without losing precision when passed to set input
-    u32 offset = *((u32*)(&buff));
-
-	// point FPGA to buffer
-    XExample_rx_Set_outbuff( axi_config_rx,offset );
-
-	// tell it to restart immediately
-	// Xexample_autorestart()
-
-	//
-	// SetupInterrupts()
-
-	// slave 3 from CCI man page. This enables snooping from the HPC0 and 1 ports
-	if( port_type == HPC0 || port_type == HPC1 )
-	{
-    	Xil_Out32(0xFD6E4000,0x1);
-    	dmb();
-    }
-
-    // mark our memory regions as outer shareable which means it will not live in L1 but L2
-    // TODO make this a parameter for user to pass in or atleast a macro
-    Xil_SetTlbAttributes((UINTPTR)buff, 0x605);
-    dmb();
-
-    //XExample_rx_Start(axi_config_rx);
-
-    return XST_SUCCESS;
-}
 
 
 
 /*
 * Simple read write with no handshaking
 */
-void stream::simple_write( uint32_t data )
+void stream::simple_write( stream_id_t stream, uint32_t data )
 {
-	buff[ptr] = data;
-	ptr++;
-	ptr = ptr % buff_size;
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+
+	stream->buff[stream->ptr] = data;
+	stream->ptr++;
+	stream->ptr = stream->ptr % stream->buff_size;
 }
 
 
-uint32_t stream::simple_read()
+uint32_t stream::simple_read( stream_t stream_id )
 {
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
 	uint32_t temp;
-	temp = buff[ptr];
-	ptr++;
-	ptr = ptr % buff_size;
+	temp = stream->buff[stream->ptr];
+	stream->ptr++;
+	stream->ptr = stream->ptr % stream->buff_size;
 	return temp;
 }
 
 
-u32 stream::is_stream_done()
+u32 is_stream_done(stream_id_t )
 {
-	return XExample_rx_IsDone(axi_config_rx);
+		//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+	if(stream->direction == TX )
+	{
+		XExample_tx_Done(stream->axi_config_tx);
+	}
+	else if(stream->direction == RX)
+	{
+		XExample_rx_Done(stream->axi_config_rx);
+	}
 }
 
-void stream::start_tx()
+void start_stream( stream_id_t stream_id )
 {
-//	XExample_rx_Start(axi_config_rx);
-	XExample_tx_Start(axi_config_tx);
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+	if(stream->direction == TX )
+	{
+		XExample_tx_Start(stream->axi_config_tx);
+	}
+	else if(stream->direction == RX)
+	{
+		XExample_rx_Start(stream->axi_config_rx);
+	}
+
 }
 
-void stream::start_rx()
-{
-	XExample_rx_Start(axi_config_rx);
-//	XExample_tx_Start(axi_config_tx);
-}
+
+
 
 //// could potentially make a table of pointers that is unique to each port
 ////
