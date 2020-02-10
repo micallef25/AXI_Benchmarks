@@ -18,13 +18,6 @@
 #include "../Overlays/stream.h"
 
 
-#define PSU_OCM_RAM_0	(0xFFFC0000)
-#define OCM_BUFF1 (0xFFFC0000)
-#define OCM_BUFF2 (0xFFFD0000)
-
-volatile int* ocm_buff1 = (int*)OCM_BUFF1;
-volatile int* ocm_buff2 = (int*)OCM_BUFF2;
-
 void delay(int delay)
 {
 	for(int i = 0; i < delay; i++)
@@ -100,7 +93,7 @@ int Status;
 	return XST_SUCCESS;
 }
 
-int run_benchmark()
+int run_benchmark( int buffer_size, memory_type memory, int time )
 {
 	u32 Metrics;
 	u32 ClkCntHigh = 0x0;
@@ -119,12 +112,13 @@ int run_benchmark()
 	//
 	//
 	// Create tx Stream
-	stream_create( STREAM_ID_0, 100, TX, CACHE, HPC0 );
+	stream_create( STREAM_ID_0, buffer_size, TX, memory, HPC0 );
 	stream_init(STREAM_ID_0 );
+
 	//
 	//
 	// Create rx stream
-	stream_create( STREAM_ID_1, 100, RX, CACHE, HPC0 );
+	stream_create( STREAM_ID_1, buffer_size, RX, memory, HPC0 );
 	stream_init(STREAM_ID_1 );
 
 	// start streams
@@ -137,33 +131,42 @@ int run_benchmark()
 	for(int i = 0; i < 100; i++)
 	{
 		simple_write( STREAM_ID_0, i );
+		usleep( time );
+		printf("%s,%lu,%lu\n",mem_type_to_str(memory),query_metric(0),query_metric(1));
+		//printf("Bytes_Read: %lu\n",query_metric(0));
+		//printf("Latency: %lu\n",query_metric(1));
 	}
 
 	simple_write( STREAM_ID_0, 0xdeadbeef);
 
 	//
 	//
-	//
 	// Wait for data back
 	while(1)
 	{
-		printf("sleeping\n");
+		//printf("sleeping\n");
 		sleep(2);
+
+//		printf("stream1: %d\n",is_stream_done(STREAM_ID_1));
+//		printf("stream0: %d\n",is_stream_done(STREAM_ID_0));
+
 		if(is_stream_done(STREAM_ID_1))
 			break;
 	}
-	//
+
+
 	//
 	//
 	// Read data and confirm
 	for(int i = 0; i < 100; i++)
 	{
 		printf("simple_read(%d)\n",simple_read( STREAM_ID_1 ));
+//		sleep(1);
 	}
 
 	//
 	//
-	// shut down and destroy streams
+	// shut down performance monitors
 	Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
 	if (Status != XST_SUCCESS) {
 		xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");

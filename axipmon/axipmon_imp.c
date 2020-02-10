@@ -156,7 +156,7 @@ int Setup_AxiPmon()
 	 * calling below function again.
 	 */
 	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId+1, XAPM_METRIC_SET_3,XAPM_METRIC_COUNTER_1);
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId, XAPM_METRIC_SET_3,XAPM_METRIC_COUNTER_1);
 
 
 //	XAxiPmon_StartCounters(AxiPmonInstPtr, 1000);
@@ -174,6 +174,8 @@ int Setup_AxiPmon()
 	 * Enable Global Clock Counter Register.
 	 */
 	XAxiPmon_EnableGlobalClkCounter(AxiPmonInstPtr);
+
+	XAxiPmon_StartCounters(AxiPmonInstPtr, 0x100);
 
 	return XST_SUCCESS;
 
@@ -205,16 +207,22 @@ int Shutdown_AxiPmon(u32 *Metrics, u32 *ClkCntHigh,u32 *ClkCntLow)
 	/* Get Metric Counter 0  */
 	*Metrics = XAxiPmon_GetMetricCounter(AxiPmonInstPtr,XAPM_METRIC_COUNTER_0);
 
-	printf("Metrics %d\n",*Metrics);
+	printf("Latency %lu\n",*Metrics);
 
 	/* Get Metric Counter 1  */
 	*Metrics = XAxiPmon_GetMetricCounter(AxiPmonInstPtr,XAPM_METRIC_COUNTER_1);
 
-	printf("Metrics %d\n",*Metrics);
+	printf("Bytes_Read %lu\n",*Metrics);
 
 	/* Get Global Clock Cycles Count in ClkCntHigh,ClkCntLow */
 	XAxiPmon_GetGlobalClkCounter(AxiPmonInstPtr, ClkCntHigh, ClkCntLow);
 
 
 	return XST_SUCCESS;
+}
+
+u32 query_metric( u32 metric )
+{
+	XAxiPmon *AxiPmonInstPtr = &AxiPmonInst;
+	return XAxiPmon_GetMetricCounter(AxiPmonInstPtr,metric);
 }

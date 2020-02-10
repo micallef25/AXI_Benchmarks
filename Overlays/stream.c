@@ -19,11 +19,18 @@
 #define MAX_NUM_PORTS INVALID_PORT
 #define MAX_NUM_MEMORIES INVALID_MEMORY
 
-
+#define PSU_OCM_RAM_0	(0xFFFC0000)
+#define OCM_BUFF1 (0xFFFE0000)
+#define OCM_BUFF2 (0xFFFF0000)
 
 // pointer to stream instances
 static stream_t* streams[MAX_NUMBER_OF_STREAMS];
 
+// can partition our ocm
+static uint32_t ocm_buff[2] = {
+		OCM_BUFF1,
+		OCM_BUFF2
+};
 
 
 void clear_streams()
@@ -121,8 +128,15 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 
 	// create buffer and set ptr
 	stream->ptr = 0;
-	stream->buff = (volatile uint32_t*)malloc( sizeof(uint32_t)*buff_size );
-	assert(stream->buff != NULL);
+	if( mem == CACHE || mem == DDR )
+	{
+		stream->buff = (volatile uint32_t*)malloc( sizeof(uint32_t)*buff_size );
+		assert(stream->buff != NULL);
+	}
+	else if( mem == OCM )
+	{
+		stream->buff = ocm_buff[stream_id];
+	}
 	memset(stream->buff,0,buff_size*sizeof(uint32_t));
 
 	// depending on the direction get the correct IP instance
@@ -246,17 +260,23 @@ int stream_init( stream_id_type stream_id )
 	// SetupInterrupts()
 
 	// slave 3 from CCI man page. This enables snooping from the HPC0 and 1 ports
-	if( stream->port == HPC0 || stream->port == HPC1 )
+	if( stream->memory == DDR  )
 	{
-    	Xil_Out32(0xFD6E4000,0x1);
+    	Xil_Out32(0xFD6E4000,0x0);
     	dmb();
+		Xil_SetTlbAttributes((UINTPTR)stream->buff, NORM_NONCACHE);
+		dmb();
     }
 
     // mark our memory regions as outer shareable which means it will not live in L1 but L2
     // TODO make this a parameter for user to pass in or atleast a macro
-    Xil_SetTlbAttributes((UINTPTR)stream->buff, 0x605);
-    dmb();
-
+	if( stream->memory == CACHE || stream->memory == OCM )
+	{
+    	Xil_Out32(0xFD6E4000,0x1);
+    	dmb();
+		Xil_SetTlbAttributes((UINTPTR)stream->buff, 0x605);
+		dmb();
+	}
     return XST_SUCCESS;
 }
 
@@ -278,6 +298,7 @@ void simple_write( stream_id_type stream_id, uint32_t data )
 	stream->buff[stream->ptr] = data;
 	stream->ptr++;
 	stream->ptr = stream->ptr % stream->buff_size;
+//	Xil_DCacheFlushRange((INTPTR)stream->buff, stream->buff_size);
 }
 
 
@@ -293,6 +314,7 @@ uint32_t simple_read( stream_id_type stream_id )
 	temp = stream->buff[stream->ptr];
 	stream->ptr++;
 	stream->ptr = stream->ptr % stream->buff_size;
+//	Xil_DCacheFlushRange((INTPTR)stream->ptr, stream->buff_size);
 
 	//
 	return temp;
