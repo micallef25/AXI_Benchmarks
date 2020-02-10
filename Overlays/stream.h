@@ -12,19 +12,19 @@ typedef struct packet_type{
 }packet_t;
 
 
-enum direction_type{
+enum direction_t{
 	TX = 0,
 	RX = 1,
 };
 
-enum memory_type{
+enum memory_t{
 	DDR = 0, // data stored in DDR
 	OCM = 1, // use OCM 
 	CACHE = 2,
 	INVALID_MEMORY,
 };
 
-enum axi_port_type{
+enum axi_port_t{
 	HPC0 = 0,
 	HPC1,
 	HP0,
@@ -45,7 +45,12 @@ enum stream_id_t{
 	MAX_NUMBER_OF_STREAMS,
 };
 
-typedef stream_t{
+typedef enum direction_t direction_type;
+typedef enum memory_t memory_type;
+typedef enum stream_id_t stream_id_type;
+typedef enum axi_port_t axi_port_type;
+
+typedef struct stream_t{
 
 	volatile uint32_t* buff;
 
@@ -69,23 +74,19 @@ typedef stream_t{
 	memory_type memory;
 	direction_type direction;
 
+	uint32_t X_ID;
+
 
 }stream_t;
 
-
+	void clear_streams();
 
 	// creation and deletion of streams
-	stream_id_t stream_create( uint32_t buff_size, direction_type direction  );
-	stream_destroy( stream_id_t );
-
+	int stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type direction,memory_type mem, axi_port_type port  );
+	void stream_destroy( stream_id_type stream_id );
 
 	//stream initialization
-	int stream_init( axi_port_type port, stream_id_t id );
-
-//	uint32_t read();
-	// int init_tx( axi_port_type port, uint32_t ps_id );
-	// int init_rx( axi_port_type port, uint32_t ps_id );
-//	void write( uint32_t );
+	int stream_init( stream_id_type stream_id );
 
 	// name changers
 	axi_port_type port_str_to_type( char* port );
@@ -94,15 +95,14 @@ typedef stream_t{
 	const char* mem_type_to_str( memory_type memory );
 
 	// read and write 
-	uint32_t simple_read();
-	void simple_write( uint32_t data );
+	uint32_t simple_read( stream_id_type stream_id );
+	void simple_write( stream_id_type stream_id, uint32_t data );
 
 	// polling
-	u32 is_stream_done();
+	uint32_t is_stream_done( stream_id_type stream_id );
 
 	// start streams
-	void start_tx();
-	void start_rx();
+	void start_stream( stream_id_type stream_id );
 
 
 #endif

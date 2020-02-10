@@ -11,9 +11,10 @@
 #include "xil_io.h"
 #include "xil_exception.h"
 #include "xscugic.h"
+#include "sleep.h"
 
 #include "../axipmon/axipmon_imp.h"
-// ny stuff
+// my stuff
 #include "../Overlays/stream.h"
 
 
@@ -106,48 +107,49 @@ int run_benchmark()
 	u32 ClkCntLow = 0x0;
 	int Status;
 
+	clear_streams();
 	// Start AXIPMON
-//	Status = Setup_AxiPmon();
-//	if (Status != XST_SUCCESS) {
-//		xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
-//		return XST_FAILURE;
-//	}
+	Status = Setup_AxiPmon();
+	if (Status != XST_SUCCESS) {
+		xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
+		return XST_FAILURE;
+	}
 	printf("Starting Test Run\n");
 
 	//
 	//
-	// Create Stream
-	stream* write_stream = new stream(100);
-	write_stream->init_tx(stream::HPC0, 0);
+	// Create tx Stream
+	stream_create( STREAM_ID_0, 100, TX, CACHE, HPC0 );
+	stream_init(STREAM_ID_0 );
 	//
 	//
-	// Create out stream
-	stream* read_stream = new stream(100);
-	read_stream->init_rx(stream::HPC0, 0);
+	// Create rx stream
+	stream_create( STREAM_ID_1, 100, RX, CACHE, HPC0 );
+	stream_init(STREAM_ID_1 );
 
-
-	write_stream->start_tx();
-	read_stream->start_rx();
+	// start streams
+	start_stream( STREAM_ID_0 );
+	start_stream( STREAM_ID_1 );
 
 	//
-	// 
-	// Send data 
+	//
+	// Send data
 	for(int i = 0; i < 100; i++)
 	{
-		write_stream->simple_write(i);
+		simple_write( STREAM_ID_0, i );
 	}
 
-	write_stream->simple_write(0xdeadbeef);
+	simple_write( STREAM_ID_0, 0xdeadbeef);
 
 	//
 	//
 	//
 	// Wait for data back
-	while(true)
+	while(1)
 	{
 		printf("sleeping\n");
-		delay(1000);
-		if(read_stream->is_stream_done())
+		sleep(2);
+		if(is_stream_done(STREAM_ID_1))
 			break;
 	}
 	//
@@ -156,22 +158,28 @@ int run_benchmark()
 	// Read data and confirm
 	for(int i = 0; i < 100; i++)
 	{
-		printf("read_stream->simple_read(%d)\n",read_stream->simple_read());
+		printf("simple_read(%d)\n",simple_read( STREAM_ID_1 ));
 	}
 
 	//
 	//
-	// shut down and destory streams
-//	Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
-//	if (Status != XST_SUCCESS) {
-//		xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");
-//		return XST_FAILURE;
-//	}
+	// shut down and destroy streams
+	Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
+	if (Status != XST_SUCCESS) {
+		xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");
+		return XST_FAILURE;
+	}
 
-	printf("Metrics %d\n",Metrics);
+	//
+	//
+	// destroy streams
+	stream_destroy( STREAM_ID_0 );
+	stream_destroy( STREAM_ID_1 );
 
 	//
 	//
 	// print results
+	printf("Metrics %d\n",Metrics);
+
 	return XST_SUCCESS;
 }

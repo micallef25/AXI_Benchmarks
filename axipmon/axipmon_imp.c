@@ -155,8 +155,11 @@ int Setup_AxiPmon()
 	 * We can select another agent,Metrics for another counter by
 	 * calling below function again.
 	 */
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId+1, XAPM_METRIC_SET_3,XAPM_METRIC_COUNTER_1);
 
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_0);
+
+//	XAxiPmon_StartCounters(AxiPmonInstPtr, 1000);
 
 	/*
 	 * Set Incrementer Ranges
@@ -179,6 +182,8 @@ int Setup_AxiPmon()
 int Shutdown_AxiPmon(u32 *Metrics, u32 *ClkCntHigh,u32 *ClkCntLow)
 {
 	XAxiPmon *AxiPmonInstPtr = &AxiPmonInst;
+	u8 SlotId = 0x0;
+	u8 Metric =0;
 	/*
 	 * Disable Global Clock Counter Register.
 	 */
@@ -191,7 +196,19 @@ int Shutdown_AxiPmon(u32 *Metrics, u32 *ClkCntHigh,u32 *ClkCntLow)
 	XAxiPmon_DisableMetricsCounter(AxiPmonInstPtr);
 
 	/* Get Metric Counter 0  */
+	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_1,&Metric,&SlotId);
+	printf("slot %d\n",SlotId);
+	printf("Metric %d\n",Metric);
+	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_0,&Metric,&SlotId);
+	printf("Metric %d\n",Metric);
+	printf("slot %d\n",SlotId);
+	/* Get Metric Counter 0  */
 	*Metrics = XAxiPmon_GetMetricCounter(AxiPmonInstPtr,XAPM_METRIC_COUNTER_0);
+
+	printf("Metrics %d\n",*Metrics);
+
+	/* Get Metric Counter 1  */
+	*Metrics = XAxiPmon_GetMetricCounter(AxiPmonInstPtr,XAPM_METRIC_COUNTER_1);
 
 	printf("Metrics %d\n",*Metrics);
 

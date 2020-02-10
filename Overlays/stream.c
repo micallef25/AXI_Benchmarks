@@ -13,6 +13,8 @@
 #include "xil_types.h"
 #include "xparameters.h"
 
+#include "stream.h"
+
 
 #define MAX_NUM_PORTS INVALID_PORT
 #define MAX_NUM_MEMORIES INVALID_MEMORY
@@ -22,6 +24,15 @@
 // pointer to stream instances
 static stream_t* streams[MAX_NUMBER_OF_STREAMS];
 
+
+
+void clear_streams()
+{
+	for(int i = 0; i < MAX_NUMBER_OF_STREAMS; i++)
+	{
+		streams[i] = NULL;
+	}
+}
 
 
 /*
@@ -83,20 +94,20 @@ const char* mem_type_to_str( memory_type memory )
 }
 
 
-static stream_t* safe_get_stream( stream_id_t stream_id )
+static stream_t* safe_get_stream( stream_id_type stream_id )
 {
 	// bounds check
-	assert(stream_id >= 0 && stream_id < MAX_NUMBER_OF_STREAMS)
+	assert(stream_id >= 0 && stream_id < MAX_NUMBER_OF_STREAMS);
 
 	//
-	stream_t* stream streams[stream_id];
+	stream_t* stream = streams[stream_id];
 
 	return stream;
 }
 
 
 // should consider making ports a singleton paradigm and streams contain ports
-stream_id_t stream_create( uint32_t buff_size, direction_type direction,memory_type mem, axi_port_type port  );
+int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type direction, memory_type mem, axi_port_type port  )
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -111,6 +122,8 @@ stream_id_t stream_create( uint32_t buff_size, direction_type direction,memory_t
 	// create buffer and set ptr
 	stream->ptr = 0;
 	stream->buff = (volatile uint32_t*)malloc( sizeof(uint32_t)*buff_size );
+	assert(stream->buff != NULL);
+	memset(stream->buff,0,buff_size*sizeof(uint32_t));
 
 	// depending on the direction get the correct IP instance
 	if( direction == TX )
@@ -118,7 +131,7 @@ stream_id_t stream_create( uint32_t buff_size, direction_type direction,memory_t
 		stream->axi_config_tx = (XExample_tx*)malloc(sizeof(XExample_tx));
 		stream->axi_config_rx = NULL;
 		stream->X_ID = XPAR_EXAMPLE_TX_0_DEVICE_ID;
-		assert(stream->axi_config_rx != NULL);
+		assert(stream->axi_config_tx != NULL);
 	}
 	else if( direction == RX )
 	{
@@ -139,9 +152,12 @@ stream_id_t stream_create( uint32_t buff_size, direction_type direction,memory_t
 	stream->port = port;
 	stream->buff_size = buff_size;
 	stream->direction = direction;
+	streams[stream_id] = stream;
+
+	return XST_SUCCESS;
 }
 
-void stream_destroy( stream_id_t stream_id)
+void stream_destroy( stream_id_type stream_id)
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -155,12 +171,12 @@ void stream_destroy( stream_id_t stream_id)
 	stream->buff = NULL;
 
 	// depending on the direction get the correct IP instance
-	if( direction == TX )
+	if( stream->direction == TX )
 	{
 		free((void*)stream->axi_config_tx);
 		stream->axi_config_tx = NULL;
 	}
-	else if( direction == RX )
+	else if( stream->direction == RX )
 	{
 		free((void*)stream->axi_config_rx);
 		stream->axi_config_rx = NULL;
@@ -177,7 +193,7 @@ void stream_destroy( stream_id_t stream_id)
 }
 
 // pass in which port you want and who is master and slave for this stream
-int stream_init( stream_id_t stream_id )
+int stream_init( stream_id_type stream_id )
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -216,11 +232,11 @@ int stream_init( stream_id_t stream_id )
 	// point FPGA to buffers
 	if(stream->direction == TX )
 	{
-		XExample_tx_Set_input_r( axi_config_tx,(u32)stream->buff );
+		XExample_tx_Set_input_r( stream->axi_config_tx,(u32)stream->buff );
 	}
 	else if(stream->direction == RX)
 	{
-		XExample_rx_Set_output_r( axi_config_tx,(u32)stream->buff );
+		XExample_rx_Set_output_r( stream->axi_config_rx,(u32)stream->buff );
 	}
 
 	// tell it to restart immediately
@@ -230,7 +246,7 @@ int stream_init( stream_id_t stream_id )
 	// SetupInterrupts()
 
 	// slave 3 from CCI man page. This enables snooping from the HPC0 and 1 ports
-	if( port_type == HPC0 || port_type == HPC1 )
+	if( stream->port == HPC0 || stream->port == HPC1 )
 	{
     	Xil_Out32(0xFD6E4000,0x1);
     	dmb();
@@ -238,7 +254,7 @@ int stream_init( stream_id_t stream_id )
 
     // mark our memory regions as outer shareable which means it will not live in L1 but L2
     // TODO make this a parameter for user to pass in or atleast a macro
-    Xil_SetTlbAttributes((UINTPTR)buff, 0x605);
+    Xil_SetTlbAttributes((UINTPTR)stream->buff, 0x605);
     dmb();
 
     return XST_SUCCESS;
@@ -250,7 +266,7 @@ int stream_init( stream_id_t stream_id )
 /*
 * Simple read write with no handshaking
 */
-void stream::simple_write( stream_id_t stream, uint32_t data )
+void simple_write( stream_id_type stream_id, uint32_t data )
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -265,7 +281,7 @@ void stream::simple_write( stream_id_t stream, uint32_t data )
 }
 
 
-uint32_t stream::simple_read( stream_t stream_id )
+uint32_t simple_read( stream_id_type stream_id )
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -277,11 +293,13 @@ uint32_t stream::simple_read( stream_t stream_id )
 	temp = stream->buff[stream->ptr];
 	stream->ptr++;
 	stream->ptr = stream->ptr % stream->buff_size;
+
+	//
 	return temp;
 }
 
 
-u32 is_stream_done(stream_id_t )
+uint32_t is_stream_done( stream_id_type stream_id )
 {
 		//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -291,15 +309,16 @@ u32 is_stream_done(stream_id_t )
 
 	if(stream->direction == TX )
 	{
-		XExample_tx_Done(stream->axi_config_tx);
+		return XExample_tx_IsDone(stream->axi_config_tx);
 	}
 	else if(stream->direction == RX)
 	{
-		XExample_rx_Done(stream->axi_config_rx);
+		return XExample_rx_IsDone(stream->axi_config_rx);
 	}
+	return 0;
 }
 
-void start_stream( stream_id_t stream_id )
+void start_stream( stream_id_type stream_id )
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
