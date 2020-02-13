@@ -5,7 +5,7 @@
 #include "xstatus.h"
 #include "xaxipmon.h"
 
-int Setup_AxiPmon();
+int Setup_AxiPmon( int slot );
 int Shutdown_AxiPmon(u32 *Metrics, u32 *ClkCntHigh,u32 *ClkCntLow);
 u32 query_metric( u32 metric );
 

@@ -122,13 +122,15 @@ static XAxiPmon AxiPmonInst;      /* System Monitor driver instance */
 * @note   	None
 *
 ****************************************************************************/
-int Setup_AxiPmon()
+int Setup_AxiPmon( int slot )
 {
 	int Status;
 	XAxiPmon_Config *ConfigPtr;
 	u8 SlotId = 0x0;
-	u16 Range2 = 0x10;	/* Range 2 - 16 */
-	u16 Range1 = 0x08;	/* Range 1 - 8 */
+
+	u8 Metric =0;
+	//u16 Range2 = 0x20;	/* Range 2 - 16 */
+	//u16 Range1 = 0x20;	/* Range 1 - 8 */
 	XAxiPmon *AxiPmonInstPtr = &AxiPmonInst;
 	u16 AxiPmonDeviceId = AXIPMON_DEVICE_ID;
 	/*
@@ -155,16 +157,54 @@ int Setup_AxiPmon()
 	 * We can select another agent,Metrics for another counter by
 	 * calling below function again.
 	 */
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId, XAPM_METRIC_SET_3,XAPM_METRIC_COUNTER_1);
+
+	if( slot == 0){
+	//
+	// read from memory calcs
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 0, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 0, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_1);
+
+	//
+	// write to memory
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_6,XAPM_METRIC_COUNTER_2);
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_3);
+	}
+
+	if(slot == 1){
+	// read from memory calcs
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 4, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 4, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_1);
+//
+//	//
+//	// write to memory
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 5, XAPM_METRIC_SET_6,XAPM_METRIC_COUNTER_2);
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 5, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_3);
+	}
 
 
 //	XAxiPmon_StartCounters(AxiPmonInstPtr, 1000);
 
+
+//	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_0,&Metric,&SlotId);
+//	printf("---slot %d\n",SlotId);
+//	printf("Metric %d\n",Metric);
+//	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_1,&Metric,&SlotId);
+//	printf("Metric %d\n",Metric);
+//	printf("slot %d\n",SlotId);
+//	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_2,&Metric,&SlotId);
+//	printf("slot %d\n",SlotId);
+//	printf("Metric %d\n",Metric);
+//	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_3,&Metric,&SlotId);
+//	printf("Metric %d\n",Metric);
+//	printf("slot %d\n",SlotId);
 	/*
 	 * Set Incrementer Ranges
 	 */
-	XAxiPmon_SetIncrementerRange(AxiPmonInstPtr, XAPM_INCREMENTER_0,Range2, Range1);
+//	XAxiPmon_SetIncrementerRange(AxiPmonInstPtr, XAPM_INCREMENTER_0,Range2, Range1);
+//	XAxiPmon_SetIncrementerRange(AxiPmonInstPtr, XAPM_INCREMENTER_1,Range2, Range1);
+//	XAxiPmon_SetIncrementerRange(AxiPmonInstPtr, XAPM_INCREMENTER_2,Range2, Range1);
+//	XAxiPmon_SetIncrementerRange(AxiPmonInstPtr, XAPM_INCREMENTER_3,Range2, Range1);
+	//XAxiPmon_SetIncrementerRange(AxiPmonInstPtr, XAPM_INCREMENTER_1,Range2, Range1);
 	/*
 	 * Enable Metric Counters.
 	 */
@@ -175,7 +215,7 @@ int Setup_AxiPmon()
 	 */
 	XAxiPmon_EnableGlobalClkCounter(AxiPmonInstPtr);
 
-	XAxiPmon_StartCounters(AxiPmonInstPtr, 0x100);
+	XAxiPmon_StartCounters(AxiPmonInstPtr, 0x64);
 
 	return XST_SUCCESS;
 
@@ -199,20 +239,20 @@ int Shutdown_AxiPmon(u32 *Metrics, u32 *ClkCntHigh,u32 *ClkCntLow)
 
 	/* Get Metric Counter 0  */
 	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_1,&Metric,&SlotId);
-	printf("slot %d\n",SlotId);
-	printf("Metric %d\n",Metric);
+//	printf("slot %d\n",SlotId);
+//	printf("Metric %d\n",Metric);
 	XAxiPmon_GetMetrics(AxiPmonInstPtr,XAPM_METRIC_COUNTER_0,&Metric,&SlotId);
-	printf("Metric %d\n",Metric);
-	printf("slot %d\n",SlotId);
+//	printf("Metric %d\n",Metric);
+//	printf("slot %d\n",SlotId);
 	/* Get Metric Counter 0  */
 	*Metrics = XAxiPmon_GetMetricCounter(AxiPmonInstPtr,XAPM_METRIC_COUNTER_0);
 
-	printf("Latency %lu\n",*Metrics);
+//	printf("Latency %lu\n",*Metrics);
 
 	/* Get Metric Counter 1  */
 	*Metrics = XAxiPmon_GetMetricCounter(AxiPmonInstPtr,XAPM_METRIC_COUNTER_1);
 
-	printf("Bytes_Read %lu\n",*Metrics);
+//	printf("Bytes_Read %lu\n",*Metrics);
 
 	/* Get Global Clock Cycles Count in ClkCntHigh,ClkCntLow */
 	XAxiPmon_GetGlobalClkCounter(AxiPmonInstPtr, ClkCntHigh, ClkCntLow);

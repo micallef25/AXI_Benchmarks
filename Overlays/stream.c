@@ -20,8 +20,8 @@
 #define MAX_NUM_MEMORIES INVALID_MEMORY
 
 #define PSU_OCM_RAM_0	(0xFFFC0000)
-#define OCM_BUFF1 (0xFFFE0000)
-#define OCM_BUFF2 (0xFFFF0000)
+#define OCM_BUFF1 (0xFFFC0000)
+#define OCM_BUFF2 (0xFFFD0000)
 
 // pointer to stream instances
 static stream_t* streams[MAX_NUMBER_OF_STREAMS];
@@ -31,6 +31,9 @@ static uint32_t ocm_buff[2] = {
 		OCM_BUFF1,
 		OCM_BUFF2
 };
+
+//volatile uint32_t* ocm_buff_tx = (int*)OCM_BUFF1;
+//volatile uint32_t* ocm_buff_rx = (int*)OCM_BUFF2;
 
 
 void clear_streams()
@@ -137,6 +140,25 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	{
 		stream->buff = ocm_buff[stream_id];
 	}
+
+	if( port == HPC0 && direction == TX )
+	{
+		stream->X_ID = XPAR_EXAMPLE_TX_1_DEVICE_ID;
+	}
+	else if( port == HPC0 && direction == RX )
+	{
+		stream->X_ID = XPAR_EXAMPLE_RX_1_DEVICE_ID;
+	}
+	else if( port == HP0 && direction == TX )
+	{
+		stream->X_ID = XPAR_EXAMPLE_TX_0_DEVICE_ID;
+	}
+	else if( port == HP0 && direction == RX )
+	{
+		stream->X_ID = XPAR_EXAMPLE_RX_0_DEVICE_ID;
+	}
+
+
 	memset(stream->buff,0,buff_size*sizeof(uint32_t));
 
 	// depending on the direction get the correct IP instance
@@ -144,14 +166,12 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	{
 		stream->axi_config_tx = (XExample_tx*)malloc(sizeof(XExample_tx));
 		stream->axi_config_rx = NULL;
-		stream->X_ID = XPAR_EXAMPLE_TX_0_DEVICE_ID;
 		assert(stream->axi_config_tx != NULL);
 	}
 	else if( direction == RX )
 	{
 		stream->axi_config_tx = NULL;
 		stream->axi_config_rx = (XExample_rx*)malloc(sizeof(XExample_rx));
-		stream->X_ID = XPAR_EXAMPLE_RX_0_DEVICE_ID;
 		assert(stream->axi_config_rx != NULL);
 	}
 	else
@@ -180,8 +200,10 @@ void stream_destroy( stream_id_type stream_id)
 	assert( stream != NULL );
 
 
-	// actually only need one buffer
-	free((void*)stream->buff);
+	// OCM is not heap managed
+	if(stream->memory != OCM)
+		free((void*)stream->buff);
+
 	stream->buff = NULL;
 
 	// depending on the direction get the correct IP instance
@@ -260,7 +282,7 @@ int stream_init( stream_id_type stream_id )
 	// SetupInterrupts()
 
 	// slave 3 from CCI man page. This enables snooping from the HPC0 and 1 ports
-	if( stream->memory == DDR  )
+	if( stream->memory == DDR || stream->memory == OCM )
 	{
     	Xil_Out32(0xFD6E4000,0x0);
     	dmb();
@@ -270,7 +292,7 @@ int stream_init( stream_id_type stream_id )
 
     // mark our memory regions as outer shareable which means it will not live in L1 but L2
     // TODO make this a parameter for user to pass in or atleast a macro
-	if( stream->memory == CACHE || stream->memory == OCM )
+	if( stream->memory == CACHE /*|| stream->memory == OCM */)
 	{
     	Xil_Out32(0xFD6E4000,0x1);
     	dmb();

@@ -12,7 +12,7 @@
 #include "xil_exception.h"
 #include "xscugic.h"
 #include "sleep.h"
-
+#include "xtime_l.h"
 #include "../axipmon/axipmon_imp.h"
 // my stuff
 #include "../Overlays/stream.h"
@@ -93,32 +93,47 @@ int Status;
 	return XST_SUCCESS;
 }
 
-int run_benchmark( int buffer_size, memory_type memory, int time )
+int run_benchmark( int buffer_size, memory_type memory, int time, axi_port_type port )
 {
 	u32 Metrics;
 	u32 ClkCntHigh = 0x0;
 	u32 ClkCntLow = 0x0;
 	int Status;
+	int slot=0;
 
 	clear_streams();
+
+	if(port == HPC0)
+	{
+		slot = 1;
+	}
+	else if(port == HP0)
+	{
+		slot = 0;
+	}
+
+	//
 	// Start AXIPMON
-	Status = Setup_AxiPmon();
+	Status = Setup_AxiPmon(slot);
 	if (Status != XST_SUCCESS) {
 		xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
 		return XST_FAILURE;
 	}
-	printf("Starting Test Run\n");
+
+	//
+	//
+	printf("Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions\n");
 
 	//
 	//
 	// Create tx Stream
-	stream_create( STREAM_ID_0, buffer_size, TX, memory, HPC0 );
+	stream_create( STREAM_ID_0, buffer_size, TX, memory, port );
 	stream_init(STREAM_ID_0 );
 
 	//
 	//
 	// Create rx stream
-	stream_create( STREAM_ID_1, buffer_size, RX, memory, HPC0 );
+	stream_create( STREAM_ID_1, buffer_size, RX, memory, port );
 	stream_init(STREAM_ID_1 );
 
 	// start streams
@@ -128,13 +143,14 @@ int run_benchmark( int buffer_size, memory_type memory, int time )
 	//
 	//
 	// Send data
-	for(int i = 0; i < 100; i++)
+
+	for(int i = 0; i < buffer_size; i++)
 	{
 		simple_write( STREAM_ID_0, i );
 		usleep( time );
-		printf("%s,%lu,%lu\n",mem_type_to_str(memory),query_metric(0),query_metric(1));
-		//printf("Bytes_Read: %lu\n",query_metric(0));
-		//printf("Latency: %lu\n",query_metric(1));
+
+		printf("%s,%s,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3));
+
 	}
 
 	simple_write( STREAM_ID_0, 0xdeadbeef);
@@ -145,10 +161,7 @@ int run_benchmark( int buffer_size, memory_type memory, int time )
 	while(1)
 	{
 		//printf("sleeping\n");
-		sleep(2);
-
-//		printf("stream1: %d\n",is_stream_done(STREAM_ID_1));
-//		printf("stream0: %d\n",is_stream_done(STREAM_ID_0));
+		usleep(500);
 
 		if(is_stream_done(STREAM_ID_1))
 			break;
@@ -158,10 +171,11 @@ int run_benchmark( int buffer_size, memory_type memory, int time )
 	//
 	//
 	// Read data and confirm
-	for(int i = 0; i < 100; i++)
+	for(int i = 0; i < buffer_size; i++)
 	{
-		printf("simple_read(%d)\n",simple_read( STREAM_ID_1 ));
+		//printf("simple_read(%d)\n",simple_read( STREAM_ID_1 ));
 //		sleep(1);
+		u32 data = simple_read( STREAM_ID_1 );
 	}
 
 	//
@@ -182,7 +196,75 @@ int run_benchmark( int buffer_size, memory_type memory, int time )
 	//
 	//
 	// print results
-	printf("Metrics %d\n",Metrics);
+	//printf("Metrics %d\n",Metrics);
+
+	return XST_SUCCESS;
+}
+
+int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_port_type port )
+{
+	int Status;
+    XTime timer_start=0;
+    XTime timer_end=0;
+    XTime_StartTimer();
+
+	clear_streams();
+
+
+	//
+	//
+	//printf("Format: Memory_Config,Total_Read_Latency,Bytes_Read... Running Test with buffer size %d and rest time of %d\n",buffer_size,time);
+
+	//
+	//
+	// Create tx Stream
+	stream_create( STREAM_ID_0, buffer_size, TX, memory, port );
+	stream_init(STREAM_ID_0 );
+
+	//
+	//
+	// Create rx stream
+	stream_create( STREAM_ID_1, buffer_size, RX, memory, port );
+	stream_init(STREAM_ID_1 );
+
+
+
+	XTime_GetTime(&timer_start);
+
+	//
+	//
+	// Send data
+	for(int j = 0; j < buffer_size; j++)
+	for(int i = 0; i < buffer_size; i++)
+	{
+		simple_write( STREAM_ID_0, i );
+	}
+
+	XTime_GetTime(&timer_end);
+
+	printf("cycles to write %u %s bytes: %lu\n",buffer_size*buffer_size*sizeof(uint32_t),mem_type_to_str(memory),timer_end-timer_start);
+	XTime_GetTime(&timer_start);
+	//
+	//
+	// Read data and confirm
+	for(int j = 0; j < buffer_size; j++)
+	for(int i = 0; i < buffer_size; i++)
+	{
+		simple_read( STREAM_ID_1 );
+	}
+	XTime_GetTime(&timer_end);
+	printf("cycles to read %u %s bytes: %lu\n",buffer_size*buffer_size*sizeof(uint32_t),mem_type_to_str(memory),timer_end-timer_start);
+
+	//
+	//
+	// destroy streams
+	stream_destroy( STREAM_ID_0 );
+	stream_destroy( STREAM_ID_1 );
+
+	//
+	//
+	// print results
+	//printf("Metrics %d\n",Metrics);
 
 	return XST_SUCCESS;
 }
