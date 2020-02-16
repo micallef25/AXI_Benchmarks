@@ -5,8 +5,16 @@
 #include <assert.h>
 #include <stdio.h>
 
+
+#define IP_32
+#ifdef IP_32
 #include "xexample_tx.h"
 #include "xexample_rx.h"
+#else
+#include "xexample_tx_128.h"
+#include "xexample_rx_128.h"
+#endif
+
 #include "xil_cache.h"
 #include "xil_mmu.h"
 #include "xpseudo_asm.h"
@@ -20,8 +28,8 @@
 #define MAX_NUM_MEMORIES INVALID_MEMORY
 
 #define PSU_OCM_RAM_0	(0xFFFC0000)
-#define OCM_BUFF1 (0xFFFE0000)
-#define OCM_BUFF2 (0xFFFF0000)
+#define OCM_BUFF1 (0xFFFC0000)
+#define OCM_BUFF2 (0xFFFD0000)
 
 // pointer to stream instances
 static stream_t* streams[MAX_NUMBER_OF_STREAMS];
@@ -31,6 +39,9 @@ static uint32_t ocm_buff[2] = {
 		OCM_BUFF1,
 		OCM_BUFF2
 };
+
+//volatile uint32_t* ocm_buff_tx = (int*)OCM_BUFF1;
+//volatile uint32_t* ocm_buff_rx = (int*)OCM_BUFF2;
 
 
 void clear_streams()
@@ -137,21 +148,63 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	{
 		stream->buff = ocm_buff[stream_id];
 	}
+
+	if( port == HPC0 && direction == TX )
+	{
+
+#ifdef IP_32
+		stream->X_ID = XPAR_EXAMPLE_TX_0_DEVICE_ID;
+#else
+		stream->X_ID = XPAR_EXAMPLE_TX_128_0_DEVICE_ID;
+#endif
+	}
+	else if( port == HPC0 && direction == RX )
+	{
+#ifdef IP_32
+		stream->X_ID = XPAR_EXAMPLE_RX_0_DEVICE_ID;
+#else
+		stream->X_ID = XPAR_EXAMPLE_RX_128_0_DEVICE_ID;
+#endif
+	}
+	else if( port == HP0 && direction == TX )
+	{
+#ifdef IP_32
+		stream->X_ID = XPAR_EXAMPLE_TX_1_DEVICE_ID;
+#else
+		stream->X_ID = XPAR_EXAMPLE_TX_128_1_DEVICE_ID;
+#endif
+	}
+	else if( port == HP0 && direction == RX )
+	{
+#ifdef IP_32
+		stream->X_ID = XPAR_EXAMPLE_RX_1_DEVICE_ID;
+#else
+		stream->X_ID = XPAR_EXAMPLE_RX_128_1_DEVICE_ID;
+#endif
+	}
+
+
 	memset(stream->buff,0,buff_size*sizeof(uint32_t));
 
 	// depending on the direction get the correct IP instance
 	if( direction == TX )
 	{
+#ifdef IP_32
 		stream->axi_config_tx = (XExample_tx*)malloc(sizeof(XExample_tx));
+#else
+		stream->axi_config_tx = (XExample_tx_128*)malloc(sizeof(XExample_tx_128));
+#endif
 		stream->axi_config_rx = NULL;
-		stream->X_ID = XPAR_EXAMPLE_TX_0_DEVICE_ID;
 		assert(stream->axi_config_tx != NULL);
 	}
 	else if( direction == RX )
 	{
 		stream->axi_config_tx = NULL;
+#ifdef IP_32
 		stream->axi_config_rx = (XExample_rx*)malloc(sizeof(XExample_rx));
-		stream->X_ID = XPAR_EXAMPLE_RX_0_DEVICE_ID;
+#else
+		stream->axi_config_rx = (XExample_rx_128*)malloc(sizeof(XExample_rx_128));
+#endif
 		assert(stream->axi_config_rx != NULL);
 	}
 	else
@@ -180,8 +233,10 @@ void stream_destroy( stream_id_type stream_id)
 	assert( stream != NULL );
 
 
-	// actually only need one buffer
-	free((void*)stream->buff);
+	// OCM is not heap managed
+	if(stream->memory != OCM)
+		free((void*)stream->buff);
+
 	stream->buff = NULL;
 
 	// depending on the direction get the correct IP instance
@@ -220,11 +275,19 @@ int stream_init( stream_id_type stream_id )
 	// initialize our drivers
 	if(stream->direction == TX )
 	{
+#ifdef IP_32
 		rval = XExample_tx_Initialize( stream->axi_config_tx, stream->X_ID );
+#else
+		rval = XExample_tx_128_Initialize( stream->axi_config_tx, stream->X_ID );
+#endif
 	}
 	else if(stream->direction == RX)
 	{
+#ifdef IP_32
 		rval = XExample_rx_Initialize( stream->axi_config_rx, stream->X_ID );
+#else
+		rval = XExample_rx_128_Initialize( stream->axi_config_rx, stream->X_ID );
+#endif
 	}
 	else
 	{
@@ -246,11 +309,19 @@ int stream_init( stream_id_type stream_id )
 	// point FPGA to buffers
 	if(stream->direction == TX )
 	{
+#ifdef IP_32
 		XExample_tx_Set_input_r( stream->axi_config_tx,(u32)stream->buff );
+#else
+		XExample_tx_128_Set_input_data( stream->axi_config_tx,(u32)stream->buff );
+#endif
 	}
 	else if(stream->direction == RX)
 	{
+#ifdef IP_32
 		XExample_rx_Set_output_r( stream->axi_config_rx,(u32)stream->buff );
+#else
+		XExample_rx_128_Set_output_data( stream->axi_config_rx,(u32)stream->buff );
+#endif
 	}
 
 	// tell it to restart immediately
@@ -260,7 +331,7 @@ int stream_init( stream_id_type stream_id )
 	// SetupInterrupts()
 
 	// slave 3 from CCI man page. This enables snooping from the HPC0 and 1 ports
-	if( stream->memory == DDR  )
+	if( stream->memory == DDR || stream->memory == OCM )
 	{
     	Xil_Out32(0xFD6E4000,0x0);
     	dmb();
@@ -270,7 +341,7 @@ int stream_init( stream_id_type stream_id )
 
     // mark our memory regions as outer shareable which means it will not live in L1 but L2
     // TODO make this a parameter for user to pass in or atleast a macro
-	if( stream->memory == CACHE || stream->memory == OCM )
+	if( stream->memory == CACHE /*|| stream->memory == OCM */)
 	{
     	Xil_Out32(0xFD6E4000,0x1);
     	dmb();
@@ -331,11 +402,19 @@ uint32_t is_stream_done( stream_id_type stream_id )
 
 	if(stream->direction == TX )
 	{
+#ifdef IP_32
 		return XExample_tx_IsDone(stream->axi_config_tx);
+#else
+		return XExample_tx_128_IsDone(stream->axi_config_tx);
+#endif
 	}
 	else if(stream->direction == RX)
 	{
+#ifdef IP_32
 		return XExample_rx_IsDone(stream->axi_config_rx);
+#else
+		return XExample_rx_128_IsDone(stream->axi_config_rx);
+#endif
 	}
 	return 0;
 }
@@ -350,11 +429,19 @@ void start_stream( stream_id_type stream_id )
 
 	if(stream->direction == TX )
 	{
+#ifdef IP_32
 		XExample_tx_Start(stream->axi_config_tx);
+#else
+		XExample_tx_128_Start(stream->axi_config_tx);
+#endif
 	}
 	else if(stream->direction == RX)
 	{
+#ifdef IP_32
 		XExample_rx_Start(stream->axi_config_rx);
+#else
+		XExample_rx_128_Start(stream->axi_config_rx);
+#endif
 	}
 
 }
