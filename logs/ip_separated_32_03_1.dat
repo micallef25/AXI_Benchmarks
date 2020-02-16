@@ -1,0 +1,8 @@
+cycles to write 40000 DDR bytes: 927844 = .043 bytes/cycle
+cycles to read 40000 DDR bytes: 1050917 = .038 bytes/cycle
+cycles to write 40000 CACHE bytes: 24357 = 1.64 bytes/cycle
+cycles to read 40000 CACHE bytes: 21061 = 1.899 bytes/cycle
+cycles to write 40000 OCM bytes: 24366 = 1.64 bytes/cycle
+cycles to read 40000 OCM bytes: 125228 = .39 bytes/cycle
+
+
