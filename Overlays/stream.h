@@ -2,8 +2,15 @@
 #define STREAM_H
 
 #include <stdint.h>
+
+#define IP_32
+#ifdef IP_32
 #include "xexample_tx.h"
 #include "xexample_rx.h"
+#else
+#include "xexample_tx_128.h"
+#include "xexample_rx_128.h"
+#endif
 
 
 typedef struct packet_type{
@@ -67,8 +74,13 @@ typedef struct stream_t{
 	uint8_t msg_counter;
 
 	//
+#ifdef IP_32
 	XExample_tx* axi_config_tx;
 	XExample_rx* axi_config_rx;
+#else
+	XExample_tx_128* axi_config_tx;
+	XExample_rx_128* axi_config_rx;
+#endif
 
 	axi_port_type port;
 	memory_type memory;
