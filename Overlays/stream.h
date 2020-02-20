@@ -5,8 +5,8 @@
 
 #define IP_32
 #ifdef IP_32
-#include "xexample_tx.h"
-#include "xexample_rx.h"
+#include "xexample_tx_64.h"
+#include "xexample_rx_64.h"
 #else
 #include "xexample_tx_128.h"
 #include "xexample_rx_128.h"
@@ -59,7 +59,7 @@ typedef enum axi_port_t axi_port_type;
 
 typedef struct stream_t{
 
-	volatile uint32_t* buff;
+	volatile uint64_t* buff;
 
 	// could move to "port object" later
 	//axi_config;
@@ -75,8 +75,8 @@ typedef struct stream_t{
 
 	//
 #ifdef IP_32
-	XExample_tx* axi_config_tx;
-	XExample_rx* axi_config_rx;
+	XExample_tx_64* axi_config_tx;
+	XExample_rx_64* axi_config_rx;
 #else
 	XExample_tx_128* axi_config_tx;
 	XExample_rx_128* axi_config_rx;

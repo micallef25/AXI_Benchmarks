@@ -20,8 +20,8 @@
 #define IP_32
 
 #ifdef IP_32
-#include "xexample_tx.h"
-#include "xexample_rx.h"
+#include "xexample_tx_64.h"
+#include "xexample_rx_64.h"
 #else
 #include "xexample_tx_128.h"
 #include "xexample_rx_128.h"
@@ -171,6 +171,7 @@ int run_benchmark( int buffer_size, memory_type memory, int time, axi_port_type 
 	simple_write( STREAM_ID_0, 0xdeadbeef);
 
 	XTime_GetTime(&timer_end);
+	printf("%s,%s,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3));
 	printf("%s test run cycles %lu\n",mem_type_to_str(memory),timer_end-timer_start);
 	//
 	//
@@ -251,6 +252,7 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 	//
 	//
 	// Send data
+	for(int k = 0; k < buffer_size; k++)
 	for(int j = 0; j < buffer_size; j++)
 	for(int i = 0; i < buffer_size; i++)
 	{
@@ -259,18 +261,19 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 
 	XTime_GetTime(&timer_end);
 
-	printf("cycles to write %u %s bytes: %lu\n",buffer_size*buffer_size*sizeof(uint32_t),mem_type_to_str(memory),timer_end-timer_start);
+	printf("cycles to write %u %s %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),port_type_to_str(port),mem_type_to_str(memory),timer_end-timer_start);
 	XTime_GetTime(&timer_start);
 	//
 	//
 	// Read data and confirm
+	for(int k = 0; k < buffer_size; k++)
 	for(int j = 0; j < buffer_size; j++)
 	for(int i = 0; i < buffer_size; i++)
 	{
 		simple_read( STREAM_ID_1 );
 	}
 	XTime_GetTime(&timer_end);
-	printf("cycles to read %u %s bytes: %lu\n",buffer_size*buffer_size*sizeof(uint32_t),mem_type_to_str(memory),timer_end-timer_start);
+	printf("cycles to write %u %s %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),port_type_to_str(port),mem_type_to_str(memory),timer_end-timer_start);
 
 	//
 	//

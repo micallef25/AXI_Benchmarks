@@ -8,8 +8,8 @@
 
 #define IP_32
 #ifdef IP_32
-#include "xexample_tx.h"
-#include "xexample_rx.h"
+#include "xexample_tx_64.h"
+#include "xexample_rx_64.h"
 #else
 #include "xexample_tx_128.h"
 #include "xexample_rx_128.h"
@@ -20,7 +20,7 @@
 #include "xpseudo_asm.h"
 #include "xil_types.h"
 #include "xparameters.h"
-
+#include "sleep.h"
 #include "stream.h"
 
 
@@ -149,7 +149,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	stream->ptr = 0;
 	if( mem == CACHE || mem == DDR )
 	{
-		stream->buff = (volatile uint32_t*)malloc( sizeof(uint32_t)*buff_size );
+		stream->buff = (volatile uint64_t*)malloc( sizeof(uint64_t)*buff_size );
 		assert(stream->buff != NULL);
 	}
 	else if( mem == OCM )
@@ -161,7 +161,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	{
 
 #ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_TX_0_DEVICE_ID;
+		stream->X_ID = XPAR_EXAMPLE_TX_64_0_DEVICE_ID;
 #else
 		stream->X_ID = XPAR_EXAMPLE_TX_128_0_DEVICE_ID;
 #endif
@@ -169,7 +169,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	else if( port == HPC0 && direction == RX )
 	{
 #ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_RX_0_DEVICE_ID;
+		stream->X_ID = XPAR_EXAMPLE_RX_64_0_DEVICE_ID;
 #else
 		stream->X_ID = XPAR_EXAMPLE_RX_128_0_DEVICE_ID;
 #endif
@@ -177,7 +177,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	else if( port == HP0 && direction == TX )
 	{
 #ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_TX_1_DEVICE_ID;
+		stream->X_ID = XPAR_EXAMPLE_TX_64_1_DEVICE_ID;
 #else
 		stream->X_ID = XPAR_EXAMPLE_TX_128_1_DEVICE_ID;
 #endif
@@ -185,7 +185,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	else if( port == HP0 && direction == RX )
 	{
 #ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_RX_1_DEVICE_ID;
+		stream->X_ID = XPAR_EXAMPLE_RX_64_1_DEVICE_ID;
 #else
 		stream->X_ID = XPAR_EXAMPLE_RX_128_1_DEVICE_ID;
 #endif
@@ -198,7 +198,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	if( direction == TX )
 	{
 #ifdef IP_32
-		stream->axi_config_tx = (XExample_tx*)malloc(sizeof(XExample_tx));
+		stream->axi_config_tx = (XExample_tx_64*)malloc(sizeof(XExample_tx_64));
 #else
 		stream->axi_config_tx = (XExample_tx_128*)malloc(sizeof(XExample_tx_128));
 #endif
@@ -209,7 +209,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	{
 		stream->axi_config_tx = NULL;
 #ifdef IP_32
-		stream->axi_config_rx = (XExample_rx*)malloc(sizeof(XExample_rx));
+		stream->axi_config_rx = (XExample_rx_64*)malloc(sizeof(XExample_rx_64));
 #else
 		stream->axi_config_rx = (XExample_rx_128*)malloc(sizeof(XExample_rx_128));
 #endif
@@ -284,7 +284,7 @@ int stream_init( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		rval = XExample_tx_Initialize( stream->axi_config_tx, stream->X_ID );
+		rval = XExample_tx_64_Initialize( stream->axi_config_tx, stream->X_ID );
 #else
 		rval = XExample_tx_128_Initialize( stream->axi_config_tx, stream->X_ID );
 #endif
@@ -292,7 +292,7 @@ int stream_init( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		rval = XExample_rx_Initialize( stream->axi_config_rx, stream->X_ID );
+		rval = XExample_rx_64_Initialize( stream->axi_config_rx, stream->X_ID );
 #else
 		rval = XExample_rx_128_Initialize( stream->axi_config_rx, stream->X_ID );
 #endif
@@ -318,7 +318,7 @@ int stream_init( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		XExample_tx_Set_input_r( stream->axi_config_tx,(u32)stream->buff );
+		XExample_tx_64_Set_input_r( stream->axi_config_tx,(u32)stream->buff );
 #else
 		XExample_tx_128_Set_input_data( stream->axi_config_tx,(u32)stream->buff );
 #endif
@@ -326,7 +326,7 @@ int stream_init( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		XExample_rx_Set_output_r( stream->axi_config_rx,(u32)stream->buff );
+		XExample_rx_64_Set_output_r( stream->axi_config_rx,(u32)stream->buff );
 #else
 		XExample_rx_128_Set_output_data( stream->axi_config_rx,(u32)stream->buff );
 #endif
@@ -339,7 +339,7 @@ int stream_init( stream_id_type stream_id )
 	// SetupInterrupts()
 
 	// slave 3 from CCI man page. This enables snooping from the HPC0 and 1 ports
-	if( stream->memory == DDR || stream->memory == OCM )
+	if( stream->memory == DDR )
 	{
     	Xil_Out32(0xFD6E4000,0x0);
     	dmb();
@@ -348,7 +348,6 @@ int stream_init( stream_id_type stream_id )
     }
 
     // mark our memory regions as outer shareable which means it will not live in L1 but L2
-    // TODO make this a parameter for user to pass in or atleast a macro
 	if( stream->memory == CACHE /*|| stream->memory == OCM */)
 	{
     	Xil_Out32(0xFD6E4000,0x1);
@@ -356,6 +355,15 @@ int stream_init( stream_id_type stream_id )
 		Xil_SetTlbAttributes((UINTPTR)stream->buff, 0x605);
 		dmb();
 	}
+
+	if( stream->memory == OCM /*|| stream->memory == OCM */)
+	{
+    	Xil_Out32(0xFD6E4000,0x0);
+    	dmb();
+		Xil_SetTlbAttributes((UINTPTR)stream->buff, NORM_NONCACHE);
+		dmb();
+	}
+
     return XST_SUCCESS;
 }
 
@@ -411,7 +419,7 @@ uint32_t is_stream_done( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		return XExample_tx_IsDone(stream->axi_config_tx);
+		return XExample_tx_64_IsDone(stream->axi_config_tx);
 #else
 		return XExample_tx_128_IsDone(stream->axi_config_tx);
 #endif
@@ -419,7 +427,7 @@ uint32_t is_stream_done( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		return XExample_rx_IsDone(stream->axi_config_rx);
+		return XExample_rx_64_IsDone(stream->axi_config_rx);
 #else
 		return XExample_rx_128_IsDone(stream->axi_config_rx);
 #endif
@@ -438,7 +446,7 @@ void start_stream( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		XExample_tx_Start(stream->axi_config_tx);
+		XExample_tx_64_Start(stream->axi_config_tx);
 #else
 		XExample_tx_128_Start(stream->axi_config_tx);
 #endif
@@ -446,7 +454,7 @@ void start_stream( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		XExample_rx_Start(stream->axi_config_rx);
+		XExample_rx_64_Start(stream->axi_config_rx);
 #else
 		XExample_rx_128_Start(stream->axi_config_rx);
 #endif
@@ -518,7 +526,7 @@ uint16_t block_read( stream_id_type stream_id )
 	}
 
 	//
-	return temp;
+	return -1;
 }
 
 

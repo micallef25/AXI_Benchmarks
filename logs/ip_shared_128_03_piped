@@ -1,0 +1,19 @@
+Tests Complete
+cycles to write 40000 DDR bytes: 926236
+cycles to read 40000 DDR bytes: 1039218
+cycles to write 40000 CACHE bytes: 24364
+cycles to read 40000 CACHE bytes: 21115
+cycles to write 40000 OCM bytes: 24358
+cycles to read 40000 OCM bytes: 127584
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HP0,DDR,5609029,100000,653540,100000
+HP0,DDR,5609029,100000,653540,100000
+DDR test run cycles 969940
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HPC0,CACHE,12009903,100000,1515739,100000
+HPC0,CACHE,12009903,100000,1515739,100000
+CACHE test run cycles 1839098
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HPC0,OCM,700780,100000,1099976,100000
+HPC0,OCM,700780,100000,1099976,100000
+OCM test run cycles 703219

@@ -56,22 +56,18 @@
 int main()
 {
     init_platform();
-    XTime timer=0;
-    XTime_StartTimer();
-    XTime_GetTime(&timer);
-
-    //printf("Timer %d\n",timer);
 
     run_benchmark_memory( 100, DDR,100, HPC0 );
+    run_benchmark_memory( 100, OCM,100, HPC0 );
     run_benchmark_memory( 100, CACHE,100, HPC0 );
     run_benchmark_memory( 100, OCM,100, HPC0 );
 
-    run_benchmark( 100, DDR,200, HP0 );
+    // run_benchmark( 100, DDR,200, HP0 );
     run_benchmark( 100, OCM,200, HP0 );
 
-    run_benchmark( 100, DDR,200, HPC0 );
+    //run_benchmark( 100, DDR,200, HPC0 );
+    //run_benchmark( 100, OCM,200, HPC0 );
     run_benchmark( 100, CACHE,200, HPC0 );
-    run_benchmark( 100, OCM,200, HPC0 );
 
 //    run_benchmark( 100, CACHE,100 );
 
@@ -79,7 +75,7 @@ int main()
 //    run_benchmark( 100, OCM,200, HP0 );
 
     //run_benchmark( 100, CACHE,100 );
-
+    printf("Tests Completed\n");
     cleanup_platform();
     return 0;
 }
