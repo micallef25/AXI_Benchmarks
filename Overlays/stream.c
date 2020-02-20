@@ -40,6 +40,14 @@ static uint32_t ocm_buff[2] = {
 		OCM_BUFF2
 };
 
+typedef struct data_p{
+	uint16_t data;
+	uint16_t presence : 1;
+}p_type;
+
+#define PRESENCE_BIT ( 0x10000 ) // 1 << 16
+#define MASK16 (0xFFFF) // (1 << 16) - 1 = ffff
+
 //volatile uint32_t* ocm_buff_tx = (int*)OCM_BUFF1;
 //volatile uint32_t* ocm_buff_rx = (int*)OCM_BUFF2;
 
@@ -447,58 +455,70 @@ void start_stream( stream_id_type stream_id )
 }
 
 
+/*
+* Simple read write with no handshaking
+*/
+void block_write( stream_id_type stream_id, uint16_t data )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+	while(1)
+	{
+		uint32_t temp = stream->buff[stream->ptr];
+		
+		// bit is high meaning that the data is not consumed yet
+		if( (temp & PRESENCE_BIT) == PRESENCE_BIT )
+		{
+			// wait some time
+			usleep(200);
+		}
+		else
+		{
+			// set the bit and write the data
+			stream->buff[stream->ptr] = data | PRESENCE_BIT;
+			stream->ptr++;
+			stream->ptr = stream->ptr % stream->buff_size;
+			break;
+		}
+	}
+}
 
 
-//// could potentially make a table of pointers that is unique to each port
-////
-//uint32_t stream::msg_read()
-//{
-//	// spin until a new message has arrived
-//	while(1)
-//	{
-//
-//		volatile uint64_t data = buffer[ptr];
-//
-//		// msg is not ready, delay
-//		if(data == msg_counter)
-//		{
-//			for(int i = 0; i < DELAY; i++)
-//			{
-//				//delay this could be optmized out with a better compiler whic we want to avoid
-//			}
-//		}
-//		else
-//		{
-//			ptr++;
-//			ptr = ptr % BUFF_SIZE;
-//			return (data & ~msg_counter);
-//		}
-//	}
-//}
-//
-//void stream::msg_write( uint32_t data )
-//{
-//	// append out message counter and write to memory
-//	buffer[ptr] = data | msg_counter;
-//	ptr++;
-//	ptr = ptr % BUFF_SIZE;
-//	// need to handle waiting to make sure sure that data is not overwritten
-//}
+uint16_t block_read( stream_id_type stream_id )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
 
-// /*
-// * wrapper functions will point to other functions
-// *
-// */ 
-// // change uint32_t to a typedef
-// // a wrapper function to our write function. allows easy experimentation with writes
-// void stream::write( uint32_t data )
-// {
-// 	assert(id != INVALID_PORT);
-// 	ptr_table[id]->write(data);
-// }
+	// stream should be created already
+	assert( stream != NULL );
 
-// uint32_t stream::read()
-// {
-// 	assert(id != INVALID_PORT);
-// 	return ptr_table[id]->read();
-// }
+	while(1)
+	{
+		// read data
+		uint32_t temp = stream->buff[stream->ptr];
+		
+		// bit is high meaning that the data is ready to be consumed
+		if( (temp & PRESENCE_BIT) == PRESENCE_BIT )
+		{
+			// clear the bit
+			stream->buff[stream->ptr] &= (~PRESENCE_BIT);
+			stream->ptr++;
+			stream->ptr = stream->ptr % stream->buff_size;
+			return (temp & MASK16);
+		}
+		else
+		{
+			// wait some time
+			usleep(200);
+		}
+	}
+
+	//
+	return temp;
+}
+
+
