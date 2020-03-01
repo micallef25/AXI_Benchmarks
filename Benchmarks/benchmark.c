@@ -171,7 +171,7 @@ void synchronize()
 			break;
 		}
 	}
-	while(*ptr != 4)
+	while(*ptr != 2)
 	{
 		usleep(200);
 	}
@@ -473,6 +473,14 @@ int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port
 	u32 ClkCntLow = 0x0;
 	clear_streams();
 
+
+	uint64_t test[200];
+
+	for(int i = 0; i < 200; i++)
+	{
+		test[i] = 0;
+	}
+
 	//Status = Setup_AxiPmon(0);
 	//if (Status != XST_SUCCESS) {
 	//	xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
@@ -488,25 +496,33 @@ int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port
 	//
 	//
 	// Create rx stream
-	stream_create( STREAM_ID_2, buffer_size, RX, memory, port );
-	stream_init(STREAM_ID_2 );
-	start_stream( STREAM_ID_2 );
+	stream_create( STREAM_ID_0, buffer_size, RX, memory, port );
+	stream_init(STREAM_ID_0 );
+	start_stream( STREAM_ID_0 );
 	setup_mutex();
 
 	synchronize();
+
+	int bytes_read = 0;
+//	while(bytes_read != 200){
+//		//int nbytes = burst_read( STREAM_ID_0, &test[bytes_read]);
+////		printf("bytes read %d\n",nbytes);
+////		bytes_read+=nbytes;
+//	}
 
 //	start_stream( STREAM_ID_5 );
 	int expected = 0;
 	//
 	//
 	// Send data
-//	for(int w = 0; w < buffer_size; w++)
+	for(int w = 0; w < buffer_size; w++)
 	for(int k = 0; k < buffer_size; k++)
 	for(int j = 0; j < buffer_size; j++)
 	{
 		for(int i = 0; i < buffer_size; i++)
 		{
-			uint32_t data = block_read2( STREAM_ID_2);
+
+			uint32_t data = block_read2( STREAM_ID_0);
 			//printf("%s,%s,%u,%u,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3),query_metric(4),query_metric(5));
 			//printf("is done %d\n",is_stream_done( STREAM_ID_5 ));
 			//printf("data received from read: %d \n",data);
@@ -516,7 +532,7 @@ int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port
 //				volatile XTime* ptr2 = (0xFFFC0310);
 //				volatile XTime* ptr3 = (0xFFFC0308);
 //				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
-//				printf("Expected: %d received: %d \n",expected,data);
+				printf("Expected: %d received: %d \n",expected,data);
 //				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
 				assert(expected == data);
 			}
@@ -531,14 +547,14 @@ int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port
 	volatile XTime* ptr = (0xFFFE0008);
 	timer_start = *ptr;
 	float cycles = timer_end-timer_start;
-	float bytes = buffer_size *buffer_size * buffer_size * 8;
+	float bytes = buffer_size* buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
 	float tput = (bytes/cycles) * 1.2;
 	printf("Throughput ~ %f GBps \n",tput);
 
 	//
 	//
 	// destroy streams
-	stream_destroy( STREAM_ID_2 );
+	stream_destroy( STREAM_ID_0 );
 //	stream_destroy( STREAM_ID_3 );
 
 	//

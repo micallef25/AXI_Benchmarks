@@ -593,11 +593,12 @@ uint32_t block_read2( stream_id_type stream_id )
 
 	int timeout = 0;
 	uint32_t data = 0;
-//	uint64_t full=0;
 
 	// read head pointer
 	volatile uint64_t temp_head = stream->buff[HEAD_POINTER];
 	stream->full = stream->buff[FULL_BIT];// refresh our full status
+
+
 	while(1)
 	{
 //		// read head pointer
@@ -639,3 +640,347 @@ uint32_t block_read2( stream_id_type stream_id )
 	return -1;
 }
 
+
+/*
+ *  this will return how many bytes were written in a single transaction
+ */
+uint32_t burst_read_single( stream_id_type stream_id,uint64_t* data_out )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+	// refresh our status
+	// TODO change temps to the actual stream ones
+	volatile uint64_t temp_head = stream->buff[HEAD_POINTER];
+	stream->full = stream->buff[FULL_BIT];// refresh our full status
+
+	while(1)
+	{
+		//
+		// not allowed to read when the pointers are equal and the full bit is zero
+		// can read if our pointers are equal and the full bit is set though
+		if( (stream->tail == temp_head && stream->full==0)  )
+		{
+			// refresh our status
+			stream->full = stream->buff[FULL_BIT];
+			temp_head = stream->buff[HEAD_POINTER];
+        }
+		else
+		{
+		    //
+			// compute how many bytes we can read
+			int bytes_read = temp_head - stream->tail;
+
+			//
+			// if the amount is negative this is the case where our head ptr has wrapped around
+			// but tail pointer has not
+			if(bytes_read < 0)
+				bytes_read = (stream->buff_size - temp_head) + stream->tail;
+
+			//
+			// if our full bit is set then we can burst read the entire buffer
+			if(bytes_read == 0 && stream->full == 1)
+				bytes_read = stream->buff_size;
+
+			// burst read
+			for(int h = 0; h < bytes_read; h++)
+			{
+				data_out[h] = stream->buff[stream->tail];  //grab a byte from the buffer
+				stream->tail++;  //incrementthe tail
+				stream->tail = stream->tail % stream->buff_size;
+			}
+
+
+            //printf("head: %d tail: %d full: %d\n",temp_head,stream->tail,stream->buff[FULL_BIT]);
+
+
+			// write our new updated position
+            stream->buff[TAIL_POINTER] = stream->tail;
+
+            if(stream->full == 1){
+         	   stream->buff[FULL_BIT] = 0;
+            }
+
+            return bytes_read;
+
+		}
+	}
+
+	//
+	return -1;
+}
+
+/*
+ *  read a set amount of bytes.
+ *  will not return until the specified amount of bytes is read
+ */
+uint32_t burst_read( stream_id_type stream_id,uint64_t* data_out, uint32_t length )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+
+	// refresh our status
+	volatile uint64_t temp_head = stream->buff[HEAD_POINTER];
+	stream->full = stream->buff[FULL_BIT];// refresh our full status
+
+	uint32_t total_bytes_read = 0;
+
+	while(1)
+	{
+
+		//
+		// not allowed to read when the pointers are equal and the full bit is zero
+		// can read if our pointers are equal and the full bit is set though
+		if( (stream->tail == temp_head && stream->full==0)  )
+		{
+			// refresh our status
+			stream->full = stream->buff[FULL_BIT];
+			temp_head = stream->buff[HEAD_POINTER];
+        }
+		else
+		{
+		    //
+			// compute how many bytes we can read
+			int bytes_read = temp_head - stream->tail;
+
+			//
+			// if the amount is negative this is the case where our head ptr has wrapped around
+			// but tail pointer has not
+			if(bytes_read < 0)
+				bytes_read = (stream->buff_size - temp_head) + stream->tail;
+
+			//
+			// if our full bit is set then we can burst read the entire buffer
+			if(bytes_read == 0 && stream->full == 1)
+				bytes_read = stream->buff_size;
+
+        	// choose the minimum as we do not want to overflow the users buffer
+			bytes_read = (bytes_read < length) ? bytes_read : length;
+
+			// burst read
+			for(int h = 0; h < bytes_read; h++)
+			{
+				data_out[h+total_bytes_read] = stream->buff[stream->tail];  //grab a byte from the buffer
+				stream->tail++;  //incrementthe tail
+				stream->tail = stream->tail % stream->buff_size;
+			}
+
+			// update pointers
+			total_bytes_read+=bytes_read;
+			length -= bytes_read;
+
+
+			//printf("head: %d tail: %d full: %d\n",temp_head,stream->tail,stream->buff[FULL_BIT]);
+
+
+			// write our new updated position
+			stream->buff[TAIL_POINTER] = stream->tail;
+            if(stream->full == 1)
+            {
+         	   stream->buff[FULL_BIT] = 0;
+            }
+
+            // we should never read too many bytes that means some logic is wrong
+            assert(length >= 0);
+
+            // satisfied the users request
+            if(length == 0)
+            {
+            	return bytes_read;
+            }
+		}
+	}
+
+	//
+	return -1;
+}
+
+
+/*
+* do burst writes and do not return until the length is satisfied
+*/
+uint32_t burst_write( stream_id_type stream_id, uint64_t* data, uint32_t length )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+
+	// read tail pointer
+	volatile uint64_t temp_tail = stream->buff[TAIL_POINTER];
+	stream->full = stream->buff[FULL_BIT]; //
+
+	uint32_t bytes_written = 0;
+
+	// write the requested bytes indefinitely
+	while(1)
+	{
+
+		//
+		// ensure it is safe to write.
+		// it is unsafe to write if the next write will become the tail pointer
+		// WE NEED TO CHECK FOR WRAPAROUND ERIC THATS THE BUG
+		// or if our stream is full
+		if( ((stream->head + 1  == temp_tail && stream->full == 0)|| stream->full == 1) )
+		{
+			// can not write so we refresh our full state if we can not write
+			stream->full = stream->buff[FULL_BIT]; //
+			temp_tail = stream->buff[TAIL_POINTER];
+        }
+        else
+        {
+        	//
+        	// compute how many bytes it is safe to write
+        	int bytes_to_write = temp_tail - stream->head;
+
+        	//
+        	// if bytes a negative occurs this is the case where head is 90 and tail has wrapped around
+        	// recompute
+        	if(bytes_to_write < 0){
+        		bytes_to_write = stream->buff_size - stream->head + temp_tail;
+        	}
+
+        	//
+        	// this is the case where our pointers match we can safely burst write the entire buffer
+        	if(bytes_to_write == 0 && stream->full == 0){
+        		bytes_to_write = stream->buff_size;
+        	}
+        	//
+        	// choose the minimum in the case where we have enough space to write 10 bytes but want to only write 2
+        	bytes_to_write = (bytes_to_write < length) ? bytes_to_write : length;
+
+        	// -1 so that we do not over write?
+        	// burst write our data
+        	for(int h=0; h < bytes_to_write; h++)
+        	{
+        		stream->buff[stream->head] = data[h];  //grab a byte from the buffer
+        	    stream->head++;  //incrementthe tail
+        	    stream->head = stream->head % stream->buff_size;
+        	}
+
+        	// update
+        	bytes_written+=bytes_to_write;
+        	length -= bytes_to_write;
+
+            // set fullness if necessary
+            if(stream->head == temp_tail){
+            	stream->full = 1;
+            }
+
+
+        	// printf("head: %d tail: %d full: %d\n",stream->head,temp_tail,stream->full);
+
+        	// update state
+        	stream->buff[HEAD_POINTER] = stream->head;
+
+        	if(stream->full == 1){
+        	  	stream->buff[FULL_BIT] = 1;
+        	}
+        	// we should never write too many bytes that means some logic is wrong
+        	assert(length >= 0);
+
+            if(0 == length)
+            {
+            	return bytes_written;
+            }
+        }
+	}
+	return -1;
+}
+
+/*
+* do one single transaction attempting to get as many bytes as possbile
+*/
+uint32_t burst_write_single( stream_id_type stream_id, uint64_t* data, uint32_t length )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+
+	// read tail pointer as well as our full bit
+	volatile uint64_t temp_tail = stream->buff[TAIL_POINTER];
+	stream->full = stream->buff[FULL_BIT]; //
+
+
+	// write the requested bytes indefinitely
+	while(1)
+	{
+
+		//
+		// ensure it is safe to write.
+		// it is unsafe to write if the next write will become the tail pointer
+		// WE NEED TO CHECK FOR WRAPAROUND ERIC THATS THE BUG
+		// or if our stream is full
+		if( ((stream->head + 1  == temp_tail && stream->full == 0)|| stream->full == 1) )
+		{
+			// refresh our status
+			stream->full = stream->buff[FULL_BIT]; //
+			temp_tail = stream->buff[TAIL_POINTER];
+        }
+        else
+        {
+        	//
+        	// compute how many bytes it is safe to write
+        	int bytes_to_write = temp_tail - stream->head;
+
+        	//
+        	// if bytes a negative occurs this is the case where head is 90 and tail has wrapped around
+        	// recompute
+        	if(bytes_to_write < 0){
+        		bytes_to_write = stream->buff_size - stream->head + temp_tail;
+        	}
+
+        	//
+        	// this is the case where our pointers match we can safely burst write the entire buffer
+        	if(bytes_to_write == 0 && stream->full == 0){
+        		bytes_to_write = stream->buff_size;
+        	}
+
+        	//
+        	// choose the minimum in the case where we have enough space to write 10 bytes but want to only write 2
+        	bytes_to_write = (bytes_to_write < length) ? bytes_to_write : length;
+
+        	// -1 so that we do not over write?
+        	// burst write our data
+        	for(int h=0; h < bytes_to_write; h++)
+        	{
+        		stream->buff[stream->head] = data[h];  //grab a byte from the buffer
+        		stream->head++;  //incrementthe tail
+        		stream->head = stream->head % stream->buff_size;
+        	}
+
+
+            // set fullness if necessary
+            if(stream->head == temp_tail){
+            	stream->full = 1;
+            }
+
+
+            // printf("head: %d tail: %d full: %d\n",stream->head,temp_tail,stream->full);
+
+            // update state
+            stream->buff[HEAD_POINTER] = stream->head;
+
+            if(stream->full == 1){
+            	stream->buff[FULL_BIT] = 1;
+            }
+
+            // return how many bytes were transferred
+            return bytes_to_write;
+
+        }
+	}
+	return -1;
+}

@@ -128,6 +128,13 @@ typedef struct stream_t{
 	void block_write2( stream_id_type stream_id, uint32_t data );
 	uint32_t block_read2( stream_id_type stream_id );
 
+	//
+	uint32_t burst_read( stream_id_type stream_id,uint64_t* data_out, uint32_t length );
+	uint32_t burst_write( stream_id_type stream_id, uint64_t* data, uint32_t length );
+
+	//
+	uint32_t burst_read_single( stream_id_type stream_id,uint64_t* data_out );
+	uint32_t burst_write_single( stream_id_type stream_id, uint64_t* data, uint32_t length );
 
 	// polling
 	uint32_t is_stream_done( stream_id_type stream_id );
