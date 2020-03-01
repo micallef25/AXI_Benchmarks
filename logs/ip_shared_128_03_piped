@@ -1,19 +1,125 @@
-Tests Complete
-cycles to write 40000 DDR bytes: 926236
-cycles to read 40000 DDR bytes: 1039218
-cycles to write 40000 CACHE bytes: 24364
-cycles to read 40000 CACHE bytes: 21115
-cycles to write 40000 OCM bytes: 24358
-cycles to read 40000 OCM bytes: 127584
+
+32 bit 03
+cycles to write 4000000 HPC0 DDR bytes: 33817281
+Throughput ~ 0.141939 GBps
+cycles to read 4000000 HPC0 DDR bytes: 41705962
+Throughput ~ 0.115091 GBps
+cycles to write 4000000 HPC0 OCM bytes: 33483059
+Throughput ~ 0.143356 GBps
+cycles to read 4000000 HPC0 OCM bytes: 41649952
+Throughput ~ 0.115246 GBps
+cycles to write 4000000 HPC0 CACHE bytes: 809410
+Throughput ~ 5.930245 GBps
+cycles to read 4000000 HPC0 CACHE bytes: 698318
+Throughput ~ 6.873659 GBps
+cycles to write 4000000 HPC0 OCM bytes: 809419
+Throughput ~ 5.930180 GBps
+cycles to read 4000000 HPC0 OCM bytes: 4345164
+Throughput ~ 1.104676 GBps
+
 Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
-HP0,DDR,5609029,100000,653540,100000
-HP0,DDR,5609029,100000,653540,100000
-DDR test run cycles 969940
+HP0,DDR,38561757,359210,4866455,359201
+DDR test run cycles 674565
+Throughput ~ 2.556029 GBps
+
 Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
-HPC0,CACHE,12009903,100000,1515739,100000
-HPC0,CACHE,12009903,100000,1515739,100000
-CACHE test run cycles 1839098
+HP0,OCM,24704080,502410,3945810,502401
+OCM test run cycles 661715
+Throughput ~ 3.644421 GBps
+
 Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
-HPC0,OCM,700780,100000,1099976,100000
-HPC0,OCM,700780,100000,1099976,100000
-OCM test run cycles 703219
+HPC0,DDR,41304667,89010,5703010,89001
+DDR test run cycles 671134
+Throughput ~ 0.636606 GBps
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+
+
+64 bit 03
+cycles to write 8000000 HPC0 DDR bytes: 44576430
+Throughput ~ 0.215360 GBps
+cycles to read 8000000 HPC0 DDR bytes: 51934057
+Throughput ~ 0.184850 GBps
+cycles to write 8000000 HPC0 OCM bytes: 42998912
+Throughput ~ 0.223261 GBps
+cycles to read 8000000 HPC0 OCM bytes: 48937337
+Throughput ~ 0.196169 GBps
+cycles to write 8000000 HPC0 CACHE bytes: 698307
+Throughput ~ 13.747535 GBps
+cycles to read 8000000 HPC0 CACHE bytes: 698293
+Throughput ~ 13.747810 GBps
+cycles to write 8000000 HPC0 OCM bytes: 698352
+Throughput ~ 13.746649 GBps
+cycles to read 8000000 HPC0 OCM bytes: 4375027
+Throughput ~ 2.194272 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HP0,DDR,199440187,1500000,26326193,1500000
+DDR test run cycles 3422949
+Throughput ~ 4.206899 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HP0,OCM,73515754,1500000,10557686,1500000
+OCM test run cycles 1839779
+Throughput ~ 7.827027 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HPC0,DDR,840699852,1500000,116882564,1500000
+DDR test run cycles 13576238
+Throughput ~ 1.060677 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HPC0,OCM,123159241,1500000,41541154,1500000
+OCM test run cycles 5227422
+Throughput ~ 2.754704 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+
+HPC0,CACHE,662898881,1500000,91056940,1500000
+CACHE test run cycles 10784097
+Throughput ~ 1.335299 GBps
+64 bit Tests Completed
+
+128 bit 03
+cycles to write 8000000 HPC0 DDR bytes: 33504388
+Throughput ~ 0.286530 GBps
+cycles to read 8000000 HPC0 DDR bytes: 41737627
+Throughput ~ 0.230008 GBps
+cycles to write 8000000 HPC0 OCM bytes: 32718376
+Throughput ~ 0.293413 GBps
+cycles to read 8000000 HPC0 OCM bytes: 40647644
+Throughput ~ 0.236176 GBps
+cycles to write 8000000 HPC0 CACHE bytes: 698351
+Throughput ~ 13.746670 GBps
+cycles to read 8000000 HPC0 CACHE bytes: 698313
+Throughput ~ 13.747416 GBps
+cycles to write 8000000 HPC0 OCM bytes: 698351
+Throughput ~ 13.746670 GBps
+cycles to read 8000000 HPC0 OCM bytes: 4375025
+Throughput ~ 2.194273 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HP0,DDR,175446242,1500000,22728677,1500000
+DDR test run cycles 3045122
+Throughput ~ 9.457749 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HP0,OCM,73527423,1500000,10200131,1500000
+OCM test run cycles 1800048
+Throughput ~ 15.999574 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HPC0,DDR,595081511,1500000,82675336,1500000
+DDR test run cycles 9707595
+Throughput ~ 2.966749 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HPC0,OCM,115912276,1500000,36404722,1500000
+OCM test run cycles 4651946
+Throughput ~ 6.190957 GBps
+
+Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions
+HPC0,CACHE,629478892,1500000,86375223,1500000
+CACHE test run cycles 10253632
+Throughput ~ 2.808761 GBps
+128 bit Tests Completed
+

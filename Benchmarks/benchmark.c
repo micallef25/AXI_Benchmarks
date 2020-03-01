@@ -15,17 +15,10 @@
 #include "../axipmon/axipmon_imp.h"
 // my stuff
 #include "../Overlays/stream.h"
+#include "assert.h"
+#include "xmutex.h"
 
 
-#define IP_32
-
-#ifdef IP_32
-#include "xexample_tx_64.h"
-#include "xexample_rx_64.h"
-#else
-#include "xexample_tx_128.h"
-#include "xexample_rx_128.h"
-#endif
 
 
 void delay(int delay)
@@ -103,6 +96,87 @@ void delay(int delay)
 //	return XST_SUCCESS;
 //}
 
+XMutex Mutex[4];	/* Mutex instance */
+#define MUTEX_NUM 0
+
+int setup_mutex()
+{
+	XMutex_Config *ConfigPtr;
+	XStatus Status;
+	u32 TimeoutCount = 0;
+
+	u16 MutexDeviceID = 0;
+	if(XPAR_CPU_ID == 0)
+	{
+		MutexDeviceID = XPAR_MUTEX_0_IF_0_DEVICE_ID;
+	}
+	if(XPAR_CPU_ID == 1)
+	{
+		MutexDeviceID = XPAR_MUTEX_0_IF_1_DEVICE_ID;
+	}
+	if(XPAR_CPU_ID == 2)
+	{
+		MutexDeviceID = XPAR_MUTEX_0_IF_2_DEVICE_ID;
+	}
+	if(XPAR_CPU_ID == 3)
+	{
+		MutexDeviceID = XPAR_MUTEX_0_IF_3_DEVICE_ID;
+	}
+
+
+	/*
+	 * Lookup configuration data in the device configuration table.
+	 * Use this configuration info down below when initializing this
+	 * driver instance.
+	 */
+	ConfigPtr = XMutex_LookupConfig(MutexDeviceID);
+	if (ConfigPtr == (XMutex_Config *)NULL) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Perform the rest of the initialization.
+	 */
+	Status = XMutex_CfgInitialize(&Mutex[XPAR_CPU_ID], ConfigPtr,
+					ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS)
+	{
+		return XST_FAILURE;
+	}
+	return XST_SUCCESS;
+}
+
+void synchronize()
+{
+	volatile int* ptr = (0xFFFE0000);
+	Xil_SetTlbAttributes((UINTPTR)ptr, NORM_NONCACHE);
+	dmb();
+
+	while(1)
+	{
+		XMutex_Lock(&Mutex[XPAR_CPU_ID], MUTEX_NUM);	/* Acquire lock */
+
+		// default value of OCM is set to 0xdeadbeef so first processor to grab lock can clear
+		if(*ptr == 0xdeadbeef)
+		{
+			*ptr = 0;
+			*ptr = *ptr + 1;
+			XMutex_Unlock(&Mutex[XPAR_CPU_ID], MUTEX_NUM);	/* Release lock */
+			break;
+		}
+		else
+		{
+			*ptr = *ptr + 1;
+			XMutex_Unlock(&Mutex[XPAR_CPU_ID], MUTEX_NUM);	/* Release lock */
+			break;
+		}
+	}
+	while(*ptr != 4)
+	{
+		usleep(200);
+	}
+}
+
 int run_benchmark( int buffer_size, memory_type memory, int time, axi_port_type port )
 {
 	u32 Metrics;
@@ -137,21 +211,26 @@ int run_benchmark( int buffer_size, memory_type memory, int time, axi_port_type 
 	//
 	printf("Format: Memory_Config,Total_Read_Latency,Read_Transactions,Total_Write_latency,Write_Transactions\n");
 
-	//
-	//
-	// Create tx Stream
-	stream_create( STREAM_ID_0, buffer_size, TX, memory, port );
-	stream_init(STREAM_ID_0 );
+
+	for(int k = 0; k < 2; k+=2)
+	{
+	printf("testing stream %d : %d \n",k,k+1);
+
+		//
+		//
+		// Create tx Stream
+		stream_create( k, buffer_size, TX, memory, port );
+		stream_init(k);
 
 	//
 	//
 	// Create rx stream
-	stream_create( STREAM_ID_1, buffer_size, RX, memory, port );
-	stream_init(STREAM_ID_1 );
+	stream_create( k+1, buffer_size, RX, memory, port );
+	stream_init(k+1 );
 
 	// start streams
-	start_stream( STREAM_ID_0 );
-	start_stream( STREAM_ID_1 );
+	start_stream( k );
+	start_stream( k+1 );
 
 	//
 	//
@@ -161,40 +240,45 @@ int run_benchmark( int buffer_size, memory_type memory, int time, axi_port_type 
 
 	for(int i = 0; i < buffer_size; i++)
 	{
-		simple_write( STREAM_ID_0, i );
+		simple_write( k, i );
 		usleep( time );
 
 		printf("%s,%s,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3));
 
 	}
-
-	simple_write( STREAM_ID_0, 0xdeadbeef);
+	for(int i = 0; i < buffer_size; i++)
+	{
+		printf("simple_read(%d)\n",simple_read( k+1 ));
+//		sleep(1);
+//		u32 data = simple_read( STREAM_ID_1 );
+	}
+//	simple_write( STREAM_ID_0, 0xdeadbeef);
 
 	XTime_GetTime(&timer_end);
-	printf("%s,%s,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3));
 	printf("%s test run cycles %lu\n",mem_type_to_str(memory),timer_end-timer_start);
+	}
 	//
 	//
 	// Wait for data back
-	while(1)
-	{
-		//printf("sleeping\n");
-		usleep(500);
-
-		if(is_stream_done(STREAM_ID_1))
-			break;
-	}
-
-
-	//
-	//
-	// Read data and confirm
-	for(int i = 0; i < buffer_size; i++)
-	{
-		//printf("simple_read(%d)\n",simple_read( STREAM_ID_1 ));
-//		sleep(1);
-		u32 data = simple_read( STREAM_ID_1 );
-	}
+//	while(1)
+//	{
+//		//printf("sleeping\n");
+//		usleep(500);
+//
+//		if(is_stream_done(STREAM_ID_1))
+//			break;
+//	}
+//
+//
+//	//
+//	//
+//	// Read data and confirm
+//	for(int i = 0; i < buffer_size; i++)
+//	{
+//		//printf("simple_read(%d)\n",simple_read( STREAM_ID_1 ));
+////		sleep(1);
+//		u32 data = simple_read( STREAM_ID_1 );
+//	}
 
 	//
 	//
@@ -261,7 +345,13 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 
 	XTime_GetTime(&timer_end);
 
-	printf("cycles to write %u %s %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),port_type_to_str(port),mem_type_to_str(memory),timer_end-timer_start);
+	printf("cycles to write %u %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),mem_type_to_str(memory),timer_end-timer_start);
+	float cycles = timer_end-timer_start;
+	float bytes = buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
+	float tput = (bytes/cycles) * 1.2;
+	printf("Throughput ~ %f GBps \n",tput);
+
+
 	XTime_GetTime(&timer_start);
 	//
 	//
@@ -273,8 +363,11 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 		simple_read( STREAM_ID_1 );
 	}
 	XTime_GetTime(&timer_end);
-	printf("cycles to write %u %s %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),port_type_to_str(port),mem_type_to_str(memory),timer_end-timer_start);
-
+	printf("cycles to read %u %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),mem_type_to_str(memory),timer_end-timer_start);
+	cycles = timer_end-timer_start;
+	bytes = buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
+	tput = (bytes/cycles) * 1.2;
+	printf("Throughput ~ %f GBps \r\n\n",tput);
 	//
 	//
 	// destroy streams
@@ -288,3 +381,175 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 
 	return XST_SUCCESS;
 }
+
+
+int run_benchmark_flow( int buffer_size, memory_type memory, int time, axi_port_type port )
+{
+	int Status;
+	u32 Metrics;
+	u32 ClkCntHigh = 0x0;
+	u32 ClkCntLow = 0x0;
+	clear_streams();
+
+	//Status = Setup_AxiPmon(0);
+	//if (Status != XST_SUCCESS) {
+	//	xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
+	//	return XST_FAILURE;
+	//}
+
+	//
+	//
+	// Create tx Stream
+	//stream_create( STREAM_ID_0, buffer_size, TX, memory, port );
+	//stream_init(STREAM_ID_0 );
+
+	//
+	//
+	// Create rx stream
+	stream_create( STREAM_ID_1, buffer_size, RX, memory, port );
+	stream_init(STREAM_ID_1 );
+	start_stream( STREAM_ID_1 );
+	setup_mutex();
+
+	synchronize();
+
+//	start_stream( STREAM_ID_5 );
+	int expected = 0;
+	//
+	//
+	// Send data
+	for(int w = 0; w < buffer_size; w++)
+	for(int k = 0; k < buffer_size; k++)
+	for(int j = 0; j < buffer_size; j++)
+	{
+		for(int i = 0; i < buffer_size; i++)
+		{
+			uint32_t data = block_read( STREAM_ID_1);
+			//printf("%s,%s,%u,%u,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3),query_metric(4),query_metric(5));
+			//printf("is done %d\n",is_stream_done( STREAM_ID_5 ));
+			//printf("data received from read: %d \n",data);
+			if(expected != data)
+			{
+				printf("Expected: %d received: %d \n",expected,data);
+				assert(expected == data);
+			}
+			expected++;
+		}
+	}
+	XTime timer_end;
+	XTime timer_start;
+	XTime_GetTime(&timer_end);
+
+	volatile XTime* ptr = (0xFFFE0008);
+	timer_start = *ptr;
+	float cycles = timer_end-timer_start;
+	float bytes = buffer_size *buffer_size * buffer_size * buffer_size * sizeof(uint64_t);
+	float tput = (bytes/cycles) * 1.2;
+	printf("Throughput ~ %f GBps \n",tput);
+
+	//
+	//
+	// destroy streams
+	stream_destroy( STREAM_ID_1 );
+//	stream_destroy( STREAM_ID_3 );
+
+	//
+	//
+	// print results
+	//Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
+	//if (Status != XST_SUCCESS) {
+	//	xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");
+	//	return XST_FAILURE;
+	//}
+
+	return XST_SUCCESS;
+}
+
+int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port_type port )
+{
+	int Status;
+	u32 Metrics;
+	u32 ClkCntHigh = 0x0;
+	u32 ClkCntLow = 0x0;
+	clear_streams();
+
+	//Status = Setup_AxiPmon(0);
+	//if (Status != XST_SUCCESS) {
+	//	xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
+	//	return XST_FAILURE;
+	//}
+
+	//
+	//
+	// Create tx Stream
+	//stream_create( STREAM_ID_0, buffer_size, TX, memory, port );
+	//stream_init(STREAM_ID_0 );
+
+	//
+	//
+	// Create rx stream
+	stream_create( STREAM_ID_2, buffer_size, RX, memory, port );
+	stream_init(STREAM_ID_2 );
+	start_stream( STREAM_ID_2 );
+	setup_mutex();
+
+	synchronize();
+
+//	start_stream( STREAM_ID_5 );
+	int expected = 0;
+	//
+	//
+	// Send data
+//	for(int w = 0; w < buffer_size; w++)
+	for(int k = 0; k < buffer_size; k++)
+	for(int j = 0; j < buffer_size; j++)
+	{
+		for(int i = 0; i < buffer_size; i++)
+		{
+			uint32_t data = block_read2( STREAM_ID_2);
+			//printf("%s,%s,%u,%u,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3),query_metric(4),query_metric(5));
+			//printf("is done %d\n",is_stream_done( STREAM_ID_5 ));
+			//printf("data received from read: %d \n",data);
+			if(expected != data)
+			{
+//				volatile XTime* ptr1 = (0xFFFC0318);
+//				volatile XTime* ptr2 = (0xFFFC0310);
+//				volatile XTime* ptr3 = (0xFFFC0308);
+//				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
+//				printf("Expected: %d received: %d \n",expected,data);
+//				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
+				assert(expected == data);
+			}
+			expected++;
+//			usleep(100);
+		}
+	}
+	XTime timer_end;
+	XTime timer_start;
+	XTime_GetTime(&timer_end);
+
+	volatile XTime* ptr = (0xFFFE0008);
+	timer_start = *ptr;
+	float cycles = timer_end-timer_start;
+	float bytes = buffer_size *buffer_size * buffer_size * 8;
+	float tput = (bytes/cycles) * 1.2;
+	printf("Throughput ~ %f GBps \n",tput);
+
+	//
+	//
+	// destroy streams
+	stream_destroy( STREAM_ID_2 );
+//	stream_destroy( STREAM_ID_3 );
+
+	//
+	//
+	// print results
+	//Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
+	//if (Status != XST_SUCCESS) {
+	//	xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");
+	//	return XST_FAILURE;
+	//}
+
+	return XST_SUCCESS;
+}
+

@@ -4,12 +4,12 @@
 #include <strings.h>
 #include <assert.h>
 #include <stdio.h>
-
+#include "sleep.h"
 
 #define IP_32
 #ifdef IP_32
-#include "xexample_tx_64.h"
-#include "xexample_rx_64.h"
+#include "xexample_tx_piped64.h"
+#include "xexample_rx_piped64.h"
 #else
 #include "xexample_tx_128.h"
 #include "xexample_rx_128.h"
@@ -20,33 +20,62 @@
 #include "xpseudo_asm.h"
 #include "xil_types.h"
 #include "xparameters.h"
-#include "sleep.h"
+
 #include "stream.h"
 
 
 #define MAX_NUM_PORTS INVALID_PORT
 #define MAX_NUM_MEMORIES INVALID_MEMORY
+#define NUM_CORES 4
 
-#define PSU_OCM_RAM_0	(0xFFFC0000)
+#define MAX_OCM_PARTITONS 6
 #define OCM_BUFF1 (0xFFFC0000)
-#define OCM_BUFF2 (0xFFFD0000)
+#define OCM_BUFF2 OCM_BUFF1 + (200*8)
+#define OCM_BUFF3 OCM_BUFF2 + (200*8)
+#define OCM_BUFF4 OCM_BUFF3 + (200*8)
+#define OCM_BUFF5 OCM_BUFF4 + (200*8)
+#define OCM_BUFF6 OCM_BUFF5 + (200*8)
 
 // pointer to stream instances
-static stream_t* streams[MAX_NUMBER_OF_STREAMS];
+static stream_t* streams[NUM_CORES][MAX_NUMBER_OF_STREAMS];
 
-// can partition our ocm
-static uint32_t ocm_buff[2] = {
+// can partition our ocm #TODO change this later
+static uint32_t ocm_buff[MAX_NUMBER_OF_STREAMS] = {
 		OCM_BUFF1,
-		OCM_BUFF2
+		OCM_BUFF2,
+		OCM_BUFF3,
+		OCM_BUFF4,
+		OCM_BUFF5,
+		OCM_BUFF6
 };
 
-typedef struct data_p{
-	uint16_t data;
-	uint16_t presence : 1;
-}p_type;
 
-#define PRESENCE_BIT ( 0x10000 ) // 1 << 16
-#define MASK16 (0xFFFF) // (1 << 16) - 1 = ffff
+static uint8_t id_array[MAX_NUMBER_OF_STREAMS] = {
+		XPAR_EXAMPLE_TX_PIPED64_0_DEVICE_ID, // stream 0 transmits to pl on device 0
+		XPAR_EXAMPLE_RX_PIPED64_0_DEVICE_ID, // stream 1 reads from PL on device 0
+		//XPAR_EXAMPLE_TX_P64_1_DEVICE_ID, // stream 2 transmits to pl on device 1
+		//XPAR_EXAMPLE_RX_P64_1_DEVICE_ID, // stream 3 reads from pl on device 1
+		//XPAR_EXAMPLE_TX_P64_2_DEVICE_ID, // stream 4 reads from pl on device 2
+		//XPAR_EXAMPLE_RX_P64_2_DEVICE_ID, // stream 5 reads from pl on device 2
+};
+
+//static uint8_t rx_id_array[MAX_NUMBER_OF_STREAMS] = {
+//		-1,
+//		XPAR_EXAMPLE_RX_P64_0_DEVICE_ID, // stream 1 reads from PL on device 0
+//
+//		XPAR_EXAMPLE_RX_P64_1_DEVICE_ID,  // stream 3 reads from pl on device 1
+//		XPAR_EXAMPLE_RX_P64_2_DEVICE_ID, // stream 5 reads from pl on device 2
+//
+//};
+//static uint8_t tx_id_array[MAX_NUMBER_OF_STREAMS] = {
+//		XPAR_EXAMPLE_TX_P64_0_DEVICE_ID, // stream 0 transmits to pl on device 0
+//		XPAR_EXAMPLE_TX_P64_1_DEVICE_ID, // stream 2 transmits to pl on device 1
+//		XPAR_EXAMPLE_TX_P64_2_DEVICE_ID
+//
+//};
+
+#define PRESENCE_BIT ( 0x100000000 ) // 1 << 32
+#define MASK32 (0xFFFFFFFF) // (1 << 32) - 1
 
 //volatile uint32_t* ocm_buff_tx = (int*)OCM_BUFF1;
 //volatile uint32_t* ocm_buff_rx = (int*)OCM_BUFF2;
@@ -56,7 +85,7 @@ void clear_streams()
 {
 	for(int i = 0; i < MAX_NUMBER_OF_STREAMS; i++)
 	{
-		streams[i] = NULL;
+		streams[XPAR_CPU_ID][i] = NULL;
 	}
 }
 
@@ -126,7 +155,7 @@ static stream_t* safe_get_stream( stream_id_type stream_id )
 	assert(stream_id >= 0 && stream_id < MAX_NUMBER_OF_STREAMS);
 
 	//
-	stream_t* stream = streams[stream_id];
+	stream_t* stream = streams[XPAR_CPU_ID][stream_id];
 
 	return stream;
 }
@@ -157,48 +186,17 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 		stream->buff = ocm_buff[stream_id];
 	}
 
-	if( port == HPC0 && direction == TX )
-	{
-
-#ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_TX_64_0_DEVICE_ID;
-#else
-		stream->X_ID = XPAR_EXAMPLE_TX_128_0_DEVICE_ID;
-#endif
-	}
-	else if( port == HPC0 && direction == RX )
-	{
-#ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_RX_64_0_DEVICE_ID;
-#else
-		stream->X_ID = XPAR_EXAMPLE_RX_128_0_DEVICE_ID;
-#endif
-	}
-	else if( port == HP0 && direction == TX )
-	{
-#ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_TX_64_1_DEVICE_ID;
-#else
-		stream->X_ID = XPAR_EXAMPLE_TX_128_1_DEVICE_ID;
-#endif
-	}
-	else if( port == HP0 && direction == RX )
-	{
-#ifdef IP_32
-		stream->X_ID = XPAR_EXAMPLE_RX_64_1_DEVICE_ID;
-#else
-		stream->X_ID = XPAR_EXAMPLE_RX_128_1_DEVICE_ID;
-#endif
-	}
-
-
-	memset(stream->buff,0,buff_size*sizeof(uint32_t));
+	stream->X_ID = id_array[stream_id];
+	stream->head = 0;
+	stream->tail = 0;
+	stream->full = 0;
+	memset(stream->buff,0,buff_size*sizeof(uint64_t));
 
 	// depending on the direction get the correct IP instance
 	if( direction == TX )
 	{
 #ifdef IP_32
-		stream->axi_config_tx = (XExample_tx_64*)malloc(sizeof(XExample_tx_64));
+		stream->axi_config_tx = (XExample_tx_piped64*)malloc(sizeof(XExample_tx_piped64));
 #else
 		stream->axi_config_tx = (XExample_tx_128*)malloc(sizeof(XExample_tx_128));
 #endif
@@ -209,7 +207,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	{
 		stream->axi_config_tx = NULL;
 #ifdef IP_32
-		stream->axi_config_rx = (XExample_rx_64*)malloc(sizeof(XExample_rx_64));
+		stream->axi_config_rx = (XExample_rx_piped64*)malloc(sizeof(XExample_rx_piped64));
 #else
 		stream->axi_config_rx = (XExample_rx_128*)malloc(sizeof(XExample_rx_128));
 #endif
@@ -225,9 +223,9 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	// set the unique characteristics of the stream
 	stream->memory = mem;
 	stream->port = port;
-	stream->buff_size = buff_size;
+	stream->buff_size = buff_size-3;
 	stream->direction = direction;
-	streams[stream_id] = stream;
+	streams[XPAR_CPU_ID][stream_id] = stream;
 
 	return XST_SUCCESS;
 }
@@ -266,7 +264,7 @@ void stream_destroy( stream_id_type stream_id)
 
 	// Finally free our stream and our table entry
 	free(stream);
-	streams[stream_id] = NULL;
+	streams[XPAR_CPU_ID][stream_id] = NULL;
 }
 
 // pass in which port you want and who is master and slave for this stream
@@ -284,7 +282,8 @@ int stream_init( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		rval = XExample_tx_64_Initialize( stream->axi_config_tx, stream->X_ID );
+		rval = XExample_tx_piped64_Initialize( stream->axi_config_tx, stream->X_ID );
+		XExample_tx_piped64_EnableAutoRestart(stream->axi_config_tx);
 #else
 		rval = XExample_tx_128_Initialize( stream->axi_config_tx, stream->X_ID );
 #endif
@@ -292,7 +291,8 @@ int stream_init( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		rval = XExample_rx_64_Initialize( stream->axi_config_rx, stream->X_ID );
+		rval = XExample_rx_piped64_Initialize( stream->axi_config_rx, stream->X_ID );
+		XExample_rx_piped64_EnableAutoRestart(stream->axi_config_rx);
 #else
 		rval = XExample_rx_128_Initialize( stream->axi_config_rx, stream->X_ID );
 #endif
@@ -318,7 +318,7 @@ int stream_init( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		XExample_tx_64_Set_input_r( stream->axi_config_tx,(u32)stream->buff );
+		XExample_tx_piped64_Set_input_r( stream->axi_config_tx,(u32)stream->buff );
 #else
 		XExample_tx_128_Set_input_data( stream->axi_config_tx,(u32)stream->buff );
 #endif
@@ -326,7 +326,7 @@ int stream_init( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		XExample_rx_64_Set_output_r( stream->axi_config_rx,(u32)stream->buff );
+		XExample_rx_piped64_Set_output_r( stream->axi_config_rx,(u32)stream->buff );
 #else
 		XExample_rx_128_Set_output_data( stream->axi_config_rx,(u32)stream->buff );
 #endif
@@ -339,7 +339,7 @@ int stream_init( stream_id_type stream_id )
 	// SetupInterrupts()
 
 	// slave 3 from CCI man page. This enables snooping from the HPC0 and 1 ports
-	if( stream->memory == DDR )
+	if( stream->memory == DDR || stream->memory == OCM )
 	{
     	Xil_Out32(0xFD6E4000,0x0);
     	dmb();
@@ -348,6 +348,7 @@ int stream_init( stream_id_type stream_id )
     }
 
     // mark our memory regions as outer shareable which means it will not live in L1 but L2
+    // TODO make this a parameter for user to pass in or atleast a macro
 	if( stream->memory == CACHE /*|| stream->memory == OCM */)
 	{
     	Xil_Out32(0xFD6E4000,0x1);
@@ -355,15 +356,6 @@ int stream_init( stream_id_type stream_id )
 		Xil_SetTlbAttributes((UINTPTR)stream->buff, 0x605);
 		dmb();
 	}
-
-	if( stream->memory == OCM /*|| stream->memory == OCM */)
-	{
-    	Xil_Out32(0xFD6E4000,0x0);
-    	dmb();
-		Xil_SetTlbAttributes((UINTPTR)stream->buff, NORM_NONCACHE);
-		dmb();
-	}
-
     return XST_SUCCESS;
 }
 
@@ -419,7 +411,7 @@ uint32_t is_stream_done( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		return XExample_tx_64_IsDone(stream->axi_config_tx);
+		return XExample_tx_piped64_IsDone(stream->axi_config_tx);
 #else
 		return XExample_tx_128_IsDone(stream->axi_config_tx);
 #endif
@@ -427,7 +419,7 @@ uint32_t is_stream_done( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		return XExample_rx_64_IsDone(stream->axi_config_rx);
+		return XExample_rx_piped64_IsDone(stream->axi_config_rx);
 #else
 		return XExample_rx_128_IsDone(stream->axi_config_rx);
 #endif
@@ -446,7 +438,7 @@ void start_stream( stream_id_type stream_id )
 	if(stream->direction == TX )
 	{
 #ifdef IP_32
-		XExample_tx_64_Start(stream->axi_config_tx);
+		XExample_tx_piped64_Start(stream->axi_config_tx);
 #else
 		XExample_tx_128_Start(stream->axi_config_tx);
 #endif
@@ -454,7 +446,7 @@ void start_stream( stream_id_type stream_id )
 	else if(stream->direction == RX)
 	{
 #ifdef IP_32
-		XExample_rx_64_Start(stream->axi_config_rx);
+		XExample_rx_piped64_Start(stream->axi_config_rx);
 #else
 		XExample_rx_128_Start(stream->axi_config_rx);
 #endif
@@ -466,7 +458,7 @@ void start_stream( stream_id_type stream_id )
 /*
 * Simple read write with no handshaking
 */
-void block_write( stream_id_type stream_id, uint16_t data )
+void block_write( stream_id_type stream_id, uint32_t data )
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -476,13 +468,13 @@ void block_write( stream_id_type stream_id, uint16_t data )
 
 	while(1)
 	{
-		uint32_t temp = stream->buff[stream->ptr];
+		uint64_t temp = stream->buff[stream->ptr];
 		
 		// bit is high meaning that the data is not consumed yet
 		if( (temp & PRESENCE_BIT) == PRESENCE_BIT )
 		{
 			// wait some time
-			usleep(200);
+//			usleep(5);
 		}
 		else
 		{
@@ -496,7 +488,7 @@ void block_write( stream_id_type stream_id, uint16_t data )
 }
 
 
-uint16_t block_read( stream_id_type stream_id )
+uint32_t block_read( stream_id_type stream_id )
 {
 	//
 	stream_t* stream = safe_get_stream( stream_id );
@@ -504,24 +496,30 @@ uint16_t block_read( stream_id_type stream_id )
 	// stream should be created already
 	assert( stream != NULL );
 
+	int timeout = 0;
+
 	while(1)
 	{
 		// read data
-		uint32_t temp = stream->buff[stream->ptr];
+		uint64_t temp = stream->buff[stream->ptr];
 		
 		// bit is high meaning that the data is ready to be consumed
 		if( (temp & PRESENCE_BIT) == PRESENCE_BIT )
 		{
 			// clear the bit
-			stream->buff[stream->ptr] &= (~PRESENCE_BIT);
+			//			stream->buff[stream->ptr] &= (~PRESENCE_BIT);
+			stream->buff[stream->ptr] = 0;
 			stream->ptr++;
 			stream->ptr = stream->ptr % stream->buff_size;
-			return (temp & MASK16);
+			return (temp & MASK32);
 		}
 		else
 		{
 			// wait some time
-			usleep(200);
+//			usleep(5);
+			timeout++;
+			if(timeout == 2000)
+				break;
 		}
 	}
 
@@ -529,4 +527,115 @@ uint16_t block_read( stream_id_type stream_id )
 	return -1;
 }
 
+/*
+* Simple read write with no handshaking
+*/
+void block_write2( stream_id_type stream_id, uint32_t data )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+	uint16_t delay=0;
+
+	// read tail pointer
+	volatile uint64_t temp_tail = stream->buff[TAIL_POINTER];
+	stream->full = stream->buff[FULL_BIT]; //
+	while(1)
+	{
+		// read tail pointer
+		//uint64_t temp_tail = stream->buff[TAIL_POINTER];
+
+		if( ((stream->head + 1  == temp_tail && stream->full == 0)|| stream->full == 1) /*|| (temp_tail == 0 && stream->full == 1)*/ )
+		{
+			// can not write so we refresh our full state if we can not write
+			stream->full = stream->buff[FULL_BIT]; //
+			temp_tail = stream->buff[TAIL_POINTER];
+        }
+        else
+        {
+        	//if(stream->head == temp_tail) stream->full = 1;
+
+        	// write and update local pointer
+        	stream->buff[stream->head] = data;
+            stream->head++;  //increment the head
+            stream->head = stream->head % stream->buff_size;
+
+            // check for fullness fullness is being set prematurely
+            // when the wrap around occurs the read is waiting but the full bit is set then and the read occurs
+            if(stream->head == temp_tail) stream->full = 1;
+
+
+//            printf("head: %d tail: %d full: %d\n",stream->head,temp_tail,stream->full);
+
+            // update state
+            stream->buff[HEAD_POINTER] = stream->head;
+            if(stream->full == 1)
+            {
+            	stream->buff[FULL_BIT] = 1;
+            }
+
+            break;
+        }
+	}
+}
+
+// data is written to head and read from tail!!!
+uint32_t block_read2( stream_id_type stream_id )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+
+	int timeout = 0;
+	uint32_t data = 0;
+//	uint64_t full=0;
+
+	// read head pointer
+	volatile uint64_t temp_head = stream->buff[HEAD_POINTER];
+	stream->full = stream->buff[FULL_BIT];// refresh our full status
+	while(1)
+	{
+//		// read head pointer
+//		uint64_t temp_head = stream->buff[HEAD_POINTER];
+//		stream->full = stream->buff[FULL_BIT];// refresh our full status
+		// not allowed to read when the pointers are equal and the full bit is zero
+		//
+		if( (stream->tail == temp_head && stream->full==0)  )
+		{
+			stream->full = stream->buff[FULL_BIT];// refresh our full status
+			temp_head = stream->buff[HEAD_POINTER];
+        }
+		// head pointer is consumer and he has written something go get it
+		else
+		{
+
+            data = stream->buff[stream->tail];  //grab a byte from the buffer
+            stream->tail++;  //incrementthe tail
+            stream->tail = stream->tail % stream->buff_size;
+
+            //printf("head: %d tail: %d full: %d\n",temp_head,stream->tail,stream->buff[FULL_BIT]);
+            // write our new updated position
+            stream->buff[TAIL_POINTER] = stream->tail;
+            if(stream->full == 1)
+            {
+         	   stream->buff[FULL_BIT] = 0;
+         	   //stream->full=0;
+         	   //printf("buff full \n");
+            }
+
+            //stream->full=0;
+
+            return data;
+
+		}
+	}
+
+	//
+	return -1;
+}
 

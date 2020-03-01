@@ -7,6 +7,8 @@
 
 int run_benchmark( int buffer_size, memory_type memory, int time, axi_port_type port );
 int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_port_type port );
+int run_benchmark_flow( int buffer_size, memory_type memory, int time, axi_port_type port );
+int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port_type port );
 
 typedef struct wide_dt_struct{
     int data[NUM_ELEMENTS];

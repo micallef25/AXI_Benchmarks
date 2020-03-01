@@ -5,13 +5,17 @@
 
 #define IP_32
 #ifdef IP_32
-#include "xexample_tx_64.h"
-#include "xexample_rx_64.h"
+#include "xexample_tx_piped64.h"
+#include "xexample_rx_piped64.h"
 #else
 #include "xexample_tx_128.h"
 #include "xexample_rx_128.h"
 #endif
 
+
+#define HEAD_POINTER 99
+#define TAIL_POINTER 98
+#define FULL_BIT 97
 
 typedef struct packet_type{
 	uint32_t data;
@@ -49,6 +53,7 @@ enum stream_id_t{
 	STREAM_ID_2,
 	STREAM_ID_3,
 	STREAM_ID_4,
+	STREAM_ID_5,
 	MAX_NUMBER_OF_STREAMS,
 };
 
@@ -65,18 +70,23 @@ typedef struct stream_t{
 	//axi_config;
 
 	//
-	uint32_t buff_size;
+	uint64_t buff_size;
 	
 	// place in buffer
 	uint8_t ptr;
+
+	// head and tail pointers
+	volatile uint16_t head;
+	volatile uint16_t tail;
+	volatile uint8_t full;
 
 	// 
 	uint8_t msg_counter;
 
 	//
 #ifdef IP_32
-	XExample_tx_64* axi_config_tx;
-	XExample_rx_64* axi_config_rx;
+	XExample_tx_piped64* axi_config_tx;
+	XExample_rx_piped64* axi_config_rx;
 #else
 	XExample_tx_128* axi_config_tx;
 	XExample_rx_128* axi_config_rx;
@@ -109,6 +119,15 @@ typedef struct stream_t{
 	// read and write 
 	uint32_t simple_read( stream_id_type stream_id );
 	void simple_write( stream_id_type stream_id, uint32_t data );
+
+	//
+	void block_write( stream_id_type stream_id, uint32_t data );
+	uint32_t block_read( stream_id_type stream_id );
+
+	//
+	void block_write2( stream_id_type stream_id, uint32_t data );
+	uint32_t block_read2( stream_id_type stream_id );
+
 
 	// polling
 	uint32_t is_stream_done( stream_id_type stream_id );
