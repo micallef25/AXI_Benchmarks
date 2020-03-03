@@ -75,10 +75,14 @@ typedef struct stream_t{
 	// place in buffer
 	uint8_t ptr;
 
-	// head and tail pointers
+	// head and tail pointers dont even think these need to be volatile
 	volatile uint16_t head;
 	volatile uint16_t tail;
 	volatile uint8_t full;
+
+	// debugging shit
+	uint32_t bytes_read;
+	uint32_t bytes_written;
 
 	// 
 	uint8_t msg_counter;
@@ -141,6 +145,8 @@ typedef struct stream_t{
 
 	// start streams
 	void start_stream( stream_id_type stream_id );
+
+	void print_state( stream_id_type stream_id );
 
 
 #endif

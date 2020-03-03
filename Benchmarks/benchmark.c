@@ -157,7 +157,7 @@ void synchronize()
 		XMutex_Lock(&Mutex[XPAR_CPU_ID], MUTEX_NUM);	/* Acquire lock */
 
 		// default value of OCM is set to 0xdeadbeef so first processor to grab lock can clear
-		if(*ptr == 0xdeadbeef)
+		if(*ptr == 0xdeadbeef || ((*ptr % 2) == 0) )
 		{
 			*ptr = 0;
 			*ptr = *ptr + 1;
@@ -173,7 +173,7 @@ void synchronize()
 	}
 	while(*ptr != 2)
 	{
-		usleep(200);
+		usleep(1);
 	}
 }
 
@@ -503,49 +503,42 @@ int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port
 
 	synchronize();
 
-	int bytes_read = 0;
-//	while(bytes_read != 200){
-//		//int nbytes = burst_read( STREAM_ID_0, &test[bytes_read]);
-////		printf("bytes read %d\n",nbytes);
-////		bytes_read+=nbytes;
-//	}
-
-//	start_stream( STREAM_ID_5 );
 	int expected = 0;
+
+	volatile XTime*  deadptr = (0xFFFC0320);
+	//*deadptr = 0;
+
 	//
 	//
 	// Send data
 	for(int w = 0; w < buffer_size; w++)
 	for(int k = 0; k < buffer_size; k++)
 	for(int j = 0; j < buffer_size; j++)
+	for(int i = 0; i < buffer_size; i++)
 	{
-		for(int i = 0; i < buffer_size; i++)
-		{
-
 			uint32_t data = block_read2( STREAM_ID_0);
-			//printf("%s,%s,%u,%u,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3),query_metric(4),query_metric(5));
-			//printf("is done %d\n",is_stream_done( STREAM_ID_5 ));
-			//printf("data received from read: %d \n",data);
 			if(expected != data)
 			{
+				*deadptr = 1;
 //				volatile XTime* ptr1 = (0xFFFC0318);
 //				volatile XTime* ptr2 = (0xFFFC0310);
 //				volatile XTime* ptr3 = (0xFFFC0308);
 //				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
 				printf("Expected: %d received: %d \n",expected,data);
+				print_state(STREAM_ID_0);
 //				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
 				assert(expected == data);
 			}
 			expected++;
-//			usleep(100);
-		}
+			if(rand()%25 == 15)
+				usleep(rand()%100);
 	}
 	XTime timer_end;
 	XTime timer_start;
 	XTime_GetTime(&timer_end);
 
-	volatile XTime* ptr = (0xFFFE0008);
-	timer_start = *ptr;
+//	volatile XTime* ptr = (0xFFFE0008);
+//	timer_start = *ptr;
 	float cycles = timer_end-timer_start;
 	float bytes = buffer_size* buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
 	float tput = (bytes/cycles) * 1.2;
@@ -557,6 +550,7 @@ int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port
 	stream_destroy( STREAM_ID_0 );
 //	stream_destroy( STREAM_ID_3 );
 
+	synchronize();
 	//
 	//
 	// print results

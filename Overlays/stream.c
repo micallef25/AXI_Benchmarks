@@ -40,7 +40,7 @@
 static stream_t* streams[NUM_CORES][MAX_NUMBER_OF_STREAMS];
 
 // can partition our ocm #TODO change this later
-static uint32_t ocm_buff[MAX_NUMBER_OF_STREAMS] = {
+static volatile uint64_t* ocm_buff[MAX_NUMBER_OF_STREAMS] = {
 		OCM_BUFF1,
 		OCM_BUFF2,
 		OCM_BUFF3,
@@ -183,7 +183,7 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	}
 	else if( mem == OCM )
 	{
-		stream->buff = ocm_buff[stream_id];
+		stream->buff = (volatile uint64_t*)ocm_buff[stream_id];
 	}
 
 	stream->X_ID = id_array[stream_id];
@@ -225,6 +225,8 @@ int  stream_create( stream_id_type stream_id, uint32_t buff_size, direction_type
 	stream->port = port;
 	stream->buff_size = buff_size-3;
 	stream->direction = direction;
+	stream->bytes_written = 0;
+	stream->bytes_read = 0;
 	streams[XPAR_CPU_ID][stream_id] = stream;
 
 	return XST_SUCCESS;
@@ -283,7 +285,6 @@ int stream_init( stream_id_type stream_id )
 	{
 #ifdef IP_32
 		rval = XExample_tx_piped64_Initialize( stream->axi_config_tx, stream->X_ID );
-		XExample_tx_piped64_EnableAutoRestart(stream->axi_config_tx);
 #else
 		rval = XExample_tx_128_Initialize( stream->axi_config_tx, stream->X_ID );
 #endif
@@ -292,7 +293,6 @@ int stream_init( stream_id_type stream_id )
 	{
 #ifdef IP_32
 		rval = XExample_rx_piped64_Initialize( stream->axi_config_rx, stream->X_ID );
-		XExample_rx_piped64_EnableAutoRestart(stream->axi_config_rx);
 #else
 		rval = XExample_rx_128_Initialize( stream->axi_config_rx, stream->X_ID );
 #endif
@@ -528,7 +528,7 @@ uint32_t block_read( stream_id_type stream_id )
 }
 
 /*
-* Simple read write with no handshaking
+* write a byte of data
 */
 void block_write2( stream_id_type stream_id, uint32_t data )
 {
@@ -540,49 +540,59 @@ void block_write2( stream_id_type stream_id, uint32_t data )
 
 	uint16_t delay=0;
 
-	// read tail pointer
-	volatile uint64_t temp_tail = stream->buff[TAIL_POINTER];
+	// update status
+	stream->tail = stream->buff[TAIL_POINTER];
 	stream->full = stream->buff[FULL_BIT]; //
+
 	while(1)
 	{
-		// read tail pointer
-		//uint64_t temp_tail = stream->buff[TAIL_POINTER];
 
-		if( ((stream->head + 1  == temp_tail && stream->full == 0)|| stream->full == 1) /*|| (temp_tail == 0 && stream->full == 1)*/ )
+		//
+		// Not allowed to write when stream is full or the next update will collide
+		// was head +1
+//		if( (stream->head + 1  == stream->tail && stream->full == 0)|| stream->full == 1 )
+		if( (stream->head == stream->tail  && stream->full == 1) || stream->full == 1 )
 		{
-			// can not write so we refresh our full state if we can not write
+			// can not write so we refresh our status and check again
 			stream->full = stream->buff[FULL_BIT]; //
-			temp_tail = stream->buff[TAIL_POINTER];
+			stream->tail  = stream->buff[TAIL_POINTER];
         }
         else
         {
-        	//if(stream->head == temp_tail) stream->full = 1;
+            //
+            // set fullness if necessary
+            //if(stream->head == stream->buff_size-1) stream->full = 1;
 
+        	//
         	// write and update local pointer
         	stream->buff[stream->head] = data;
-            stream->head++;  //increment the head
+            stream->head++;
             stream->head = stream->head % stream->buff_size;
 
-            // check for fullness fullness is being set prematurely
-            // when the wrap around occurs the read is waiting but the full bit is set then and the read occurs
-            if(stream->head == temp_tail) stream->full = 1;
 
+//            printf("head: %d tail: %d full: %d\n",stream->head,stream->tail,stream->full);
 
-//            printf("head: %d tail: %d full: %d\n",stream->head,temp_tail,stream->full);
-
-            // update state
-            stream->buff[HEAD_POINTER] = stream->head;
-            if(stream->full == 1)
-            {
-            	stream->buff[FULL_BIT] = 1;
+//             set fullness if necessary
+            if(stream->head == stream->tail) {
+            	stream->full = 1;
             }
 
+
+            //
+            // update state
+            stream->buff[HEAD_POINTER] = stream->head;
+            if(stream->full == 1){
+            	stream->buff[FULL_BIT] = 1;
+            }
+            stream->bytes_written++;
             break;
         }
 	}
 }
 
-// data is written to head and read from tail!!!
+//
+// reads one byte from the buffer
+//
 uint32_t block_read2( stream_id_type stream_id )
 {
 	//
@@ -595,42 +605,40 @@ uint32_t block_read2( stream_id_type stream_id )
 	uint32_t data = 0;
 
 	// read head pointer
-	volatile uint64_t temp_head = stream->buff[HEAD_POINTER];
+	stream->head = stream->buff[HEAD_POINTER];
 	stream->full = stream->buff[FULL_BIT];// refresh our full status
 
 
 	while(1)
 	{
-//		// read head pointer
-//		uint64_t temp_head = stream->buff[HEAD_POINTER];
-//		stream->full = stream->buff[FULL_BIT];// refresh our full status
+
+		//
 		// not allowed to read when the pointers are equal and the full bit is zero
 		//
-		if( (stream->tail == temp_head && stream->full==0)  )
+		if( (stream->tail == stream->head) && stream->full==0 )
 		{
-			stream->full = stream->buff[FULL_BIT];// refresh our full status
-			temp_head = stream->buff[HEAD_POINTER];
+			//
+			// refresh status
+			stream->full = stream->buff[FULL_BIT];
+			stream->head = stream->buff[HEAD_POINTER];
         }
-		// head pointer is consumer and he has written something go get it
 		else
 		{
-
-            data = stream->buff[stream->tail];  //grab a byte from the buffer
-            stream->tail++;  //incrementthe tail
+			//
+            // grab data and update pointers
+			//
+			data = stream->buff[stream->tail];
+            stream->tail++;
             stream->tail = stream->tail % stream->buff_size;
 
-            //printf("head: %d tail: %d full: %d\n",temp_head,stream->tail,stream->buff[FULL_BIT]);
+//            printf("head: %d tail: %d full: %d\n",stream->tail,stream->tail,stream->full);
+
             // write our new updated position
             stream->buff[TAIL_POINTER] = stream->tail;
-            if(stream->full == 1)
-            {
+            if(stream->full == 1){
          	   stream->buff[FULL_BIT] = 0;
-         	   //stream->full=0;
-         	   //printf("buff full \n");
             }
-
-            //stream->full=0;
-
+            stream->bytes_read++;
             return data;
 
 		}
@@ -638,6 +646,16 @@ uint32_t block_read2( stream_id_type stream_id )
 
 	//
 	return -1;
+}
+
+void print_state( stream_id_type stream_id )
+{
+	//
+	stream_t* stream = safe_get_stream( stream_id );
+
+	// stream should be created already
+	assert( stream != NULL );
+	printf("head : %d tail : %d full : %d read : %d wrote : %d \n",stream->head,stream->tail,stream->full,stream->bytes_read,stream->bytes_written);
 }
 
 
@@ -693,7 +711,7 @@ uint32_t burst_read_single( stream_id_type stream_id,uint64_t* data_out )
 				stream->tail = stream->tail % stream->buff_size;
 			}
 
-
+//			stream->bytes_written++;
             //printf("head: %d tail: %d full: %d\n",temp_head,stream->tail,stream->buff[FULL_BIT]);
 
 
