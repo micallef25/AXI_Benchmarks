@@ -158,28 +158,31 @@ int Setup_AxiPmon( int slot )
 	 * calling below function again.
 	 */
 
-	if( slot == 1){
-	//
-	// read from memory calcs
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, 0, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
+//	if( slot == 1){
+//	//
+//	// read from memory calcs
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 0, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_0);
 	XAxiPmon_SetMetrics(AxiPmonInstPtr, 0, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_1);
 
 	//
 	// write to memory
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_6,XAPM_METRIC_COUNTER_2);
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_3);
-	}
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_2);
+	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_3);
 
-	if(slot == 0){
-	// read from memory calcs
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, 2, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, 2, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_1);
+//	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_4);
+//	XAxiPmon_SetMetrics(AxiPmonInstPtr, 1, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_5);
+//	}
 //
-//	//
-//	// write to memory
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, 3, XAPM_METRIC_SET_6,XAPM_METRIC_COUNTER_2);
-	XAxiPmon_SetMetrics(AxiPmonInstPtr, 3, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_3);
-	}
+//	if(slot == 0){
+//	// read from memory calcs
+//	XAxiPmon_SetMetrics(AxiPmonInstPtr, 2, XAPM_METRIC_SET_5,XAPM_METRIC_COUNTER_0);
+//	XAxiPmon_SetMetrics(AxiPmonInstPtr, 2, XAPM_METRIC_SET_1,XAPM_METRIC_COUNTER_1);
+////
+////	//
+////	// write to memory
+//	XAxiPmon_SetMetrics(AxiPmonInstPtr, 3, XAPM_METRIC_SET_6,XAPM_METRIC_COUNTER_2);
+//	XAxiPmon_SetMetrics(AxiPmonInstPtr, 3, XAPM_METRIC_SET_0,XAPM_METRIC_COUNTER_3);
+//	}
 
 
 //	XAxiPmon_StartCounters(AxiPmonInstPtr, 1000);

@@ -12,10 +12,10 @@
 #include "xexample_rx_128.h"
 #endif
 
-
-#define HEAD_POINTER 99
-#define TAIL_POINTER 98
-#define FULL_BIT 97
+//#define BUFFER_SIZE 258 // needs to be power of 2 + 2
+//#define HEAD_POINTER 256
+//#define TAIL_POINTER 257
+//#define FULL_BIT 97
 
 typedef struct packet_type{
 	uint32_t data;
@@ -26,6 +26,13 @@ typedef struct packet_type{
 enum direction_t{
 	TX = 0,
 	RX = 1,
+};
+
+enum meta_data_t{
+	RAW_BUFFER_SIZE = 258,
+	HEAD_POINTER = 257,
+	TAIL_POINTER = 256,
+	MASK = 255,
 };
 
 enum memory_t{
@@ -61,6 +68,7 @@ typedef enum direction_t direction_type;
 typedef enum memory_t memory_type;
 typedef enum stream_id_t stream_id_type;
 typedef enum axi_port_t axi_port_type;
+typedef enum meta_data_t meta_data_type;
 
 typedef struct stream_t{
 
@@ -75,12 +83,11 @@ typedef struct stream_t{
 	// place in buffer
 	uint8_t ptr;
 
-	// head and tail pointers dont even think these need to be volatile
-	volatile uint16_t head;
-	volatile uint16_t tail;
-	volatile uint8_t full;
+	// head and tail pointers
+	volatile uint64_t head;
+	volatile uint64_t tail;
 
-	// debugging shit
+	//
 	uint32_t bytes_read;
 	uint32_t bytes_written;
 
@@ -125,12 +132,12 @@ typedef struct stream_t{
 	void simple_write( stream_id_type stream_id, uint32_t data );
 
 	//
-	void block_write( stream_id_type stream_id, uint32_t data );
-	uint32_t block_read( stream_id_type stream_id );
+	void presence_write( stream_id_type stream_id, uint32_t data );
+	uint32_t presence_read( stream_id_type stream_id );
 
 	//
-	void block_write2( stream_id_type stream_id, uint32_t data );
-	uint32_t block_read2( stream_id_type stream_id );
+	void circular_write( stream_id_type stream_id, uint64_t data );
+	uint64_t circular_read( stream_id_type stream_id );
 
 	//
 	uint32_t burst_read( stream_id_type stream_id,uint64_t* data_out, uint32_t length );

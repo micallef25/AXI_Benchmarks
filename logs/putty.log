@@ -6608,3 +6608,2455 @@ head : 7 tail : 4 full : 0 read : 4 wrote : 0
 assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
 head : 10 tail : 3 full : 0 read : 0 wrote : 10 
 assertion "0" failed: file "../src/Benchmarks/benchmark.c", line 485, function: run_benchmark_flow2
+Starting Tests
+Expected: 3 received: 0 
+head : 7 tail : 4 full : 0 read : 4 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+head : 10 tail : 3 full : 0 read : 0 wrote : 10 
+assertion "0" failed: file "../src/Benchmarks/benchmark.c", line 485, function: run_benchmark_flow2
+Starting Tests
+Starting Tests
+Expected: 3 received: 0 
+head : 7 tail : 4 full : 0 read : 4 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+head : 10 tail : 3 full : 0 read : 0 wrote : 10 
+assertion "0" failed: file "../src/Benchmarks/benchmark.c", line 485, function: run_benchmark_flow2
+Starting Tests
+Expected: 3 received: 0 
+head : 7 tail : 4 full : 0 read : 4 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+head : 10 tail : 3 full : 0 read : 0 wrote : 10 
+assertion "0" failed: file "../src/Benchmarks/benchmark.c", line 485, function: run_benchmark_flow2
+Starting Tests
+Expected: 648 received: 745 
+head : 67 tail : 67 full : 0 read : 649 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 343 received: 440 
+head : 54 tail : 53 full : 1 read : 344 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 155 received: 58 
+head : 64 tail : 59 full : 0 read : 156 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 390 received: 487 
+head : 4 tail : 3 full : 0 read : 391 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 2295 received: 2198 
+head : 69 tail : 65 full : 0 read : 2296 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 3 received: 0 
+head : 5 tail : 4 full : 0 read : 4 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 3 received: 0 
+head : 5 tail : 4 full : 0 read : 4 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 2425 received: 2522 
+head : 17 tail : 1 full : 0 read : 2426 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 2425 received: 2522 
+head : 17 tail : 1 full : 0 read : 2426 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Throughput ~ 0.032797 GBps 
+Throughput ~ 0.016680 GBps 
+Throughput ~ 0.011184 GBps 
+Throughput ~ 0.008411 GBps 
+Throughput ~ 0.006740 GBps 
+Throughput ~ 0.005624 GBps 
+Throughput ~ 0.004824 GBps 
+Throughput ~ 0.004224 GBps 
+Throughput ~ 0.003756 GBps 
+Throughput ~ 0.003382 GBps 
+Tests Complete
+Starting Tests
+Throughput ~ 0.218509 GBps 
+Throughput ~ 0.114793 GBps 
+Throughput ~ 0.077844 GBps 
+Throughput ~ 0.058889 GBps 
+Throughput ~ 0.047358 GBps 
+Throughput ~ 0.039603 GBps 
+Throughput ~ 0.034030 GBps 
+Throughput ~ 0.029832 GBps 
+Throughput ~ 0.026556 GBps 
+Throughput ~ 0.023929 GBps 
+Tests Complete
+Starting Tests
+Throughput ~ 0.236630 GBps 
+Throughput ~ 0.236837 GBps 
+Throughput ~ 0.236825 GBps 
+Throughput ~ 0.236805 GBps 
+Throughput ~ 0.236826 GBps 
+Throughput ~ 0.236835 GBps 
+Throughput ~ 0.236825 GBps 
+Throughput ~ 0.236815 GBps 
+Throughput ~ 0.236823 GBps 
+Throughput ~ 0.236810 GBps 
+Tests Complete
+Starting Tests
+Expected: 381730 received: 381633 
+head : 37 tail : 36 full : 0 read : 381731 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Starting Tests
+Expected: 428327 received: 428230 
+head : 75 tail : 73 full : 0 read : 428328 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 435165 received: 435068 
+head : 29 tail : 24 full : 0 read : 435166 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Starting Tests
+Throughput ~ 0.360920 GBps 
+Throughput ~ 0.361513 GBps 
+Throughput ~ 0.361310 GBps 
+Throughput ~ 0.361691 GBps 
+Throughput ~ 0.361568 GBps 
+Throughput ~ 0.361659 GBps 
+Throughput ~ 0.361444 GBps 
+Throughput ~ 0.361377 GBps 
+Throughput ~ 0.361757 GBps 
+Throughput ~ 0.361546 GBps 
+Tests Complete
+Starting Tests
+Throughput ~ 0.361502 GBps 
+Throughput ~ 0.362205 GBps 
+Throughput ~ 0.362131 GBps 
+Throughput ~ 0.361744 GBps 
+Throughput ~ 0.362156 GBps 
+Throughput ~ 0.362218 GBps 
+Throughput ~ 0.362193 GBps 
+Throughput ~ 0.362049 GBps 
+Throughput ~ 0.362056 GBps 
+Throughput ~ 0.362049 GBps 
+Throughput ~ 0.361934 GBps 
+Throughput ~ 0.361804 GBps 
+Throughput ~ 0.362093 GBps 
+Throughput ~ 0.362226 GBps 
+Throughput ~ 0.361804 GBps 
+Throughput ~ 0.361955 GBps 
+Throughput ~ 0.361529 GBps 
+Throughput ~ 0.362217 GBps 
+Throughput ~ 0.362177 GBps 
+Throughput ~ 0.361957 GBps 
+Throughput ~ 0.361771 GBps 
+Throughput ~ 0.362135 GBps 
+Throughput ~ 0.362196 GBps 
+Throughput ~ 0.362039 GBps 
+Throughput ~ 0.362087 GBps 
+Throughput ~ 0.361826 GBps 
+Throughput ~ 0.361840 GBps 
+Throughput ~ 0.361959 GBps 
+Throughput ~ 0.361969 GBps 
+Throughput ~ 0.362279 GBps 
+Throughput ~ 0.361778 GBps 
+Throughput ~ 0.362107 GBps 
+Throughput ~ 0.361969 GBps 
+Throughput ~ 0.361956 GBps 
+Throughput ~ 0.361959 GBps 
+Throughput ~ 0.362106 GBps 
+Throughput ~ 0.362222 GBps 
+Throughput ~ 0.361708 GBps 
+Throughput ~ 0.361843 GBps 
+Throughput ~ 0.361857 GBps 
+Throughput ~ 0.362136 GBps 
+Throughput ~ 0.361953 GBps 
+Throughput ~ 0.361739 GBps 
+Throughput ~ 0.362023 GBps 
+Throughput ~ 0.362185 GBps 
+Throughput ~ 0.361816 GBps 
+Throughput ~ 0.362035 GBps 
+Throughput ~ 0.362062 GBps 
+Throughput ~ 0.361889 GBps 
+Throughput ~ 0.362150 GBps 
+Throughput ~ 0.361869 GBps 
+Throughput ~ 0.362186 GBps 
+Throughput ~ 0.362267 GBps 
+Throughput ~ 0.362161 GBps 
+Throughput ~ 0.361958 GBps 
+Throughput ~ 0.362017 GBps 
+Throughput ~ 0.361860 GBps 
+Throughput ~ 0.361778 GBps 
+Throughput ~ 0.362006 GBps 
+Throughput ~ 0.362060 GBps 
+Throughput ~ 0.361935 GBps 
+Throughput ~ 0.362071 GBps 
+Throughput ~ 0.362021 GBps 
+Throughput ~ 0.361953 GBps 
+Throughput ~ 0.361933 GBps 
+Throughput ~ 0.362196 GBps 
+Throughput ~ 0.362123 GBps 
+Throughput ~ 0.361795 GBps 
+Throughput ~ 0.362007 GBps 
+Throughput ~ 0.362040 GBps 
+Throughput ~ 0.361908 GBps 
+Throughput ~ 0.361916 GBps 
+Throughput ~ 0.361682 GBps 
+Throughput ~ 0.361776 GBps 
+Throughput ~ 0.362157 GBps 
+Throughput ~ 0.362249 GBps 
+Throughput ~ 0.362020 GBps 
+Throughput ~ 0.361982 GBps 
+Throughput ~ 0.362133 GBps 
+Throughput ~ 0.361813 GBps 
+Throughput ~ 0.361854 GBps 
+Throughput ~ 0.362082 GBps 
+Throughput ~ 0.361950 GBps 
+Throughput ~ 0.361949 GBps 
+Throughput ~ 0.361746 GBps 
+Throughput ~ 0.361776 GBps 
+Throughput ~ 0.362044 GBps 
+Throughput ~ 0.362094 GBps 
+Throughput ~ 0.361957 GBps 
+Throughput ~ 0.362205 GBps 
+Throughput ~ 0.361794 GBps 
+Throughput ~ 0.362083 GBps 
+Throughput ~ 0.362111 GBps 
+Throughput ~ 0.362120 GBps 
+Throughput ~ 0.361803 GBps 
+Throughput ~ 0.361985 GBps 
+Throughput ~ 0.361916 GBps 
+Throughput ~ 0.362252 GBps 
+Throughput ~ 0.361894 GBps 
+Throughput ~ 0.362075 GBps 
+Tests Complete
+Starting Tests
+Expected: 3 received: 0 
+head : 6 tail : 4 full : 0 read : 4 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Expected: 38282 received: -1 
+head : 0 tail : 0 full : 0 read : 0 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 530, function: run_benchmark_flow2
+Starting Tests
+Starting Tests
+Throughput ~ 0.600307 GBps 
+Throughput ~ 0.601452 GBps 
+Throughput ~ 0.601448 GBps 
+Throughput ~ 0.601439 GBps 
+Throughput ~ 0.601447 GBps 
+Throughput ~ 0.601450 GBps 
+Throughput ~ 0.601451 GBps 
+Throughput ~ 0.601450 GBps 
+Throughput ~ 0.601447 GBps 
+Throughput ~ 0.601454 GBps 
+Throughput ~ 0.601445 GBps 
+Throughput ~ 0.601443 GBps 
+Throughput ~ 0.601449 GBps 
+Throughput ~ 0.601451 GBps 
+Throughput ~ 0.601451 GBps 
+Throughput ~ 0.601447 GBps 
+Throughput ~ 0.601448 GBps 
+Throughput ~ 0.601455 GBps 
+Throughput ~ 0.601446 GBps 
+Throughput ~ 0.601446 GBps 
+Throughput ~ 0.601445 GBps 
+Throughput ~ 0.601454 GBps 
+Throughput ~ 0.601450 GBps 
+Throughput ~ 0.601453 GBps 
+Throughput ~ 0.601448 GBps 
+Throughput ~ 0.601447 GBps 
+Throughput ~ 0.601445 GBps 
+Throughput ~ 0.601446 GBps 
+Throughput ~ 0.601443 GBps 
+Throughput ~ 0.601445 GBps 
+Throughput ~ 0.601433 GBps 
+Throughput ~ 0.601432 GBps 
+Throughput ~ 0.601440 GBps 
+Throughput ~ 0.601447 GBps 
+Throughput ~ 0.601448 GBps 
+Throughput ~ 0.601447 GBps 
+Throughput ~ 0.601449 GBps 
+Throughput ~ 0.601445 GBps 
+Throughput ~ 0.601439 GBps 
+Throughput ~ 0.601444 GBps 
+Throughput ~ 0.601448 GBps 
+Throughput ~ 0.601442 GBps 
+Starting Tests
+cycles to write 8000000 CACHE bytes: 2511573
+Throughput ~ 3.822306 GBps 
+cycles to read 8000000 CACHE bytes: 2095009
+Throughput ~ 4.582319 GBps 
+
+cycles to write 40000 CACHE bytes: 26069
+cycles to read 40000 CACHE bytes: 21994
+Starting Tests
+cycles to write 8000000 CACHE bytes: 2511574
+Throughput ~ 3.822304 GBps 
+cycles to read 8000000 CACHE bytes: 2095031
+Throughput ~ 4.582271 GBps 
+
+cycles to write 40000 CACHE bytes: 26071
+cycles to read 40000 CACHE bytes: 21879
+Throughput ~ 0.607633 GBps 
+Throughput ~ 0.608873 GBps 
+Throughput ~ 0.608876 GBps 
+Throughput ~ 0.608875 GBps 
+Throughput ~ 0.608863 GBps 
+Throughput ~ 0.608871 GBps 
+Throughput ~ 0.608867 GBps 
+Throughput ~ 0.608868 GBps 
+Starting Tests
+cycles to write 8000000 CACHE bytes: 2511574
+Throughput ~ 3.822304 GBps 
+cycles to read 8000000 CACHE bytes: 2095034
+Throughput ~ 4.582264 GBps 
+
+cycles to write 8000000 OCM bytes: 2511554
+Throughput ~ 3.822335 GBps 
+cycles to write 40000 CACHE bytes: 26072
+cycles to read 40000 CACHE bytes: 21879
+cycles to write 40000 OCM bytes: 26028
+cycles to read 40000 OCM bytes: 125298
+cycles to read 8000000 OCM bytes: 13841958
+Throughput ~ 0.693543 GBps 
+
+Throughput ~ 0.608336 GBps 
+Throughput ~ 0.608957 GBps 
+Throughput ~ 0.608956 GBps 
+Throughput ~ 0.608952 GBps 
+Throughput ~ 0.608960 GBps 
+Throughput ~ 0.608953 GBps 
+Throughput ~ 0.608957 GBps 
+Throughput ~ 0.608953 GBps 
+Throughput ~ 0.608957 GBps 
+Throughput ~ 0.608958 GBps 
+Throughput ~ 0.608954 GBps 
+Throughput ~ 0.608961 GBps 
+Throughput ~ 0.608963 GBps 
+Throughput ~ 0.608952 GBps 
+Throughput ~ 0.608954 GBps 
+Throughput ~ 0.608963 GBps 
+Throughput ~ 0.608961 GBps 
+Throughput ~ 0.608959 GBps 
+Throughput ~ 0.608956 GBps 
+Throughput ~ 0.608954 GBps 
+Throughput ~ 0.608957 GBps 
+Throughput ~ 0.608961 GBps 
+Throughput ~ 0.608953 GBps 
+Throughput ~ 0.608958 GBps 
+Throughput ~ 0.608956 GBps 
+Starting Tests
+cycles to write 8000000 CACHE bytes: 2511575
+Throughput ~ 3.822303 GBps 
+cycles to read 8000000 CACHE bytes: 2095023
+Throughput ~ 4.582288 GBps 
+
+cycles to write 8000000 OCM bytes: 2511575
+Throughput ~ 3.822303 GBps 
+cycles to write 40000 CACHE bytes: 26070
+cycles to read 40000 CACHE bytes: 21982
+cycles to write 40000 OCM bytes: 26026
+cycles to read 40000 OCM bytes: 127704
+cycles to read 8000000 OCM bytes: 14047829
+Throughput ~ 0.683380 GBps 
+
+Throughput ~ 0.041625 GBps 
+Throughput ~ 0.041670 GBps 
+Throughput ~ 0.041720 GBps 
+Throughput ~ 0.041684 GBps 
+Throughput ~ 0.041661 GBps 
+Throughput ~ 0.041674 GBps 
+Starting Tests
+Starting Tests
+Throughput ~ 0.353119 GBps 
+Throughput ~ 0.353633 GBps 
+Throughput ~ 0.353535 GBps 
+Throughput ~ 0.353601 GBps 
+Throughput ~ 0.353597 GBps 
+Throughput ~ 0.353629 GBps 
+Throughput ~ 0.353596 GBps 
+Throughput ~ 0.353542 GBps 
+Throughput ~ 0.353543 GBps 
+Throughput ~ 0.353602 GBps 
+Throughput ~ 0.353630 GBps 
+Throughput ~ 0.353607 GBps 
+Throughput ~ 0.353632 GBps 
+Throughput ~ 0.353633 GBps 
+Throughput ~ 0.353619 GBps 
+Throughput ~ 0.353607 GBps 
+Throughput ~ 0.353631 GBps 
+Throughput ~ 0.353539 GBps 
+Throughput ~ 0.353601 GBps 
+Throughput ~ 0.353538 GBps 
+Throughput ~ 0.353537 GBps 
+Throughput ~ 0.353538 GBps 
+Throughput ~ 0.353623 GBps 
+Throughput ~ 0.353541 GBps 
+Throughput ~ 0.353583 GBps 
+Throughput ~ 0.353542 GBps 
+Throughput ~ 0.353630 GBps 
+Throughput ~ 0.353605 GBps 
+Throughput ~ 0.353629 GBps 
+Throughput ~ 0.353543 GBps 
+Throughput ~ 0.353544 GBps 
+Throughput ~ 0.353545 GBps 
+Throughput ~ 0.353543 GBps 
+Throughput ~ 0.353636 GBps 
+Throughput ~ 0.353540 GBps 
+Throughput ~ 0.353601 GBps 
+Throughput ~ 0.353540 GBps 
+Throughput ~ 0.353598 GBps 
+Throughput ~ 0.353536 GBps 
+Throughput ~ 0.353608 GBps 
+Throughput ~ 0.353549 GBps 
+Throughput ~ 0.353617 GBps 
+Throughput ~ 0.353531 GBps 
+Throughput ~ 0.353643 GBps 
+Throughput ~ 0.353548 GBps 
+Throughput ~ 0.353634 GBps 
+Throughput ~ 0.353545 GBps 
+Throughput ~ 0.353636 GBps 
+Throughput ~ 0.353544 GBps 
+Throughput ~ 0.353637 GBps 
+Throughput ~ 0.353609 GBps 
+Throughput ~ 0.353607 GBps 
+Throughput ~ 0.353604 GBps 
+Throughput ~ 0.353590 GBps 
+Throughput ~ 0.353590 GBps 
+Throughput ~ 0.353546 GBps 
+Throughput ~ 0.353634 GBps 
+Throughput ~ 0.353604 GBps 
+Throughput ~ 0.353635 GBps 
+Throughput ~ 0.353599 GBps 
+Throughput ~ 0.353638 GBps 
+Throughput ~ 0.353548 GBps 
+Throughput ~ 0.353526 GBps 
+Throughput ~ 0.353599 GBps 
+Throughput ~ 0.353633 GBps 
+Throughput ~ 0.353607 GBps 
+Throughput ~ 0.353614 GBps 
+Throughput ~ 0.353631 GBps 
+Throughput ~ 0.353613 GBps 
+Throughput ~ 0.353605 GBps 
+Throughput ~ 0.353612 GBps 
+Throughput ~ 0.353546 GBps 
+Throughput ~ 0.353546 GBps 
+Throughput ~ 0.353548 GBps 
+Throughput ~ 0.353606 GBps 
+Throughput ~ 0.353545 GBps 
+Throughput ~ 0.353608 GBps 
+Throughput ~ 0.353608 GBps 
+Throughput ~ 0.353544 GBps 
+Throughput ~ 0.353545 GBps 
+Throughput ~ 0.353607 GBps 
+Throughput ~ 0.353612 GBps 
+Throughput ~ 0.353609 GBps 
+Throughput ~ 0.353613 GBps 
+Throughput ~ 0.353526 GBps 
+Throughput ~ 0.353609 GBps 
+Throughput ~ 0.353522 GBps 
+Throughput ~ 0.353526 GBps 
+Throughput ~ 0.353547 GBps 
+Throughput ~ 0.353600 GBps 
+Throughput ~ 0.353540 GBps 
+Throughput ~ 0.353606 GBps 
+Throughput ~ 0.353602 GBps 
+Throughput ~ 0.353543 GBps 
+Throughput ~ 0.353595 GBps 
+Throughput ~ 0.353529 GBps 
+Throughput ~ 0.353642 GBps 
+Throughput ~ 0.353612 GBps 
+Starting Tests
+Throughput ~ 0.041632 GBps 
+Throughput ~ 0.041680 GBps 
+Throughput ~ 0.041729 GBps 
+Throughput ~ 0.041694 GBps 
+Throughput ~ 0.041671 GBps 
+Throughput ~ 0.041684 GBps 
+Throughput ~ 0.041682 GBps 
+Throughput ~ 0.041679 GBps 
+Throughput ~ 0.041629 GBps 
+Throughput ~ 0.041687 GBps 
+Throughput ~ 0.041647 GBps 
+Throughput ~ 0.041678 GBps 
+Throughput ~ 0.041643 GBps 
+Throughput ~ 0.041657 GBps 
+Throughput ~ 0.041676 GBps 
+Throughput ~ 0.041663 GBps 
+Throughput ~ 0.041637 GBps 
+Throughput ~ 0.041660 GBps 
+Throughput ~ 0.041673 GBps 
+Throughput ~ 0.041696 GBps 
+Throughput ~ 0.041670 GBps 
+Throughput ~ 0.041643 GBps 
+Throughput ~ 0.041661 GBps 
+Throughput ~ 0.041663 GBps 
+Throughput ~ 0.041678 GBps 
+Throughput ~ 0.041636 GBps 
+Throughput ~ 0.041688 GBps 
+Throughput ~ 0.041670 GBps 
+Throughput ~ 0.041674 GBps 
+Throughput ~ 0.041652 GBps 
+Throughput ~ 0.041676 GBps 
+Throughput ~ 0.041652 GBps 
+Throughput ~ 0.041638 GBps 
+Throughput ~ 0.041677 GBps 
+Throughput ~ 0.041646 GBps 
+Throughput ~ 0.041700 GBps 
+Throughput ~ 0.041636 GBps 
+Throughput ~ 0.041658 GBps 
+Throughput ~ 0.041630 GBps 
+Throughput ~ 0.041673 GBps 
+Throughput ~ 0.041696 GBps 
+Throughput ~ 0.041659 GBps 
+Throughput ~ 0.041698 GBps 
+Throughput ~ 0.041670 GBps 
+Throughput ~ 0.041654 GBps 
+Throughput ~ 0.041676 GBps 
+Throughput ~ 0.041636 GBps 
+Throughput ~ 0.041659 GBps 
+Throughput ~ 0.041633 GBps 
+Throughput ~ 0.041650 GBps 
+Throughput ~ 0.041665 GBps 
+Throughput ~ 0.041689 GBps 
+Throughput ~ 0.041671 GBps 
+Throughput ~ 0.041649 GBps 
+Throughput ~ 0.041687 GBps 
+Throughput ~ 0.041638 GBps 
+Throughput ~ 0.041693 GBps 
+Throughput ~ 0.041652 GBps 
+Throughput ~ 0.041676 GBps 
+Throughput ~ 0.041681 GBps 
+Throughput ~ 0.041638 GBps 
+Throughput ~ 0.041700 GBps 
+Throughput ~ 0.041648 GBps 
+Throughput ~ 0.041634 GBps 
+Throughput ~ 0.041659 GBps 
+Throughput ~ 0.041668 GBps 
+Throughput ~ 0.041680 GBps 
+Throughput ~ 0.041658 GBps 
+Throughput ~ 0.041655 GBps 
+Throughput ~ 0.041652 GBps 
+Throughput ~ 0.041665 GBps 
+Throughput ~ 0.041668 GBps 
+Throughput ~ 0.041669 GBps 
+Throughput ~ 0.041713 GBps 
+Throughput ~ 0.041688 GBps 
+Throughput ~ 0.041657 GBps 
+Throughput ~ 0.041700 GBps 
+Throughput ~ 0.041680 GBps 
+Throughput ~ 0.041649 GBps 
+Throughput ~ 0.041703 GBps 
+Throughput ~ 0.041661 GBps 
+Throughput ~ 0.041634 GBps 
+Throughput ~ 0.041684 GBps 
+Throughput ~ 0.041695 GBps 
+Throughput ~ 0.041640 GBps 
+Throughput ~ 0.041663 GBps 
+Throughput ~ 0.041700 GBps 
+Throughput ~ 0.041636 GBps 
+Throughput ~ 0.041664 GBps 
+Throughput ~ 0.041654 GBps 
+Throughput ~ 0.041635 GBps 
+Throughput ~ 0.041707 GBps 
+Throughput ~ 0.041679 GBps 
+Throughput ~ 0.041650 GBps 
+Throughput ~ 0.041661 GBps 
+Throughput ~ 0.041684 GBps 
+Throughput ~ 0.041702 GBps 
+Throughput ~ 0.041628 GBps 
+Throughput ~ 0.041656 GBps 
+Throughput ~ 0.041677 GBps 
+Tests Complete
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World from core: 1 
+ÀHello World from core: 1 
+Hello World from core: 1 
+Hello World from core: 1 
+Hello World from core: 1 
+Hello World from core: 1 
+Hello World From Core: 3Hello World From Core: 3
+Hello World From Core: 3
+2Hello World From Core: 1
+2Hello World From Core: 1
+2Hello World From Core: 1
+2Hello World From Core: 1
+2Hello World From Core: 1
+2Hello World From Core: 1
+2Hello World From Core: 1
+assertion "stream != NULL" failed: file "../src/Overlays/stream.c", line 436, function: start_stream
+assertion "stream != NULL" failed: file "../src/Overlays/stream.c", line 436, function: start_stream
+assertion "stream != NULL" failed: file "../src/Overlays/stream.c", line 436, function: start_stream
+assertion "stream != NULL" failed: file "../src/Overlays/stream.c", line 436, function: start_stream
+assertion "stream != NULL" failed: file "../src/Overlays/stream.c", line 436, function: start_stream
+Starting Tests
+cycles to write 8000000 OCM bytes: 2701014
+Throughput ~ 3.554221 GBps 
+cycles to read 8000000 OCM bytes: 6259234
+Throughput ~ 1.533734 GBps 
+
+cycles to write 8000000 CACHE bytes: 2701013
+Throughput ~ 3.554222 GBps 
+cycles to read 8000000 CACHE bytes: 2673577
+Throughput ~ 3.590695 GBps 
+
+cycles to write 8000000 OCM bytes: 2701013
+Throughput ~ 3.554222 GBps 
+cycles to read 8000000 OCM bytes: 6259235
+Throughput ~ 1.533734 GBps 
+
+Starting Tests
+cycles to write 8000000 OCM bytes: 2511555
+Throughput ~ 3.822333 GBps 
+cycles to read 8000000 OCM bytes: 12533117
+Throughput ~ 0.765971 GBps 
+
+cycles to write 8000000 CACHE bytes: 2511552
+Throughput ~ 3.822338 GBps 
+cycles to read 8000000 CACHE bytes: 2095021
+Throughput ~ 4.582293 GBps 
+
+cycles to write 8000000 OCM bytes: 2511552
+Throughput ~ 3.822338 GBps 
+cycles to read 8000000 OCM bytes: 12532195
+Throughput ~ 0.766027 GBps 
+
+Starting Tests
+cycles to write 800000000 OCM bytes: 270097518
+Throughput ~ 3.554272 GBps 
+cycles to read 800000000 OCM bytes: 625923678
+Throughput ~ 1.533733 GBps 
+
+cycles to write 800000000 CACHE bytes: 270097507
+Throughput ~ 3.554272 GBps 
+cycles to read 800000000 CACHE bytes: 267386417
+Throughput ~ 3.590309 GBps 
+
+cycles to write 800000000 OCM bytes: 270097513
+Throughput ~ 3.554272 GBps 
+cycles to read 800000000 OCM bytes: 625924232
+Throughput ~ 1.533732 GBps 
+
+Starting Tests
+cycles to write 800000000 OCM bytes: 251147657
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1257563700
+Throughput ~ 0.763381 GBps 
+
+cycles to write 800000000 CACHE bytes: 251147609
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 CACHE bytes: 209481104
+Throughput ~ 4.582752 GBps 
+
+cycles to write 800000000 OCM bytes: 251147613
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1257559015
+Throughput ~ 0.763384 GBps 
+
+assertion "stream != NULL" failed: file "../src/Overlays/stream.c", line 436, function: start_stream
+Starting Tests
+Starting Tests
+cycles to write 800000000 OCM bytes: 251147663
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1275603470
+Throughput ~ 0.752585 GBps 
+
+cycles to write 800000000 CACHE bytes: 251147616
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 CACHE bytes: 209481102
+Throughput ~ 4.582752 GBps 
+
+cycles to write 800000000 OCM bytes: 251147608
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1275739902
+Throughput ~ 0.752504 GBps 
+
+PL PS Throughput ~ 0.063125 GBps 
+Expected: 1 received: 0 
+head : 96 tail : 2 full : 0 read : 2 wrote : 0 
+Starting Tests
+cycles to write 800000000 OCM bytes: 253191010
+Throughput ~ 3.791604 GBps 
+cycles to read 800000000 OCM bytes: 1254521125
+Throughput ~ 0.765232 GBps 
+
+cycles to write 800000000 CACHE bytes: 251147615
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 CACHE bytes: 209481091
+Throughput ~ 4.582753 GBps 
+
+cycles to write 800000000 OCM bytes: 251147648
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1254532572
+Throughput ~ 0.765225 GBps 
+
+PL PS Throughput ~ 0.072727 GBps 
+Tests Complete
+
+Starting Tests
+cycles to write 800000000 OCM bytes: 253330636
+Throughput ~ 3.789514 GBps 
+cycles to read 800000000 OCM bytes: 1258144569
+Throughput ~ 0.763028 GBps 
+
+cycles to write 800000000 CACHE bytes: 251147617
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 CACHE bytes: 209481081
+Throughput ~ 4.582753 GBps 
+
+cycles to write 800000000 OCM bytes: 251147613
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1258151281
+Throughput ~ 0.763024 GBps 
+
+Expected: 107 received: 10 
+head : 96 tail : 11 full : 0 read : 108 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 519, function: run_benchmark_flow2
+
+Starting Tests
+cycles to write 800000000 OCM bytes: 253117146
+Throughput ~ 3.792710 GBps 
+cycles to read 800000000 OCM bytes: 1258370743
+Throughput ~ 0.762891 GBps 
+
+cycles to write 800000000 CACHE bytes: 251147618
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 CACHE bytes: 209481097
+Throughput ~ 4.582752 GBps 
+
+cycles to write 800000000 OCM bytes: 251147646
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1258372067
+Throughput ~ 0.762890 GBps 
+
+
+Starting Tests
+Expected: 105 received: 8 
+head : 95 tail : 9 full : 0 read : 106 wrote : 0 
+assertion "expected == data" failed: file "../src/Benchmarks/benchmark.c", line 519, function: run_benchmark_flow2
+
+Starting Tests
+
+Starting Tests
+Expected: 100 received: 3 
+head : 0 tail : 95 full : 0 read : 0 wrote : 0 
+assertion "data[z] == expected" failed: file "../src/Benchmarks/benchmark.c", line 522, function: run_benchmark_flow2
+
+Starting Tests
+Expected: 100 received: 3 
+head : 0 tail : 95 full : 0 read : 0 wrote : 0 
+assertion "data[z] == expected" failed: file "../src/Benchmarks/benchmark.c", line 522, function: run_benchmark_flow2
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+Expected: 97 received: 0 
+
+Starting Tests
+Expected: 0 received: 97 
+
+Starting Tests
+Expected: 114 received: 17 
+head : 11 tail : 86 full : 0 read : 0 wrote : 0 
+assertion "data[z] == expected" failed: file "../src/Benchmarks/benchmark.c", line 522, function: run_benchmark_flow2
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+Expected: 112 received: 15 
+head : 8 tail : 8 full : 0 read : 0 wrote : 0 
+assertion "data[z] == expected" failed: file "../src/Benchmarks/benchmark.c", line 522, function: run_benchmark_flow2
+
+Starting Tests
+Expected: 0 received: 97 
+head : 95 tail : 95 full : 0 read : 0 wrote : 95 
+assertion "data[z] == expected" failed: file "../src/Benchmarks/benchmark.c", line 522, function: run_benchmark_flow2
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+PL PS Throughput ~ 0.208549 GBps 
+PL PS Throughput ~ 0.208549 GBps 
+
+Starting Tests
+PL PS Throughput ~ 0.352693 GBps 
+PL PS Throughput ~ 0.352693 GBps 
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+PL PS Throughput ~ 0.405256 GBps 
+PL PS Throughput ~ 0.405255 GBps 
+PL PS Throughput ~ 0.405247 GBps 
+PL PS Throughput ~ 0.405195 GBps 
+PL PS Throughput ~ 0.405144 GBps 
+PL PS Throughput ~ 0.405092 GBps 
+PL PS Throughput ~ 0.405040 GBps 
+PL PS Throughput ~ 0.404988 GBps 
+PL PS Throughput ~ 0.404936 GBps 
+PL PS Throughput ~ 0.404884 GBps 
+PL PS Throughput ~ 0.404832 GBps 
+PL PS Throughput ~ 0.404780 GBps 
+PL PS Throughput ~ 0.404728 GBps 
+PL PS Throughput ~ 0.404677 GBps 
+PL PS Throughput ~ 0.404625 GBps 
+PL PS Throughput ~ 0.404573 GBps 
+PL PS Throughput ~ 0.404521 GBps 
+PL PS Throughput ~ 0.404469 GBps 
+PL PS Throughput ~ 0.404418 GBps 
+PL PS Throughput ~ 0.404366 GBps 
+PL PS Throughput ~ 0.404314 GBps 
+PL PS Throughput ~ 0.404262 GBps 
+PL PS Throughput ~ 0.404211 GBps 
+PL PS Throughput ~ 0.404159 GBps 
+PL PS Throughput ~ 0.404107 GBps 
+PL PS Throughput ~ 0.404056 GBps 
+PL PS Throughput ~ 0.404004 GBps 
+PL PS Throughput ~ 0.403952 GBps 
+PL PS Throughput ~ 0.403901 GBps 
+PL PS Throughput ~ 0.403849 GBps 
+PL PS Throughput ~ 0.403798 GBps 
+PL PS Throughput ~ 0.403746 GBps 
+PL PS Throughput ~ 0.403694 GBps 
+PL PS Throughput ~ 0.403643 GBps 
+PL PS Throughput ~ 0.403591 GBps 
+PL PS Throughput ~ 0.403540 GBps 
+PL PS Throughput ~ 0.403488 GBps 
+PL PS Throughput ~ 0.403437 GBps 
+PL PS Throughput ~ 0.403385 GBps 
+PL PS Throughput ~ 0.403334 GBps 
+PL PS Throughput ~ 0.403282 GBps 
+PL PS Throughput ~ 0.403231 GBps 
+PL PS Throughput ~ 0.403179 GBps 
+PL PS Throughput ~ 0.403128 GBps 
+PL PS Throughput ~ 0.403076 GBps 
+PL PS Throughput ~ 0.403025 GBps 
+PL PS Throughput ~ 0.402974 GBps 
+PL PS Throughput ~ 0.402922 GBps 
+PL PS Throughput ~ 0.402871 GBps 
+PL PS Throughput ~ 0.402819 GBps 
+PL PS Throughput ~ 0.402768 GBps 
+PL PS Throughput ~ 0.402717 GBps 
+PL PS Throughput ~ 0.402665 GBps 
+PL PS Throughput ~ 0.402614 GBps 
+PL PS Throughput ~ 0.402563 GBps 
+PL PS Throughput ~ 0.402512 GBps 
+PL PS Throughput ~ 0.402460 GBps 
+PL PS Throughput ~ 0.402409 GBps 
+PL PS Throughput ~ 0.402358 GBps 
+PL PS Throughput ~ 0.402307 GBps 
+PL PS Throughput ~ 0.402255 GBps 
+PL PS Throughput ~ 0.402204 GBps 
+PL PS Throughput ~ 0.402153 GBps 
+PL PS Throughput ~ 0.402102 GBps 
+PL PS Throughput ~ 0.402051 GBps 
+PL PS Throughput ~ 0.402000 GBps 
+PL PS Throughput ~ 0.401948 GBps 
+PL PS Throughput ~ 0.401897 GBps 
+PL PS Throughput ~ 0.401846 GBps 
+PL PS Throughput ~ 0.401795 GBps 
+PL PS Throughput ~ 0.401744 GBps 
+PL PS Throughput ~ 0.401693 GBps 
+PL PS Throughput ~ 0.401642 GBps 
+PL PS Throughput ~ 0.401591 GBps 
+PL PS Throughput ~ 0.401540 GBps 
+PL PS Throughput ~ 0.401489 GBps 
+PL PS Throughput ~ 0.401438 GBps 
+PL PS Throughput ~ 0.401387 GBps 
+PL PS Throughput ~ 0.401336 GBps 
+PL PS Throughput ~ 0.401285 GBps 
+PL PS Throughput ~ 0.401234 GBps 
+PL PS Throughput ~ 0.401183 GBps 
+PL PS Throughput ~ 0.401132 GBps 
+PL PS Throughput ~ 0.401081 GBps 
+PL PS Throughput ~ 0.401030 GBps 
+PL PS Throughput ~ 0.400979 GBps 
+PL PS Throughput ~ 0.400928 GBps 
+PL PS Throughput ~ 0.400878 GBps 
+PL PS Throughput ~ 0.400827 GBps 
+PL PS Throughput ~ 0.400776 GBps 
+PL PS Throughput ~ 0.400725 GBps 
+PL PS Throughput ~ 0.400674 GBps 
+PL PS Throughput ~ 0.400623 GBps 
+PL PS Throughput ~ 0.400573 GBps 
+PL PS Throughput ~ 0.400522 GBps 
+PL PS Throughput ~ 0.400471 GBps 
+PL PS Throughput ~ 0.400420 GBps 
+PL PS Throughput ~ 0.400370 GBps 
+PL PS Throughput ~ 0.400319 GBps 
+PL PS Throughput ~ 0.400268 GBps 
+PL PS Throughput ~ 0.400218 GBps 
+PL PS Throughput ~ 0.400167 GBps 
+PL PS Throughput ~ 0.400116 GBps 
+PL PS Throughput ~ 0.400066 GBps 
+PL PS Throughput ~ 0.400015 GBps 
+PL PS Throughput ~ 0.399964 GBps 
+PL PS Throughput ~ 0.399914 GBps 
+PL PS Throughput ~ 0.399863 GBps 
+PL PS Throughput ~ 0.399812 GBps 
+PL PS Throughput ~ 0.399762 GBps 
+PL PS Throughput ~ 0.399711 GBps 
+PL PS Throughput ~ 0.399661 GBps 
+PL PS Throughput ~ 0.399610 GBps 
+PL PS Throughput ~ 0.399560 GBps 
+PL PS Throughput ~ 0.399509 GBps 
+PL PS Throughput ~ 0.399459 GBps 
+PL PS Throughput ~ 0.399408 GBps 
+PL PS Throughput ~ 0.399358 GBps 
+PL PS Throughput ~ 0.399307 GBps 
+PL PS Throughput ~ 0.399257 GBps 
+PL PS Throughput ~ 0.399206 GBps 
+PL PS Throughput ~ 0.399156 GBps 
+PL PS Throughput ~ 0.399105 GBps 
+PL PS Throughput ~ 0.399055 GBps 
+PL PS Throughput ~ 0.399005 GBps 
+PL PS Throughput ~ 0.398954 GBps 
+PL PS Throughput ~ 0.398904 GBps 
+PL PS Throughput ~ 0.398854 GBps 
+PL PS Throughput ~ 0.398803 GBps 
+PL PS Throughput ~ 0.398753 GBps 
+PL PS Throughput ~ 0.398703 GBps 
+PL PS Throughput ~ 0.398652 GBps 
+PL PS Throughput ~ 0.398602 GBps 
+PL PS Throughput ~ 0.398552 GBps 
+PL PS Throughput ~ 0.398502 GBps 
+PL PS Throughput ~ 0.398451 GBps 
+PL PS Throughput ~ 0.398401 GBps 
+PL PS Throughput ~ 0.398351 GBps 
+PL PS Throughput ~ 0.398301 GBps 
+PL PS Throughput ~ 0.398250 GBps 
+PL PS Throughput ~ 0.398200 GBps 
+PL PS Throughput ~ 0.398150 GBps 
+PL PS Throughput ~ 0.398100 GBps 
+PL PS Throughput ~ 0.398050 GBps 
+PL PS Throughput ~ 0.398000 GBps 
+PL PS Throughput ~ 0.397950 GBps 
+PL PS Throughput ~ 0.397899 GBps 
+PL PS Throughput ~ 0.397849 GBps 
+PL PS Throughput ~ 0.397799 GBps 
+PL PS Throughput ~ 0.397749 GBps 
+PL PS Throughput ~ 0.397699 GBps 
+PL PS Throughput ~ 0.397649 GBps 
+PL PS Throughput ~ 0.397599 GBps 
+PL PS Throughput ~ 0.397549 GBps 
+PL PS Throughput ~ 0.397499 GBps 
+PL PS Throughput ~ 0.397449 GBps 
+PL PS Throughput ~ 0.397399 GBps 
+PL PS Throughput ~ 0.397349 GBps 
+PL PS Throughput ~ 0.397299 GBps 
+PL PS Throughput ~ 0.397249 GBps 
+PL PS Throughput ~ 0.397199 GBps 
+PL PS Throughput ~ 0.397149 GBps 
+PL PS Throughput ~ 0.397099 GBps 
+PL PS Throughput ~ 0.397049 GBps 
+PL PS Throughput ~ 0.397000 GBps 
+PL PS Throughput ~ 0.396950 GBps 
+PL PS Throughput ~ 0.396900 GBps 
+PL PS Throughput ~ 0.396850 GBps 
+PL PS Throughput ~ 0.396800 GBps 
+PL PS Throughput ~ 0.396750 GBps 
+PL PS Throughput ~ 0.396701 GBps 
+PL PS Throughput ~ 0.396651 GBps 
+PL PS Throughput ~ 0.396601 GBps 
+PL PS Throughput ~ 0.396551 GBps 
+PL PS Throughput ~ 0.396501 GBps 
+PL PS Throughput ~ 0.396452 GBps 
+PL PS Throughput ~ 0.396402 GBps 
+PL PS Throughput ~ 0.396352 GBps 
+PL PS Throughput ~ 0.396303 GBps 
+PL PS Throughput ~ 0.396253 GBps 
+PL PS Throughput ~ 0.396203 GBps 
+PL PS Throughput ~ 0.396153 GBps 
+PL PS Throughput ~ 0.396104 GBps 
+PL PS Throughput ~ 0.396054 GBps 
+PL PS Throughput ~ 0.396005 GBps 
+PL PS Throughput ~ 0.395955 GBps 
+PL PS Throughput ~ 0.395905 GBps 
+PL PS Throughput ~ 0.395856 GBps 
+PL PS Throughput ~ 0.395806 GBps 
+PL PS Throughput ~ 0.395757 GBps 
+PL PS Throughput ~ 0.395707 GBps 
+PL PS Throughput ~ 0.395657 GBps 
+PL PS Throughput ~ 0.395608 GBps 
+PL PS Throughput ~ 0.395558 GBps 
+PL PS Throughput ~ 0.395509 GBps 
+PL PS Throughput ~ 0.395459 GBps 
+PL PS Throughput ~ 0.395410 GBps 
+PL PS Throughput ~ 0.395360 GBps 
+PL PS Throughput ~ 0.395311 GBps 
+PL PS Throughput ~ 0.395262 GBps 
+PL PS Throughput ~ 0.395212 GBps 
+PL PS Throughput ~ 0.395163 GBps 
+PL PS Throughput ~ 0.395113 GBps 
+PL PS Throughput ~ 0.395064 GBps 
+PL PS Throughput ~ 0.395014 GBps 
+PL PS Throughput ~ 0.394965 GBps 
+PL PS Throughput ~ 0.394916 GBps 
+PL PS Throughput ~ 0.394866 GBps 
+PL PS Throughput ~ 0.394817 GBps 
+PL PS Throughput ~ 0.394768 GBps 
+PL PS Throughput ~ 0.394718 GBps 
+PL PS Throughput ~ 0.394669 GBps 
+PL PS Throughput ~ 0.394620 GBps 
+PL PS Throughput ~ 0.394571 GBps 
+PL PS Throughput ~ 0.394521 GBps 
+PL PS Throughput ~ 0.394472 GBps 
+PL PS Throughput ~ 0.394423 GBps 
+PL PS Throughput ~ 0.394374 GBps 
+PL PS Throughput ~ 0.394324 GBps 
+PL PS Throughput ~ 0.394275 GBps 
+PL PS Throughput ~ 0.394226 GBps 
+PL PS Throughput ~ 0.394177 GBps 
+PL PS Throughput ~ 0.394128 GBps 
+PL PS Throughput ~ 0.394079 GBps 
+PL PS Throughput ~ 0.394029 GBps 
+PL PS Throughput ~ 0.393980 GBps 
+PL PS Throughput ~ 0.393931 GBps 
+PL PS Throughput ~ 0.393882 GBps 
+PL PS Throughput ~ 0.393833 GBps 
+PL PS Throughput ~ 0.393784 GBps 
+PL PS Throughput ~ 0.393735 GBps 
+PL PS Throughput ~ 0.393686 GBps 
+PL PS Throughput ~ 0.393637 GBps 
+PL PS Throughput ~ 0.393588 GBps 
+PL PS Throughput ~ 0.393539 GBps 
+PL PS Throughput ~ 0.393490 GBps 
+PL PS Throughput ~ 0.393441 GBps 
+PL PS Throughput ~ 0.393392 GBps 
+PL PS Throughput ~ 0.393343 GBps 
+PL PS Throughput ~ 0.393294 GBps 
+PL PS Throughput ~ 0.393245 GBps 
+PL PS Throughput ~ 0.393196 GBps 
+PL PS Throughput ~ 0.393147 GBps 
+PL PS Throughput ~ 0.393098 GBps 
+PL PS Throughput ~ 0.393049 GBps 
+PL PS Throughput ~ 0.393000 GBps 
+PL PS Throughput ~ 0.392951 GBps 
+PL PS Throughput ~ 0.392903 GBps 
+PL PS Throughput ~ 0.392854 GBps 
+PL PS Throughput ~ 0.392805 GBps 
+PL PS Throughput ~ 0.392756 GBps 
+PL PS Throughput ~ 0.392707 GBps 
+PL PS Throughput ~ 0.392658 GBps 
+PL PS Throughput ~ 0.392610 GBps 
+PL PS Throughput ~ 0.392561 GBps 
+PL PS Throughput ~ 0.392512 GBps 
+PL PS Throughput ~ 0.392463 GBps 
+PL PS Throughput ~ 0.392415 GBps 
+PL PS Throughput ~ 0.392366 GBps 
+PL PS Throughput ~ 0.392317 GBps 
+PL PS Throughput ~ 0.392268 GBps 
+PL PS Throughput ~ 0.392220 GBps 
+PL PS Throughput ~ 0.392171 GBps 
+PL PS Throughput ~ 0.392122 GBps 
+PL PS Throughput ~ 0.392074 GBps 
+PL PS Throughput ~ 0.392025 GBps 
+PL PS Throughput ~ 0.391977 GBps 
+PL PS Throughput ~ 0.391928 GBps 
+PL PS Throughput ~ 0.391879 GBps 
+PL PS Throughput ~ 0.391831 GBps 
+PL PS Throughput ~ 0.391782 GBps 
+PL PS Throughput ~ 0.391734 GBps 
+PL PS Throughput ~ 0.391685 GBps 
+PL PS Throughput ~ 0.391636 GBps 
+PL PS Throughput ~ 0.391588 GBps 
+PL PS Throughput ~ 0.391539 GBps 
+PL PS Throughput ~ 0.391491 GBps 
+PL PS Throughput ~ 0.391442 GBps 
+PL PS Throughput ~ 0.391394 GBps 
+PL PS Throughput ~ 0.391346 GBps 
+PL PS Throughput ~ 0.391297 GBps 
+PL PS Throughput ~ 0.391249 GBps 
+PL PS Throughput ~ 0.391200 GBps 
+PL PS Throughput ~ 0.391152 GBps 
+PL PS Throughput ~ 0.391103 GBps 
+PL PS Throughput ~ 0.391055 GBps 
+PL PS Throughput ~ 0.391007 GBps 
+PL PS Throughput ~ 0.390958 GBps 
+PL PS Throughput ~ 0.390910 GBps 
+PL PS Throughput ~ 0.390861 GBps 
+PL PS Throughput ~ 0.390813 GBps 
+PL PS Throughput ~ 0.390765 GBps 
+PL PS Throughput ~ 0.390716 GBps 
+PL PS Throughput ~ 0.390668 GBps 
+PL PS Throughput ~ 0.390620 GBps 
+PL PS Throughput ~ 0.390572 GBps 
+PL PS Throughput ~ 0.390523 GBps 
+PL PS Throughput ~ 0.390475 GBps 
+PL PS Throughput ~ 0.390427 GBps 
+PL PS Throughput ~ 0.390379 GBps 
+PL PS Throughput ~ 0.390330 GBps 
+PL PS Throughput ~ 0.390282 GBps 
+PL PS Throughput ~ 0.390234 GBps 
+PL PS Throughput ~ 0.390186 GBps 
+PL PS Throughput ~ 0.390138 GBps 
+PL PS Throughput ~ 0.390089 GBps 
+PL PS Throughput ~ 0.390041 GBps 
+PL PS Throughput ~ 0.389993 GBps 
+PL PS Throughput ~ 0.389945 GBps 
+PL PS Throughput ~ 0.389897 GBps 
+PL PS Throughput ~ 0.389849 GBps 
+PL PS Throughput ~ 0.389801 GBps 
+PL PS Throughput ~ 0.389753 GBps 
+PL PS Throughput ~ 0.389705 GBps 
+PL PS Throughput ~ 0.389656 GBps 
+PL PS Throughput ~ 0.389608 GBps 
+PL PS Throughput ~ 0.389560 GBps 
+PL PS Throughput ~ 0.389512 GBps 
+PL PS Throughput ~ 0.389464 GBps 
+PL PS Throughput ~ 0.389416 GBps 
+PL PS Throughput ~ 0.389368 GBps 
+PL PS Throughput ~ 0.389320 GBps 
+PL PS Throughput ~ 0.389272 GBps 
+PL PS Throughput ~ 0.389224 GBps 
+PL PS Throughput ~ 0.389177 GBps 
+PL PS Throughput ~ 0.389129 GBps 
+PL PS Throughput ~ 0.389081 GBps 
+PL PS Throughput ~ 0.389033 GBps 
+PL PS Throughput ~ 0.388985 GBps 
+PL PS Throughput ~ 0.388937 GBps 
+PL PS Throughput ~ 0.388889 GBps 
+PL PS Throughput ~ 0.388841 GBps 
+PL PS Throughput ~ 0.388793 GBps 
+PL PS Throughput ~ 0.388746 GBps 
+PL PS Throughput ~ 0.388698 GBps 
+PL PS Throughput ~ 0.388650 GBps 
+PL PS Throughput ~ 0.388602 GBps 
+PL PS Throughput ~ 0.388554 GBps 
+PL PS Throughput ~ 0.388507 GBps 
+PL PS Throughput ~ 0.388459 GBps 
+PL PS Throughput ~ 0.388411 GBps 
+PL PS Throughput ~ 0.388363 GBps 
+PL PS Throughput ~ 0.388316 GBps 
+PL PS Throughput ~ 0.388268 GBps 
+PL PS Throughput ~ 0.388220 GBps 
+PL PS Throughput ~ 0.388173 GBps 
+PL PS Throughput ~ 0.388125 GBps 
+PL PS Throughput ~ 0.388077 GBps 
+PL PS Throughput ~ 0.388030 GBps 
+PL PS Throughput ~ 0.387982 GBps 
+PL PS Throughput ~ 0.387934 GBps 
+PL PS Throughput ~ 0.387887 GBps 
+PL PS Throughput ~ 0.387839 GBps 
+PL PS Throughput ~ 0.387792 GBps 
+PL PS Throughput ~ 0.387744 GBps 
+PL PS Throughput ~ 0.387696 GBps 
+PL PS Throughput ~ 0.387649 GBps 
+PL PS Throughput ~ 0.387601 GBps 
+PL PS Throughput ~ 0.387554 GBps 
+PL PS Throughput ~ 0.387506 GBps 
+PL PS Throughput ~ 0.387459 GBps 
+PL PS Throughput ~ 0.387411 GBps 
+PL PS Throughput ~ 0.387364 GBps 
+PL PS Throughput ~ 0.387316 GBps 
+PL PS Throughput ~ 0.387269 GBps 
+PL PS Throughput ~ 0.387221 GBps 
+PL PS Throughput ~ 0.387174 GBps 
+PL PS Throughput ~ 0.387126 GBps 
+PL PS Throughput ~ 0.387079 GBps 
+PL PS Throughput ~ 0.387032 GBps 
+PL PS Throughput ~ 0.386984 GBps 
+PL PS Throughput ~ 0.386937 GBps 
+PL PS Throughput ~ 0.386889 GBps 
+PL PS Throughput ~ 0.386842 GBps 
+PL PS Throughput ~ 0.386795 GBps 
+PL PS Throughput ~ 0.386747 GBps 
+PL PS Throughput ~ 0.386700 GBps 
+PL PS Throughput ~ 0.386653 GBps 
+PL PS Throughput ~ 0.386605 GBps 
+PL PS Throughput ~ 0.386558 GBps 
+PL PS Throughput ~ 0.386511 GBps 
+PL PS Throughput ~ 0.386464 GBps 
+PL PS Throughput ~ 0.386416 GBps 
+PL PS Throughput ~ 0.386369 GBps 
+PL PS Throughput ~ 0.386322 GBps 
+PL PS Throughput ~ 0.386275 GBps 
+PL PS Throughput ~ 0.386227 GBps 
+PL PS Throughput ~ 0.386180 GBps 
+PL PS Throughput ~ 0.386133 GBps 
+PL PS Throughput ~ 0.386086 GBps 
+PL PS Throughput ~ 0.386039 GBps 
+PL PS Throughput ~ 0.385992 GBps 
+PL PS Throughput ~ 0.385944 GBps 
+PL PS Throughput ~ 0.385897 GBps 
+PL PS Throughput ~ 0.385850 GBps 
+PL PS Throughput ~ 0.385803 GBps 
+PL PS Throughput ~ 0.385756 GBps 
+PL PS Throughput ~ 0.385709 GBps 
+PL PS Throughput ~ 0.385662 GBps 
+PL PS Throughput ~ 0.385615 GBps 
+PL PS Throughput ~ 0.385568 GBps 
+PL PS Throughput ~ 0.385521 GBps 
+PL PS Throughput ~ 0.385474 GBps 
+PL PS Throughput ~ 0.385427 GBps 
+PL PS Throughput ~ 0.385380 GBps 
+PL PS Throughput ~ 0.385333 GBps 
+PL PS Throughput ~ 0.385286 GBps 
+PL PS Throughput ~ 0.385239 GBps 
+PL PS Throughput ~ 0.385192 GBps 
+PL PS Throughput ~ 0.385145 GBps 
+PL PS Throughput ~ 0.385098 GBps 
+PL PS Throughput ~ 0.385051 GBps 
+PL PS Throughput ~ 0.385004 GBps 
+PL PS Throughput ~ 0.384957 GBps 
+PL PS Throughput ~ 0.384910 GBps 
+PL PS Throughput ~ 0.384863 GBps 
+PL PS Throughput ~ 0.384816 GBps 
+PL PS Throughput ~ 0.384770 GBps 
+PL PS Throughput ~ 0.384723 GBps 
+PL PS Throughput ~ 0.384676 GBps 
+PL PS Throughput ~ 0.384629 GBps 
+PL PS Throughput ~ 0.384582 GBps 
+PL PS Throughput ~ 0.384535 GBps 
+PL PS Throughput ~ 0.384489 GBps 
+PL PS Throughput ~ 0.384442 GBps 
+PL PS Throughput ~ 0.384395 GBps 
+PL PS Throughput ~ 0.384348 GBps 
+PL PS Throughput ~ 0.384302 GBps 
+PL PS Throughput ~ 0.384255 GBps 
+PL PS Throughput ~ 0.384208 GBps 
+PL PS Throughput ~ 0.384161 GBps 
+PL PS Throughput ~ 0.384115 GBps 
+PL PS Throughput ~ 0.384068 GBps 
+PL PS Throughput ~ 0.384021 GBps 
+PL PS Throughput ~ 0.383975 GBps 
+PL PS Throughput ~ 0.383928 GBps 
+PL PS Throughput ~ 0.383881 GBps 
+PL PS Throughput ~ 0.383835 GBps 
+PL PS Throughput ~ 0.383788 GBps 
+PL PS Throughput ~ 0.383742 GBps 
+PL PS Throughput ~ 0.383695 GBps 
+PL PS Throughput ~ 0.383648 GBps 
+PL PS Throughput ~ 0.383602 GBps 
+PL PS Throughput ~ 0.383555 GBps 
+PL PS Throughput ~ 0.383509 GBps 
+PL PS Throughput ~ 0.383462 GBps 
+PL PS Throughput ~ 0.383416 GBps 
+PL PS Throughput ~ 0.383369 GBps 
+PL PS Throughput ~ 0.383323 GBps 
+PL PS Throughput ~ 0.383276 GBps 
+PL PS Throughput ~ 0.383230 GBps 
+PL PS Throughput ~ 0.383183 GBps 
+PL PS Throughput ~ 0.383137 GBps 
+PL PS Throughput ~ 0.383090 GBps 
+PL PS Throughput ~ 0.383044 GBps 
+PL PS Throughput ~ 0.382997 GBps 
+PL PS Throughput ~ 0.382951 GBps 
+PL PS Throughput ~ 0.382905 GBps 
+PL PS Throughput ~ 0.382858 GBps 
+PL PS Throughput ~ 0.382812 GBps 
+PL PS Throughput ~ 0.382765 GBps 
+PL PS Throughput ~ 0.382719 GBps 
+PL PS Throughput ~ 0.382673 GBps 
+PL PS Throughput ~ 0.382626 GBps 
+PL PS Throughput ~ 0.382580 GBps 
+PL PS Throughput ~ 0.382534 GBps 
+PL PS Throughput ~ 0.382487 GBps 
+PL PS Throughput ~ 0.382441 GBps 
+PL PS Throughput ~ 0.382395 GBps 
+PL PS Throughput ~ 0.382349 GBps 
+PL PS Throughput ~ 0.382302 GBps 
+PL PS Throughput ~ 0.382256 GBps 
+PL PS Throughput ~ 0.382210 GBps 
+PL PS Throughput ~ 0.382164 GBps 
+PL PS Throughput ~ 0.382117 GBps 
+PL PS Throughput ~ 0.382071 GBps 
+PL PS Throughput ~ 0.382025 GBps 
+PL PS Throughput ~ 0.381979 GBps 
+PL PS Throughput ~ 0.381933 GBps 
+PL PS Throughput ~ 0.381887 GBps 
+PL PS Throughput ~ 0.381840 GBps 
+PL PS Throughput ~ 0.381794 GBps 
+PL PS Throughput ~ 0.381748 GBps 
+PL PS Throughput ~ 0.381702 GBps 
+PL PS Throughput ~ 0.381656 GBps 
+PL PS Throughput ~ 0.381610 GBps 
+PL PS Throughput ~ 0.381564 GBps 
+PL PS Throughput ~ 0.381518 GBps 
+PL PS Throughput ~ 0.381472 GBps 
+PL PS Throughput ~ 0.381426 GBps 
+PL PS Throughput ~ 0.381380 GBps 
+PL PS Throughput ~ 0.381334 GBps 
+PL PS Throughput ~ 0.381287 GBps 
+PL PS Throughput ~ 0.381242 GBps 
+PL PS Throughput ~ 0.381196 GBps 
+PL PS Throughput ~ 0.381150 GBps 
+PL PS Throughput ~ 0.381104 GBps 
+PL PS Throughput ~ 0.381058 GBps 
+PL PS Throughput ~ 0.381012 GBps 
+PL PS Throughput ~ 0.380966 GBps 
+PL PS Throughput ~ 0.380920 GBps 
+PL PS Throughput ~ 0.380874 GBps 
+PL PS Throughput ~ 0.380828 GBps 
+PL PS Throughput ~ 0.380782 GBps 
+PL PS Throughput ~ 0.380736 GBps 
+PL PS Throughput ~ 0.380690 GBps 
+PL PS Throughput ~ 0.380645 GBps 
+PL PS Throughput ~ 0.380599 GBps 
+PL PS Throughput ~ 0.380553 GBps 
+PL PS Throughput ~ 0.380507 GBps 
+PL PS Throughput ~ 0.380461 GBps 
+PL PS Throughput ~ 0.380415 GBps 
+PL PS Throughput ~ 0.380370 GBps 
+PL PS Throughput ~ 0.380324 GBps 
+PL PS Throughput ~ 0.380278 GBps 
+PL PS Throughput ~ 0.380232 GBps 
+PL PS Throughput ~ 0.380187 GBps 
+PL PS Throughput ~ 0.380141 GBps 
+PL PS Throughput ~ 0.380095 GBps 
+PL PS Throughput ~ 0.380049 GBps 
+PL PS Throughput ~ 0.380004 GBps 
+PL PS Throughput ~ 0.379958 GBps 
+PL PS Throughput ~ 0.379912 GBps 
+PL PS Throughput ~ 0.379867 GBps 
+PL PS Throughput ~ 0.379821 GBps 
+PL PS Throughput ~ 0.379775 GBps 
+PL PS Throughput ~ 0.379730 GBps 
+PL PS Throughput ~ 0.379684 GBps 
+PL PS Throughput ~ 0.379638 GBps 
+PL PS Throughput ~ 0.379593 GBps 
+PL PS Throughput ~ 0.379547 GBps 
+PL PS Throughput ~ 0.379502 GBps 
+PL PS Throughput ~ 0.379456 GBps 
+PL PS Throughput ~ 0.379411 GBps 
+PL PS Throughput ~ 0.379365 GBps 
+PL PS Throughput ~ 0.379319 GBps 
+PL PS Throughput ~ 0.379274 GBps 
+PL PS Throughput ~ 0.379228 GBps 
+PL PS Throughput ~ 0.379183 GBps 
+PL PS Throughput ~ 0.379137 GBps 
+PL PS Throughput ~ 0.379092 GBps 
+PL PS Throughput ~ 0.379046 GBps 
+PL PS Throughput ~ 0.379001 GBps 
+PL PS Throughput ~ 0.378956 GBps 
+PL PS Throughput ~ 0.378910 GBps 
+PL PS Throughput ~ 0.378865 GBps 
+PL PS Throughput ~ 0.378819 GBps 
+PL PS Throughput ~ 0.378774 GBps 
+PL PS Throughput ~ 0.378728 GBps 
+PL PS Throughput ~ 0.378683 GBps 
+PL PS Throughput ~ 0.378638 GBps 
+PL PS Throughput ~ 0.378592 GBps 
+PL PS Throughput ~ 0.378547 GBps 
+PL PS Throughput ~ 0.378502 GBps 
+PL PS Throughput ~ 0.378456 GBps 
+PL PS Throughput ~ 0.378411 GBps 
+PL PS Throughput ~ 0.378366 GBps 
+PL PS Throughput ~ 0.378320 GBps 
+PL PS Throughput ~ 0.378275 GBps 
+PL PS Throughput ~ 0.378230 GBps 
+PL PS Throughput ~ 0.378185 GBps 
+PL PS Throughput ~ 0.378139 GBps 
+PL PS Throughput ~ 0.378094 GBps 
+PL PS Throughput ~ 0.378049 GBps 
+PL PS Throughput ~ 0.378004 GBps 
+PL PS Throughput ~ 0.377958 GBps 
+PL PS Throughput ~ 0.377913 GBps 
+PL PS Throughput ~ 0.377868 GBps 
+PL PS Throughput ~ 0.377823 GBps 
+PL PS Throughput ~ 0.377778 GBps 
+PL PS Throughput ~ 0.377732 GBps 
+PL PS Throughput ~ 0.377687 GBps 
+PL PS Throughput ~ 0.377642 GBps 
+PL PS Throughput ~ 0.377597 GBps 
+PL PS Throughput ~ 0.377552 GBps 
+PL PS Throughput ~ 0.377507 GBps 
+PL PS Throughput ~ 0.377462 GBps 
+PL PS Throughput ~ 0.377417 GBps 
+PL PS Throughput ~ 0.377372 GBps 
+PL PS Throughput ~ 0.377327 GBps 
+PL PS Throughput ~ 0.377281 GBps 
+PL PS Throughput ~ 0.377236 GBps 
+PL PS Throughput ~ 0.377191 GBps 
+PL PS Throughput ~ 0.377146 GBps 
+PL PS Throughput ~ 0.377101 GBps 
+PL PS Throughput ~ 0.377056 GBps 
+PL PS Throughput ~ 0.377011 GBps 
+PL PS Throughput ~ 0.376966 GBps 
+PL PS Throughput ~ 0.376921 GBps 
+PL PS Throughput ~ 0.376877 GBps 
+PL PS Throughput ~ 0.376832 GBps 
+PL PS Throughput ~ 0.376787 GBps 
+PL PS Throughput ~ 0.376742 GBps 
+PL PS Throughput ~ 0.376697 GBps 
+PL PS Throughput ~ 0.376652 GBps 
+PL PS Throughput ~ 0.376607 GBps 
+PL PS Throughput ~ 0.376562 GBps 
+PL PS Throughput ~ 0.376517 GBps 
+PL PS Throughput ~ 0.376472 GBps 
+PL PS Throughput ~ 0.376428 GBps 
+PL PS Throughput ~ 0.376383 GBps 
+PL PS Throughput ~ 0.376338 GBps 
+PL PS Throughput ~ 0.376293 GBps 
+PL PS Throughput ~ 0.376248 GBps 
+PL PS Throughput ~ 0.376203 GBps 
+PL PS Throughput ~ 0.376159 GBps 
+PL PS Throughput ~ 0.376114 GBps 
+PL PS Throughput ~ 0.376069 GBps 
+PL PS Throughput ~ 0.376024 GBps 
+PL PS Throughput ~ 0.375980 GBps 
+PL PS Throughput ~ 0.375935 GBps 
+PL PS Throughput ~ 0.375890 GBps 
+PL PS Throughput ~ 0.375845 GBps 
+PL PS Throughput ~ 0.375801 GBps 
+PL PS Throughput ~ 0.375756 GBps 
+PL PS Throughput ~ 0.375711 GBps 
+PL PS Throughput ~ 0.375667 GBps 
+PL PS Throughput ~ 0.375622 GBps 
+PL PS Throughput ~ 0.375578 GBps 
+PL PS Throughput ~ 0.375533 GBps 
+PL PS Throughput ~ 0.375488 GBps 
+PL PS Throughput ~ 0.375444 GBps 
+PL PS Throughput ~ 0.375399 GBps 
+PL PS Throughput ~ 0.375354 GBps 
+PL PS Throughput ~ 0.375310 GBps 
+PL PS Throughput ~ 0.375265 GBps 
+PL PS Throughput ~ 0.375221 GBps 
+PL PS Throughput ~ 0.375176 GBps 
+PL PS Throughput ~ 0.375132 GBps 
+PL PS Throughput ~ 0.375087 GBps 
+PL PS Throughput ~ 0.375043 GBps 
+PL PS Throughput ~ 0.374998 GBps 
+PL PS Throughput ~ 0.374954 GBps 
+PL PS Throughput ~ 0.374909 GBps 
+PL PS Throughput ~ 0.374865 GBps 
+PL PS Throughput ~ 0.374820 GBps 
+PL PS Throughput ~ 0.374776 GBps 
+PL PS Throughput ~ 0.374731 GBps 
+PL PS Throughput ~ 0.374687 GBps 
+PL PS Throughput ~ 0.374642 GBps 
+PL PS Throughput ~ 0.374598 GBps 
+PL PS Throughput ~ 0.374554 GBps 
+PL PS Throughput ~ 0.374509 GBps 
+PL PS Throughput ~ 0.374465 GBps 
+PL PS Throughput ~ 0.374420 GBps 
+PL PS Throughput ~ 0.374376 GBps 
+PL PS Throughput ~ 0.374332 GBps 
+PL PS Throughput ~ 0.374287 GBps 
+PL PS Throughput ~ 0.374243 GBps 
+PL PS Throughput ~ 0.374199 GBps 
+PL PS Throughput ~ 0.374154 GBps 
+PL PS Throughput ~ 0.374110 GBps 
+PL PS Throughput ~ 0.374066 GBps 
+PL PS Throughput ~ 0.374022 GBps 
+PL PS Throughput ~ 0.373977 GBps 
+PL PS Throughput ~ 0.373933 GBps 
+PL PS Throughput ~ 0.373889 GBps 
+PL PS Throughput ~ 0.373845 GBps 
+PL PS Throughput ~ 0.373800 GBps 
+PL PS Throughput ~ 0.373756 GBps 
+PL PS Throughput ~ 0.373712 GBps 
+PL PS Throughput ~ 0.373668 GBps 
+PL PS Throughput ~ 0.373624 GBps 
+PL PS Throughput ~ 0.373579 GBps 
+PL PS Throughput ~ 0.373535 GBps 
+PL PS Throughput ~ 0.373491 GBps 
+PL PS Throughput ~ 0.373447 GBps 
+PL PS Throughput ~ 0.373403 GBps 
+PL PS Throughput ~ 0.373359 GBps 
+PL PS Throughput ~ 0.373315 GBps 
+PL PS Throughput ~ 0.373271 GBps 
+PL PS Throughput ~ 0.373226 GBps 
+PL PS Throughput ~ 0.373182 GBps 
+PL PS Throughput ~ 0.373138 GBps 
+PL PS Throughput ~ 0.373094 GBps 
+PL PS Throughput ~ 0.373050 GBps 
+PL PS Throughput ~ 0.373006 GBps 
+PL PS Throughput ~ 0.372962 GBps 
+PL PS Throughput ~ 0.372918 GBps 
+PL PS Throughput ~ 0.372874 GBps 
+PL PS Throughput ~ 0.372830 GBps 
+PL PS Throughput ~ 0.372786 GBps 
+PL PS Throughput ~ 0.372742 GBps 
+PL PS Throughput ~ 0.372698 GBps 
+PL PS Throughput ~ 0.372654 GBps 
+PL PS Throughput ~ 0.372610 GBps 
+PL PS Throughput ~ 0.372566 GBps 
+PL PS Throughput ~ 0.372522 GBps 
+PL PS Throughput ~ 0.372479 GBps 
+PL PS Throughput ~ 0.372435 GBps 
+PL PS Throughput ~ 0.372391 GBps 
+PL PS Throughput ~ 0.372347 GBps 
+PL PS Throughput ~ 0.372303 GBps 
+PL PS Throughput ~ 0.372259 GBps 
+PL PS Throughput ~ 0.372215 GBps 
+PL PS Throughput ~ 0.372171 GBps 
+PL PS Throughput ~ 0.372128 GBps 
+PL PS Throughput ~ 0.372084 GBps 
+PL PS Throughput ~ 0.372040 GBps 
+PL PS Throughput ~ 0.371996 GBps 
+PL PS Throughput ~ 0.371952 GBps 
+PL PS Throughput ~ 0.371909 GBps 
+PL PS Throughput ~ 0.371865 GBps 
+PL PS Throughput ~ 0.371821 GBps 
+PL PS Throughput ~ 0.371777 GBps 
+PL PS Throughput ~ 0.371734 GBps 
+PL PS Throughput ~ 0.371690 GBps 
+PL PS Throughput ~ 0.371646 GBps 
+PL PS Throughput ~ 0.371602 GBps 
+PL PS Throughput ~ 0.371559 GBps 
+PL PS Throughput ~ 0.371515 GBps 
+PL PS Throughput ~ 0.371471 GBps 
+PL PS Throughput ~ 0.371428 GBps 
+PL PS Throughput ~ 0.371384 GBps 
+PL PS Throughput ~ 0.371340 GBps 
+PL PS Throughput ~ 0.371297 GBps 
+PL PS Throughput ~ 0.371253 GBps 
+PL PS Throughput ~ 0.371210 GBps 
+PL PS Throughput ~ 0.371166 GBps 
+PL PS Throughput ~ 0.371122 GBps 
+PL PS Throughput ~ 0.371079 GBps 
+PL PS Throughput ~ 0.371035 GBps 
+PL PS Throughput ~ 0.370992 GBps 
+PL PS Throughput ~ 0.370948 GBps 
+PL PS Throughput ~ 0.370905 GBps 
+PL PS Throughput ~ 0.370861 GBps 
+PL PS Throughput ~ 0.370818 GBps 
+PL PS Throughput ~ 0.370774 GBps 
+PL PS Throughput ~ 0.370731 GBps 
+PL PS Throughput ~ 0.370687 GBps 
+PL PS Throughput ~ 0.370644 GBps 
+PL PS Throughput ~ 0.370600 GBps 
+PL PS Throughput ~ 0.370557 GBps 
+PL PS Throughput ~ 0.370513 GBps 
+PL PS Throughput ~ 0.370470 GBps 
+PL PS Throughput ~ 0.370426 GBps 
+PL PS Throughput ~ 0.370383 GBps 
+PL PS Throughput ~ 0.370340 GBps 
+PL PS Throughput ~ 0.370296 GBps 
+PL PS Throughput ~ 0.370253 GBps 
+PL PS Throughput ~ 0.370209 GBps 
+PL PS Throughput ~ 0.370166 GBps 
+PL PS Throughput ~ 0.370123 GBps 
+PL PS Throughput ~ 0.370079 GBps 
+PL PS Throughput ~ 0.370036 GBps 
+PL PS Throughput ~ 0.369993 GBps 
+PL PS Throughput ~ 0.369949 GBps 
+PL PS Throughput ~ 0.369906 GBps 
+PL PS Throughput ~ 0.369863 GBps 
+PL PS Throughput ~ 0.369819 GBps 
+PL PS Throughput ~ 0.369776 GBps 
+PL PS Throughput ~ 0.369733 GBps 
+PL PS Throughput ~ 0.369690 GBps 
+PL PS Throughput ~ 0.369646 GBps 
+PL PS Throughput ~ 0.369603 GBps 
+PL PS Throughput ~ 0.369560 GBps 
+PL PS Throughput ~ 0.369517 GBps 
+PL PS Throughput ~ 0.369474 GBps 
+PL PS Throughput ~ 0.369430 GBps 
+PL PS Throughput ~ 0.369387 GBps 
+PL PS Throughput ~ 0.369344 GBps 
+PL PS Throughput ~ 0.369301 GBps 
+PL PS Throughput ~ 0.369258 GBps 
+PL PS Throughput ~ 0.369214 GBps 
+PL PS Throughput ~ 0.369171 GBps 
+PL PS Throughput ~ 0.369128 GBps 
+PL PS Throughput ~ 0.369085 GBps 
+PL PS Throughput ~ 0.369042 GBps 
+PL PS Throughput ~ 0.368999 GBps 
+PL PS Throughput ~ 0.368956 GBps 
+PL PS Throughput ~ 0.368913 GBps 
+PL PS Throughput ~ 0.368870 GBps 
+PL PS Throughput ~ 0.368827 GBps 
+PL PS Throughput ~ 0.368784 GBps 
+PL PS Throughput ~ 0.368741 GBps 
+PL PS Throughput ~ 0.368698 GBps 
+PL PS Throughput ~ 0.368654 GBps 
+PL PS Throughput ~ 0.368612 GBps 
+PL PS Throughput ~ 0.368569 GBps 
+PL PS Throughput ~ 0.368526 GBps 
+PL PS Throughput ~ 0.368483 GBps 
+PL PS Throughput ~ 0.368440 GBps 
+PL PS Throughput ~ 0.368397 GBps 
+PL PS Throughput ~ 0.368354 GBps 
+PL PS Throughput ~ 0.368311 GBps 
+PL PS Throughput ~ 0.368268 GBps 
+PL PS Throughput ~ 0.368225 GBps 
+PL PS Throughput ~ 0.368182 GBps 
+PL PS Throughput ~ 0.368139 GBps 
+PL PS Throughput ~ 0.368096 GBps 
+PL PS Throughput ~ 0.368053 GBps 
+PL PS Throughput ~ 0.368011 GBps 
+PL PS Throughput ~ 0.367968 GBps 
+PL PS Throughput ~ 0.367925 GBps 
+PL PS Throughput ~ 0.367882 GBps 
+PL PS Throughput ~ 0.367839 GBps 
+PL PS Throughput ~ 0.367796 GBps 
+PL PS Throughput ~ 0.367754 GBps 
+PL PS Throughput ~ 0.367711 GBps 
+PL PS Throughput ~ 0.367668 GBps 
+PL PS Throughput ~ 0.367625 GBps 
+PL PS Throughput ~ 0.367582 GBps 
+PL PS Throughput ~ 0.367540 GBps 
+PL PS Throughput ~ 0.367497 GBps 
+PL PS Throughput ~ 0.367454 GBps 
+PL PS Throughput ~ 0.367411 GBps 
+PL PS Throughput ~ 0.367369 GBps 
+PL PS Throughput ~ 0.367326 GBps 
+PL PS Throughput ~ 0.367283 GBps 
+PL PS Throughput ~ 0.367241 GBps 
+PL PS Throughput ~ 0.367198 GBps 
+PL PS Throughput ~ 0.367155 GBps 
+PL PS Throughput ~ 0.367113 GBps 
+PL PS Throughput ~ 0.367070 GBps 
+PL PS Throughput ~ 0.367027 GBps 
+PL PS Throughput ~ 0.366985 GBps 
+PL PS Throughput ~ 0.366942 GBps 
+PL PS Throughput ~ 0.366900 GBps 
+PL PS Throughput ~ 0.366857 GBps 
+PL PS Throughput ~ 0.366814 GBps 
+PL PS Throughput ~ 0.366772 GBps 
+PL PS Throughput ~ 0.366729 GBps 
+PL PS Throughput ~ 0.366687 GBps 
+PL PS Throughput ~ 0.366644 GBps 
+PL PS Throughput ~ 0.366602 GBps 
+PL PS Throughput ~ 0.366559 GBps 
+PL PS Throughput ~ 0.366517 GBps 
+PL PS Throughput ~ 0.366474 GBps 
+PL PS Throughput ~ 0.366432 GBps 
+PL PS Throughput ~ 0.366389 GBps 
+PL PS Throughput ~ 0.366347 GBps 
+PL PS Throughput ~ 0.366304 GBps 
+PL PS Throughput ~ 0.366262 GBps 
+PL PS Throughput ~ 0.366219 GBps 
+PL PS Throughput ~ 0.366177 GBps 
+PL PS Throughput ~ 0.366134 GBps 
+PL PS Throughput ~ 0.366092 GBps 
+PL PS Throughput ~ 0.366050 GBps 
+PL PS Throughput ~ 0.366007 GBps 
+PL PS Throughput ~ 0.365965 GBps 
+PL PS Throughput ~ 0.365922 GBps 
+PL PS Throughput ~ 0.365880 GBps 
+PL PS Throughput ~ 0.365838 GBps 
+PL PS Throughput ~ 0.365795 GBps 
+PL PS Throughput ~ 0.365753 GBps 
+PL PS Throughput ~ 0.365711 GBps 
+PL PS Throughput ~ 0.365668 GBps 
+PL PS Throughput ~ 0.365626 GBps 
+PL PS Throughput ~ 0.365584 GBps 
+PL PS Throughput ~ 0.365541 GBps 
+PL PS Throughput ~ 0.365499 GBps 
+PL PS Throughput ~ 0.365457 GBps 
+PL PS Throughput ~ 0.365415 GBps 
+PL PS Throughput ~ 0.365372 GBps 
+PL PS Throughput ~ 0.365330 GBps 
+PL PS Throughput ~ 0.365288 GBps 
+PL PS Throughput ~ 0.365246 GBps 
+PL PS Throughput ~ 0.365203 GBps 
+PL PS Throughput ~ 0.365161 GBps 
+PL PS Throughput ~ 0.365119 GBps 
+PL PS Throughput ~ 0.365077 GBps 
+PL PS Throughput ~ 0.365035 GBps 
+PL PS Throughput ~ 0.364993 GBps 
+PL PS Throughput ~ 0.364950 GBps 
+PL PS Throughput ~ 0.364908 GBps 
+PL PS Throughput ~ 0.364866 GBps 
+PL PS Throughput ~ 0.364824 GBps 
+PL PS Throughput ~ 0.364782 GBps 
+PL PS Throughput ~ 0.364740 GBps 
+PL PS Throughput ~ 0.364698 GBps 
+PL PS Throughput ~ 0.364656 GBps 
+PL PS Throughput ~ 0.364613 GBps 
+PL PS Throughput ~ 0.364571 GBps 
+PL PS Throughput ~ 0.364529 GBps 
+PL PS Throughput ~ 0.364487 GBps 
+PL PS Throughput ~ 0.364445 GBps 
+PL PS Throughput ~ 0.364403 GBps 
+PL PS Throughput ~ 0.364361 GBps 
+PL PS Throughput ~ 0.364319 GBps 
+PL PS Throughput ~ 0.364277 GBps 
+PL PS Throughput ~ 0.364235 GBps 
+PL PS Throughput ~ 0.364193 GBps 
+PL PS Throughput ~ 0.364151 GBps 
+PL PS Throughput ~ 0.364109 GBps 
+PL PS Throughput ~ 0.364067 GBps 
+PL PS Throughput ~ 0.364025 GBps 
+PL PS Throughput ~ 0.363983 GBps 
+PL PS Throughput ~ 0.363942 GBps 
+PL PS Throughput ~ 0.363900 GBps 
+PL PS Throughput ~ 0.363858 GBps 
+PL PS Throughput ~ 0.363816 GBps 
+PL PS Throughput ~ 0.363774 GBps 
+PL PS Throughput ~ 0.363732 GBps 
+PL PS Throughput ~ 0.363690 GBps 
+PL PS Throughput ~ 0.363648 GBps 
+PL PS Throughput ~ 0.363607 GBps 
+PL PS Throughput ~ 0.363565 GBps 
+PL PS Throughput ~ 0.363523 GBps 
+PL PS Throughput ~ 0.363481 GBps 
+PL PS Throughput ~ 0.363439 GBps 
+PL PS Throughput ~ 0.363397 GBps 
+PL PS Throughput ~ 0.363356 GBps 
+PL PS Throughput ~ 0.363314 GBps 
+PL PS Throughput ~ 0.363272 GBps 
+PL PS Throughput ~ 0.363230 GBps 
+PL PS Throughput ~ 0.363189 GBps 
+PL PS Throughput ~ 0.363147 GBps 
+PL PS Throughput ~ 0.363105 GBps 
+PL PS Throughput ~ 0.363063 GBps 
+PL PS Throughput ~ 0.363022 GBps 
+PL PS Throughput ~ 0.362980 GBps 
+PL PS Throughput ~ 0.362938 GBps 
+PL PS Throughput ~ 0.362897 GBps 
+PL PS Throughput ~ 0.362855 GBps 
+PL PS Throughput ~ 0.362813 GBps 
+PL PS Throughput ~ 0.362772 GBps 
+PL PS Throughput ~ 0.362730 GBps 
+PL PS Throughput ~ 0.362688 GBps 
+PL PS Throughput ~ 0.362647 GBps 
+PL PS Throughput ~ 0.362605 GBps 
+PL PS Throughput ~ 0.362564 GBps 
+PL PS Throughput ~ 0.362522 GBps 
+PL PS Throughput ~ 0.362480 GBps 
+PL PS Throughput ~ 0.362439 GBps 
+PL PS Throughput ~ 0.362397 GBps 
+PL PS Throughput ~ 0.362356 GBps 
+PL PS Throughput ~ 0.362314 GBps 
+PL PS Throughput ~ 0.362273 GBps 
+PL PS Throughput ~ 0.362231 GBps 
+PL PS Throughput ~ 0.362190 GBps 
+PL PS Throughput ~ 0.362148 GBps 
+PL PS Throughput ~ 0.362107 GBps 
+PL PS Throughput ~ 0.362065 GBps 
+PL PS Throughput ~ 0.362024 GBps 
+PL PS Throughput ~ 0.361982 GBps 
+PL PS Throughput ~ 0.361941 GBps 
+PL PS Throughput ~ 0.361899 GBps 
+PL PS Throughput ~ 0.361858 GBps 
+PL PS Throughput ~ 0.361816 GBps 
+PL PS Throughput ~ 0.361775 GBps 
+PL PS Throughput ~ 0.361733 GBps 
+PL PS Throughput ~ 0.361692 GBps 
+PL PS Throughput ~ 0.361651 GBps 
+PL PS Throughput ~ 0.361609 GBps 
+PL PS Throughput ~ 0.361568 GBps 
+PL PS Throughput ~ 0.361527 GBps 
+PL PS Throughput ~ 0.361485 GBps 
+PL PS Throughput ~ 0.361444 GBps 
+PL PS Throughput ~ 0.361403 GBps 
+PL PS Throughput ~ 0.361361 GBps 
+PL PS Throughput ~ 0.361320 GBps 
+PL PS Throughput ~ 0.361279 GBps 
+PL PS Throughput ~ 0.361237 GBps 
+PL PS Throughput ~ 0.361196 GBps 
+PL PS Throughput ~ 0.361155 GBps 
+PL PS Throughput ~ 0.361113 GBps 
+PL PS Throughput ~ 0.361072 GBps 
+PL PS Throughput ~ 0.361031 GBps 
+PL PS Throughput ~ 0.360990 GBps 
+PL PS Throughput ~ 0.360948 GBps 
+PL PS Throughput ~ 0.360907 GBps 
+PL PS Throughput ~ 0.360866 GBps 
+PL PS Throughput ~ 0.360825 GBps 
+PL PS Throughput ~ 0.360784 GBps 
+PL PS Throughput ~ 0.360742 GBps 
+PL PS Throughput ~ 0.360701 GBps 
+PL PS Throughput ~ 0.360660 GBps 
+PL PS Throughput ~ 0.360619 GBps 
+PL PS Throughput ~ 0.360578 GBps 
+PL PS Throughput ~ 0.360537 GBps 
+PL PS Throughput ~ 0.360496 GBps 
+PL PS Throughput ~ 0.360454 GBps 
+PL PS Throughput ~ 0.360413 GBps 
+PL PS Throughput ~ 0.360372 GBps 
+PL PS Throughput ~ 0.360331 GBps 
+PL PS Throughput ~ 0.360290 GBps 
+PL PS Throughput ~ 0.360249 GBps 
+PL PS Throughput ~ 0.360208 GBps 
+PL PS Throughput ~ 0.360167 GBps 
+PL PS Throughput ~ 0.360126 GBps 
+PL PS Throughput ~ 0.360085 GBps 
+PL PS Throughput ~ 0.360044 GBps 
+PL PS Throughput ~ 0.360003 GBps 
+PL PS Throughput ~ 0.359962 GBps 
+PL PS Throughput ~ 0.359921 GBps 
+PL PS Throughput ~ 0.359880 GBps 
+PL PS Throughput ~ 0.359839 GBps 
+PL PS Throughput ~ 0.359798 GBps 
+PL PS Throughput ~ 0.359757 GBps 
+PL PS Throughput ~ 0.359716 GBps 
+PL PS Throughput ~ 0.359675 GBps 
+PL PS Throughput ~ 0.359634 GBps 
+PL PS Throughput ~ 0.359593 GBps 
+PL PS Throughput ~ 0.359552 GBps 
+PL PS Throughput ~ 0.359511 GBps 
+PL PS Throughput ~ 0.359470 GBps 
+PL PS Throughput ~ 0.359429 GBps 
+PL PS Throughput ~ 0.359389 GBps 
+PL PS Throughput ~ 0.359348 GBps 
+PL PS Throughput ~ 0.359307 GBps 
+PL PS Throughput ~ 0.359266 GBps 
+PL PS Throughput ~ 0.359225 GBps 
+PL PS Throughput ~ 0.359184 GBps 
+PL PS Throughput ~ 0.359143 GBps 
+PL PS Throughput ~ 0.359103 GBps 
+PL PS Throughput ~ 0.359062 GBps 
+PL PS Throughput ~ 0.359021 GBps 
+PL PS Throughput ~ 0.358980 GBps 
+PL PS Throughput ~ 0.358939 GBps 
+PL PS Throughput ~ 0.358899 GBps 
+PL PS Throughput ~ 0.358858 GBps 
+PL PS Throughput ~ 0.358817 GBps 
+PL PS Throughput ~ 0.358776 GBps 
+PL PS Throughput ~ 0.358736 GBps 
+PL PS Throughput ~ 0.358695 GBps 
+PL PS Throughput ~ 0.358654 GBps 
+PL PS Throughput ~ 0.358614 GBps 
+PL PS Throughput ~ 0.358573 GBps 
+PL PS Throughput ~ 0.358532 GBps 
+PL PS Throughput ~ 0.358492 GBps 
+PL PS Throughput ~ 0.358451 GBps 
+PL PS Throughput ~ 0.358410 GBps 
+PL PS Throughput ~ 0.358370 GBps 
+PL PS Throughput ~ 0.358329 GBps 
+PL PS Throughput ~ 0.358288 GBps 
+PL PS Throughput ~ 0.358248 GBps 
+PL PS Throughput ~ 0.358207 GBps 
+PL PS Throughput ~ 0.358166 GBps 
+PL PS Throughput ~ 0.358126 GBps 
+PL PS Throughput ~ 0.358085 GBps 
+PL PS Throughput ~ 0.358045 GBps 
+PL PS Throughput ~ 0.358004 GBps 
+PL PS Throughput ~ 0.357964 GBps 
+PL PS Throughput ~ 0.357923 GBps 
+PL PS Throughput ~ 0.357882 GBps 
+PL PS Throughput ~ 0.357842 GBps 
+PL PS Throughput ~ 0.357801 GBps 
+PL PS Throughput ~ 0.357761 GBps 
+PL PS Throughput ~ 0.357720 GBps 
+PL PS Throughput ~ 0.357680 GBps 
+PL PS Throughput ~ 0.357639 GBps 
+PL PS Throughput ~ 0.357599 GBps 
+PL PS Throughput ~ 0.357559 GBps 
+PL PS Throughput ~ 0.357518 GBps 
+PL PS Throughput ~ 0.357478 GBps 
+PL PS Throughput ~ 0.357437 GBps 
+PL PS Throughput ~ 0.357397 GBps 
+PL PS Throughput ~ 0.357356 GBps 
+PL PS Throughput ~ 0.357316 GBps 
+PL PS Throughput ~ 0.357276 GBps 
+PL PS Throughput ~ 0.357235 GBps 
+PL PS Throughput ~ 0.357195 GBps 
+PL PS Throughput ~ 0.357154 GBps 
+PL PS Throughput ~ 0.357114 GBps 
+PL PS Throughput ~ 0.357074 GBps 
+PL PS Throughput ~ 0.357033 GBps 
+PL PS Throughput ~ 0.356993 GBps 
+PL PS Throughput ~ 0.356953 GBps 
+PL PS Throughput ~ 0.356912 GBps 
+PL PS Throughput ~ 0.356872 GBps 
+PL PS Throughput ~ 0.356832 GBps 
+PL PS Throughput ~ 0.356792 GBps 
+PL PS Throughput ~ 0.356751 GBps 
+PL PS Throughput ~ 0.356711 GBps 
+PL PS Throughput ~ 0.356671 GBps 
+PL PS Throughput ~ 0.356630 GBps 
+PL PS Throughput ~ 0.356590 GBps 
+PL PS Throughput ~ 0.356550 GBps 
+PL PS Throughput ~ 0.356510 GBps 
+PL PS Throughput ~ 0.356470 GBps 
+PL PS Throughput ~ 0.356429 GBps 
+PL PS Throughput ~ 0.356389 GBps 
+PL PS Throughput ~ 0.356349 GBps 
+PL PS Throughput ~ 0.356309 GBps 
+PL PS Throughput ~ 0.356269 GBps 
+PL PS Throughput ~ 0.356228 GBps 
+PL PS Throughput ~ 0.356188 GBps 
+PL PS Throughput ~ 0.356148 GBps 
+PL PS Throughput ~ 0.356108 GBps 
+PL PS Throughput ~ 0.356068 GBps 
+PL PS Throughput ~ 0.356028 GBps 
+PL PS Throughput ~ 0.355988 GBps 
+PL PS Throughput ~ 0.355947 GBps 
+PL PS Throughput ~ 0.355907 GBps 
+PL PS Throughput ~ 0.355867 GBps 
+PL PS Throughput ~ 0.355827 GBps 
+PL PS Throughput ~ 0.355787 GBps 
+PL PS Throughput ~ 0.355747 GBps 
+PL PS Throughput ~ 0.355707 GBps 
+PL PS Throughput ~ 0.355667 GBps 
+PL PS Throughput ~ 0.355627 GBps 
+PL PS Throughput ~ 0.355587 GBps 
+PL PS Throughput ~ 0.355547 GBps 
+PL PS Throughput ~ 0.355507 GBps 
+PL PS Throughput ~ 0.355467 GBps 
+PL PS Throughput ~ 0.355427 GBps 
+PL PS Throughput ~ 0.355387 GBps 
+PL PS Throughput ~ 0.355347 GBps 
+PL PS Throughput ~ 0.355307 GBps 
+PL PS Throughput ~ 0.355267 GBps 
+PL PS Throughput ~ 0.355227 GBps 
+PL PS Throughput ~ 0.355187 GBps 
+PL PS Throughput ~ 0.355147 GBps 
+PL PS Throughput ~ 0.355107 GBps 
+PL PS Throughput ~ 0.355068 GBps 
+PL PS Throughput ~ 0.355028 GBps 
+PL PS Throughput ~ 0.354988 GBps 
+PL PS Throughput ~ 0.354948 GBps 
+PL PS Throughput ~ 0.354908 GBps 
+PL PS Throughput ~ 0.354868 GBps 
+PL PS Throughput ~ 0.354828 GBps 
+PL PS Throughput ~ 0.354789 GBps 
+PL PS Throughput ~ 0.354749 GBps 
+PL PS Throughput ~ 0.354709 GBps 
+PL PS Throughput ~ 0.354669 GBps 
+PL PS Throughput ~ 0.354629 GBps 
+PL PS Throughput ~ 0.354589 GBps 
+PL PS Throughput ~ 0.354550 GBps 
+PL PS Throughput ~ 0.354510 GBps 
+PL PS Throughput ~ 0.354470 GBps 
+PL PS Throughput ~ 0.354430 GBps 
+PL PS Throughput ~ 0.354391 GBps 
+PL PS Throughput ~ 0.354351 GBps 
+PL PS Throughput ~ 0.354311 GBps 
+PL PS Throughput ~ 0.354271 GBps 
+PL PS Throughput ~ 0.354232 GBps 
+PL PS Throughput ~ 0.354192 GBps 
+PL PS Throughput ~ 0.354152 GBps 
+PL PS Throughput ~ 0.354113 GBps 
+PL PS Throughput ~ 0.354073 GBps 
+PL PS Throughput ~ 0.354033 GBps 
+PL PS Throughput ~ 0.353994 GBps 
+PL PS Throughput ~ 0.353954 GBps 
+PL PS Throughput ~ 0.353914 GBps 
+PL PS Throughput ~ 0.353875 GBps 
+PL PS Throughput ~ 0.353835 GBps 
+PL PS Throughput ~ 0.353795 GBps 
+PL PS Throughput ~ 0.353756 GBps 
+PL PS Throughput ~ 0.353716 GBps 
+PL PS Throughput ~ 0.353677 GBps 
+PL PS Throughput ~ 0.353637 GBps 
+PL PS Throughput ~ 0.353598 GBps 
+PL PS Throughput ~ 0.353558 GBps 
+PL PS Throughput ~ 0.353518 GBps 
+PL PS Throughput ~ 0.353479 GBps 
+PL PS Throughput ~ 0.353439 GBps 
+PL PS Throughput ~ 0.353400 GBps 
+PL PS Throughput ~ 0.353360 GBps 
+PL PS Throughput ~ 0.353321 GBps 
+PL PS Throughput ~ 0.353281 GBps 
+PL PS Throughput ~ 0.353242 GBps 
+PL PS Throughput ~ 0.353202 GBps 
+PL PS Throughput ~ 0.353163 GBps 
+PL PS Throughput ~ 0.353123 GBps 
+PL PS Throughput ~ 0.353084 GBps 
+PL PS Throughput ~ 0.353044 GBps 
+PL PS Throughput ~ 0.353005 GBps 
+PL PS Throughput ~ 0.352966 GBps 
+PL PS Throughput ~ 0.352926 GBps 
+PL PS Throughput ~ 0.352887 GBps 
+PL PS Throughput ~ 0.352847 GBps 
+PL PS Throughput ~ 0.352808 GBps 
+PL PS Throughput ~ 0.352769 GBps 
+PL PS Throughput ~ 0.352729 GBps 
+PL PS Throughput ~ 0.352690 GBps 
+PL PS Throughput ~ 0.352650 GBps 
+PL PS Throughput ~ 0.352611 GBps 
+PL PS Throughput ~ 0.352572 GBps 
+PL PS Throughput ~ 0.352532 GBps 
+PL PS Throughput ~ 0.352493 GBps 
+PL PS Throughput ~ 0.352454 GBps 
+PL PS Throughput ~ 0.352414 GBps 
+PL PS Throughput ~ 0.352375 GBps 
+PL PS Throughput ~ 0.352336 GBps 
+PL PS Throughput ~ 0.352297 GBps 
+PL PS Throughput ~ 0.352257 GBps 
+PL PS Throughput ~ 0.352218 GBps 
+PL PS Throughput ~ 0.352179 GBps 
+PL PS Throughput ~ 0.352140 GBps 
+PL PS Throughput ~ 0.352100 GBps 
+PL PS Throughput ~ 0.352061 GBps 
+PL PS Throughput ~ 0.352022 GBps 
+PL PS Throughput ~ 0.351983 GBps 
+PL PS Throughput ~ 0.351943 GBps 
+PL PS Throughput ~ 0.351904 GBps 
+PL PS Throughput ~ 0.351865 GBps 
+PL PS Throughput ~ 0.351826 GBps 
+PL PS Throughput ~ 0.351787 GBps 
+PL PS Throughput ~ 0.351748 GBps 
+PL PS Throughput ~ 0.351708 GBps 
+PL PS Throughput ~ 0.351592 GBps 
+PL PS Throughput ~ 0.351592 GBps 
+PL PS Throughput ~ 0.351576 GBps 
+PL PS Throughput ~ 0.351537 GBps 
+PL PS Throughput ~ 0.351497 GBps 
+PL PS Throughput ~ 0.351458 GBps 
+PL PS Throughput ~ 0.351419 GBps 
+PL PS Throughput ~ 0.351380 GBps 
+PL PS Throughput ~ 0.351341 GBps 
+PL PS Throughput ~ 0.351302 GBps 
+PL PS Throughput ~ 0.351263 GBps 
+PL PS Throughput ~ 0.351224 GBps 
+PL PS Throughput ~ 0.351185 GBps 
+PL PS Throughput ~ 0.351146 GBps 
+PL PS Throughput ~ 0.351107 GBps 
+PL PS Throughput ~ 0.351068 GBps 
+PL PS Throughput ~ 0.351029 GBps 
+PL PS Throughput ~ 0.350990 GBps 
+PL PS Throughput ~ 0.350951 GBps 
+PL PS Throughput ~ 0.350912 GBps 
+PL PS Throughput ~ 0.350873 GBps 
+PL PS Throughput ~ 0.350834 GBps 
+PL PS Throughput ~ 0.350795 GBps 
+PL PS Throughput ~ 0.350756 GBps 
+PL PS Throughput ~ 0.350717 GBps 
+PL PS Throughput ~ 0.350678 GBps 
+PL PS Throughput ~ 0.350639 GBps 
+PL PS Throughput ~ 0.350600 GBps 
+PL PS Throughput ~ 0.350562 GBps 
+PL PS Throughput ~ 0.350523 GBps 
+PL PS Throughput ~ 0.350484 GBps 
+PL PS Throughput ~ 0.350445 GBps 
+PL PS Throughput ~ 0.350406 GBps 
+PL PS Throughput ~ 0.350367 GBps 
+PL PS Throughput ~ 0.350328 GBps 
+PL PS Throughput ~ 0.350290 GBps 
+PL PS Throughput ~ 0.350251 GBps 
+PL PS Throughput ~ 0.350212 GBps 
+PL PS Throughput ~ 0.350173 GBps 
+PL PS Throughput ~ 0.350134 GBps 
+PL PS Throughput ~ 0.350095 GBps 
+PL PS Throughput ~ 0.350057 GBps 
+PL PS Throughput ~ 0.350018 GBps 
+PL PS Throughput ~ 0.349979 GBps 
+PL PS Throughput ~ 0.349940 GBps 
+PL PS Throughput ~ 0.349902 GBps 
+PL PS Throughput ~ 0.349863 GBps 
+PL PS Throughput ~ 0.349824 GBps 
+PL PS Throughput ~ 0.349785 GBps 
+PL PS Throughput ~ 0.349747 GBps 
+PL PS Throughput ~ 0.349708 GBps 
+PL PS Throughput ~ 0.349669 GBps 
+PL PS Throughput ~ 0.349631 GBps 
+PL PS Throughput ~ 0.349592 GBps 
+PL PS Throughput ~ 0.349553 GBps 
+PL PS Throughput ~ 0.349515 GBps 
+PL PS Throughput ~ 0.349476 GBps 
+PL PS Throughput ~ 0.349437 GBps 
+PL PS Throughput ~ 0.349399 GBps 
+PL PS Throughput ~ 0.349360 GBps 
+PL PS Throughput ~ 0.349321 GBps 
+PL PS Throughput ~ 0.349283 GBps 
+PL PS Throughput ~ 0.349244 GBps 
+PL PS Throughput ~ 0.349206 GBps 
+PL PS Throughput ~ 0.349167 GBps 
+PL PS Throughput ~ 0.349128 GBps 
+PL PS Throughput ~ 0.349090 GBps 
+PL PS Throughput ~ 0.349051 GBps 
+PL PS Throughput ~ 0.349013 GBps 
+PL PS Throughput ~ 0.348974 GBps 
+PL PS Throughput ~ 0.348936 GBps 
+PL PS Throughput ~ 0.348897 GBps 
+PL PS Throughput ~ 0.348859 GBps 
+PL PS Throughput ~ 0.348820 GBps 
+PL PS Throughput ~ 0.348782 GBps 
+PL PS Throughput ~ 0.348743 GBps 
+PL PS Throughput ~ 0.348705 GBps 
+PL PS Throughput ~ 0.348666 GBps 
+PL PS Throughput ~ 0.348628 GBps 
+PL PS Throughput ~ 0.348589 GBps 
+PL PS Throughput ~ 0.348551 GBps 
+PL PS Throughput ~ 0.348512 GBps 
+PL PS Throughput ~ 0.348474 GBps 
+PL PS Throughput ~ 0.348436 GBps 
+PL PS Throughput ~ 0.348397 GBps 
+PL PS Throughput ~ 0.348359 GBps 
+PL PS Throughput ~ 0.348320 GBps 
+PL PS Throughput ~ 0.348282 GBps 
+PL PS Throughput ~ 0.348244 GBps 
+PL PS Throughput ~ 0.348205 GBps 
+PL PS Throughput ~ 0.348167 GBps 
+PL PS Throughput ~ 0.348128 GBps 
+PL PS Throughput ~ 0.348090 GBps 
+PL PS Throughput ~ 0.348052 GBps 
+PL PS Throughput ~ 0.348013 GBps 
+PL PS Throughput ~ 0.347975 GBps 
+PL PS Throughput ~ 0.347937 GBps 
+PL PS Throughput ~ 0.347898 GBps 
+PL PS Throughput ~ 0.347860 GBps 
+PL PS Throughput ~ 0.347822 GBps 
+PL PS Throughput ~ 0.347784 GBps 
+PL PS Throughput ~ 0.347745 GBps 
+PL PS Throughput ~ 0.347707 GBps 
+PL PS Throughput ~ 0.347669 GBps 
+PL PS Throughput ~ 0.347631 GBps 
+PL PS Throughput ~ 0.347592 GBps 
+PL PS Throughput ~ 0.347554 GBps 
+PL PS Throughput ~ 0.347516 GBps 
+PL PS Throughput ~ 0.347478 GBps 
+PL PS Throughput ~ 0.347439 GBps 
+PL PS Throughput ~ 0.347401 GBps 
+PL PS Throughput ~ 0.347363 GBps 
+PL PS Throughput ~ 0.347325 GBps 
+PL PS Throughput ~ 0.347287 GBps 
+PL PS Throughput ~ 0.347249 GBps 
+PL PS Throughput ~ 0.347210 GBps 
+PL PS Throughput ~ 0.347172 GBps 
+PL PS Throughput ~ 0.347134 GBps 
+PL PS Throughput ~ 0.347096 GBps 
+PL PS Throughput ~ 0.347058 GBps 
+PL PS Throughput ~ 0.347020 GBps 
+PL PS Throughput ~ 0.346982 GBps 
+PL PS Throughput ~ 0.346944 GBps 
+PL PS Throughput ~ 0.346905 GBps 
+PL PS Throughput ~ 0.346867 GBps 
+PL PS Throughput ~ 0.346829 GBps 
+PL PS Throughput ~ 0.346791 GBps 
+PL PS Throughput ~ 0.346753 GBps 
+PL PS Throughput ~ 0.346715 GBps 
+PL PS Throughput ~ 0.346677 GBps 
+PL PS Throughput ~ 0.346639 GBps 
+PL PS Throughput ~ 0.346601 GBps 
+PL PS Throughput ~ 0.346563 GBps 
+PL PS Throughput ~ 0.346525 GBps 
+PL PS Throughput ~ 0.346487 GBps 
+PL PS Throughput ~ 0.346449 GBps 
+PL PS Throughput ~ 0.346411 GBps 
+PL PS Throughput ~ 0.346373 GBps 
+PL PS Throughput ~ 0.346335 GBps 
+PL PS Throughput ~ 0.346297 GBps 
+PL PS Throughput ~ 0.346259 GBps 
+PL PS Throughput ~ 0.346221 GBps 
+PL PS Throughput ~ 0.346183 GBps 
+PL PS Throughput ~ 0.346145 GBps 
+PL PS Throughput ~ 0.346108 GBps 
+PL PS Throughput ~ 0.346070 GBps 
+PL PS Throughput ~ 0.346032 GBps 
+PL PS Throughput ~ 0.345994 GBps 
+PL PS Throughput ~ 0.345956 GBps 
+PL PS Throughput ~ 0.345918 GBps 
+PL PS Throughput ~ 0.345880 GBps 
+PL PS Throughput ~ 0.345842 GBps 
+PL PS Throughput ~ 0.345805 GBps 
+PL PS Throughput ~ 0.345767 GBps 
+PL PS Throughput ~ 0.345729 GBps 
+PL PS Throughput ~ 0.345691 GBps 
+PL PS Throughput ~ 0.345653 GBps 
+PL PS Throughput ~ 0.345615 GBps 
+PL PS Throughput ~ 0.345578 GBps 
+PL PS Throughput ~ 0.345540 GBps 
+PL PS Throughput ~ 0.345502 GBps 
+PL PS Throughput ~ 0.345464 GBps 
+PL PS Throughput ~ 0.345426 GBps 
+PL PS Throughput ~ 0.345389 GBps 
+PL PS Throughput ~ 0.345351 GBps 
+PL PS Throughput ~ 0.345313 GBps 
+PL PS Throughput ~ 0.345276 GBps 
+PL PS Throughput ~ 0.345238 GBps 
+PL PS Throughput ~ 0.345200 GBps 
+PL PS Throughput ~ 0.345162 GBps 
+PL PS Throughput ~ 0.345125 GBps 
+PL PS Throughput ~ 0.345087 GBps 
+PL PS Throughput ~ 0.345049 GBps 
+PL PS Throughput ~ 0.345012 GBps 
+PL PS Throughput ~ 0.344974 GBps 
+PL PS Throughput ~ 0.344936 GBps 
+PL PS Throughput ~ 0.344899 GBps 
+PL PS Throughput ~ 0.344861 GBps 
+PL PS Throughput ~ 0.344823 GBps 
+PL PS Throughput ~ 0.344786 GBps 
+PL PS Throughput ~ 0.344748 GBps 
+PL PS Throughput ~ 0.344711 GBps 
+PL PS Throughput ~ 0.344673 GBps 
+PL PS Throughput ~ 0.344635 GBps 
+PL PS Throughput ~ 0.344598 GBps 
+PL PS Throughput ~ 0.344560 GBps 
+PL PS Throughput ~ 0.344523 GBps 
+PL PS Throughput ~ 0.344485 GBps 
+PL PS Throughput ~ 0.344448 GBps 
+PL PS Throughput ~ 0.344410 GBps 
+PL PS Throughput ~ 0.344372 GBps 
+PL PS Throughput ~ 0.344335 GBps 
+PL PS Throughput ~ 0.344297 GBps 
+PL PS Throughput ~ 0.344260 GBps 
+PL PS Throughput ~ 0.344222 GBps 
+PL PS Throughput ~ 0.344185 GBps 
+PL PS Throughput ~ 0.344147 GBps 
+PL PS Throughput ~ 0.344110 GBps 
+PL PS Throughput ~ 0.344073 GBps 
+PL PS Throughput ~ 0.344035 GBps 
+PL PS Throughput ~ 0.343998 GBps 
+PL PS Throughput ~ 0.343960 GBps 
+PL PS Throughput ~ 0.343923 GBps 
+PL PS Throughput ~ 0.343885 GBps 
+PL PS Throughput ~ 0.343848 GBps 
+PL PS Throughput ~ 0.343810 GBps 
+PL PS Throughput ~ 0.343773 GBps 
+PL PS Throughput ~ 0.343736 GBps 
+PL PS Throughput ~ 0.343698 GBps 
+PL PS Throughput ~ 0.343661 GBps 
+PL PS Throughput ~ 0.343624 GBps 
+PL PS Throughput ~ 0.343586 GBps 
+PL PS Throughput ~ 0.343549 GBps 
+PL PS Throughput ~ 0.343511 GBps 
+PL PS Throughput ~ 0.343474 GBps 
+PL PS Throughput ~ 0.343437 GBps 
+PL PS Throughput ~ 0.343399 GBps 
+PL PS Throughput ~ 0.343362 GBps 
+PL PS Throughput ~ 0.343325 GBps 
+PL PS Throughput ~ 0.343288 GBps 
+PL PS Throughput ~ 0.343250 GBps 
+PL PS Throughput ~ 0.343213 GBps 
+PL PS Throughput ~ 0.343176 GBps 
+PL PS Throughput ~ 0.343138 GBps 
+PL PS Throughput ~ 0.343101 GBps 
+PL PS Throughput ~ 0.343064 GBps 
+PL PS Throughput ~ 0.343027 GBps 
+PL PS Throughput ~ 0.342989 GBps 
+PL PS Throughput ~ 0.342952 GBps 
+PL PS Throughput ~ 0.342915 GBps 
+PL PS Throughput ~ 0.342878 GBps 
+PL PS Throughput ~ 0.342841 GBps 
+PL PS Throughput ~ 0.342803 GBps 
+PL PS Throughput ~ 0.342766 GBps 
+PL PS Throughput ~ 0.342729 GBps 
+PL PS Throughput ~ 0.342692 GBps 
+PL PS Throughput ~ 0.342655 GBps 
+PL PS Throughput ~ 0.342618 GBps 
+PL PS Throughput ~ 0.342580 GBps 
+PL PS Throughput ~ 0.342543 GBps 
+PL PS Throughput ~ 0.342506 GBps 
+PL PS Throughput ~ 0.342469 GBps 
+PL PS Throughput ~ 0.342432 GBps 
+PL PS Throughput ~ 0.342395 GBps 
+PL PS Throughput ~ 0.342358 GBps 
+PL PS Throughput ~ 0.342321 GBps 
+PL PS Throughput ~ 0.342284 GBps 
+PL PS Throughput ~ 0.342247 GBps 
+PL PS Throughput ~ 0.342209 GBps 
+PL PS Throughput ~ 0.342172 GBps 
+PL PS Throughput ~ 0.342135 GBps 
+PL PS Throughput ~ 0.342098 GBps 
+PL PS Throughput ~ 0.342061 GBps 
+PL PS Throughput ~ 0.342024 GBps 
+PL PS Throughput ~ 0.341987 GBps 
+PL PS Throughput ~ 0.341950 GBps 
+PL PS Throughput ~ 0.341913 GBps 
+PL PS Throughput ~ 0.341876 GBps 
+PL PS Throughput ~ 0.341839 GBps 
+PL PS Throughput ~ 0.341802 GBps 
+PL PS Throughput ~ 0.341765 GBps 
+PL PS Throughput ~ 0.341728 GBps 
+PL PS Throughput ~ 0.341691 GBps 
+PL PS Throughput ~ 0.341654 GBps 
+PL PS Throughput ~ 0.341618 GBps 
+PL PS Throughput ~ 0.341581 GBps 
+PL PS Throughput ~ 0.341544 GBps 
+PL PS Throughput ~ 0.341507 GBps 
+PL PS Throughput ~ 0.341470 GBps 
+PL PS Throughput ~ 0.341433 GBps 
+PL PS Throughput ~ 0.341396 GBps 
+PL PS Throughput ~ 0.341359 GBps 
+PL PS Throughput ~ 0.341322 GBps 
+PL PS Throughput ~ 0.341285 GBps 
+PL PS Throughput ~ 0.341249 GBps 
+PL PS Throughput ~ 0.341212 GBps 
+PL PS Throughput ~ 0.341175 GBps 
+PL PS Throughput ~ 0.341138 GBps 
+PL PS Throughput ~ 0.341101 GBps 
+PL PS Throughput ~ 0.341064 GBps 
+PL PS Throughput ~ 0.341028 GBps 
+PL PS Throughput ~ 0.340991 GBps 
+PL PS Throughput ~ 0.340954 GBps 
+PL PS Throughput ~ 0.340917 GBps 
+PL PS Throughput ~ 0.340880 GBps 
+PL PS Throughput ~ 0.340844 GBps 
+PL PS Throughput ~ 0.340807 GBps 
+PL PS Throughput ~ 0.340770 GBps 
+PL PS Throughput ~ 0.340733 GBps 
+PL PS Throughput ~ 0.340697 GBps 
+PL PS Throughput ~ 0.340660 GBps 
+PL PS Throughput ~ 0.340623 GBps 
+PL PS Throughput ~ 0.340587 GBps 
+PL PS Throughput ~ 0.340550 GBps 
+PL PS Throughput ~ 0.340513 GBps 
+PL PS Throughput ~ 0.340476 GBps 
+PL PS Throughput ~ 0.340440 GBps 
+PL PS Throughput ~ 0.340403 GBps 
+PL PS Throughput ~ 0.340366 GBps 
+PL PS Throughput ~ 0.340330 GBps 
+PL PS Throughput ~ 0.340293 GBps 
+PL PS Throughput ~ 0.340257 GBps 
+PL PS Throughput ~ 0.340220 GBps 
+PL PS Throughput ~ 0.340183 GBps 
+PL PS Throughput ~ 0.340147 GBps 
+PL PS Throughput ~ 0.340110 GBps 
+PL PS Throughput ~ 0.340073 GBps 
+PL PS Throughput ~ 0.340037 GBps 
+PL PS Throughput ~ 0.340000 GBps 
+PL PS Throughput ~ 0.339964 GBps 
+PL PS Throughput ~ 0.339927 GBps 
+PL PS Throughput ~ 0.339890 GBps 
+PL PS Throughput ~ 0.339854 GBps 
+PL PS Throughput ~ 0.339817 GBps 
+PL PS Throughput ~ 0.339781 GBps 
+PL PS Throughput ~ 0.339744 GBps 
+PL PS Throughput ~ 0.339708 GBps 
+PL PS Throughput ~ 0.339671 GBps 
+PL PS Throughput ~ 0.339635 GBps 
+PL PS Throughput ~ 0.339598 GBps 
+PL PS Throughput ~ 0.339562 GBps 
+PL PS Throughput ~ 0.339525 GBps 
+PL PS Throughput ~ 0.339489 GBps 
+PL PS Throughput ~ 0.339452 GBps 
+PL PS Throughput ~ 0.339416 GBps 
+PL PS Throughput ~ 0.339379 GBps 
+PL PS Throughput ~ 0.339343 GBps 
+PL PS Throughput ~ 0.339307 GBps 
+PL PS Throughput ~ 0.339270 GBps 
+PL PS Throughput ~ 0.339234 GBps 
+PL PS Throughput ~ 0.339197 GBps 
+PL PS Throughput ~ 0.339161 GBps 
+PL PS Throughput ~ 0.339125 GBps 
+PL PS Throughput ~ 0.339088 GBps 
+PL PS Throughput ~ 0.339052 GBps 
+PL PS Throughput ~ 0.339015 GBps 
+PL PS Throughput ~ 0.338979 GBps 
+PL PS Throughput ~ 0.338943 GBps 
+PL PS Throughput ~ 0.338906 GBps 
+PL PS Throughput ~ 0.338870 GBps 
+PL PS Throughput ~ 0.338834 GBps 
+PL PS Throughput ~ 0.338797 GBps 
+PL PS Throughput ~ 0.338761 GBps 
+PL PS Throughput ~ 0.338725 GBps 
+PL PS Throughput ~ 0.338688 GBps 
+PL PS Throughput ~ 0.338652 GBps 
+PL PS Throughput ~ 0.338616 GBps 
+PL PS Throughput ~ 0.338579 GBps 
+PL PS Throughput ~ 0.338543 GBps 
+PL PS Throughput ~ 0.338507 GBps 
+PL PS Throughput ~ 0.338471 GBps 
+PL PS Throughput ~ 0.338434 GBps 
+PL PS Throughput ~ 0.338398 GBps 
+PL PS Throughput ~ 0.338362 GBps 
+PL PS Throughput ~ 0.338326 GBps 
+PL PS Throughput ~ 0.338289 GBps 
+PL PS Throughput ~ 0.338253 GBps 
+PL PS Throughput ~ 0.338217 GBps 
+PL PS Throughput ~ 0.338181 GBps 
+PL PS Throughput ~ 0.338145 GBps 
+PL PS Throughput ~ 0.338109 GBps 
+PL PS Throughput ~ 0.338072 GBps 
+PL PS Throughput ~ 0.338036 GBps 
+PL PS Throughput ~ 0.338000 GBps 
+PL PS Throughput ~ 0.337964 GBps 
+PL PS Throughput ~ 0.337928 GBps 
+PL PS Throughput ~ 0.337892 GBps 
+PL PS Throughput ~ 0.337855 GBps 
+PL PS Throughput ~ 0.337819 GBps 
+PL PS Throughput ~ 0.337783 GBps 
+PL PS Throughput ~ 0.337747 GBps 
+PL PS Throughput ~ 0.337711 GBps 
+PL PS Throughput ~ 0.337675 GBps 
+PL PS Throughput ~ 0.337639 GBps 
+PL PS Throughput ~ 0.337603 GBps 
+PL PS Throughput ~ 0.337567 GBps 
+PL PS Throughput ~ 0.337531 GBps 
+PL PS Throughput ~ 0.337495 GBps 
+PL PS Throughput ~ 0.337459 GBps 
+PL PS Throughput ~ 0.337423 GBps 
+PL PS Throughput ~ 0.337387 GBps 
+PL PS Throughput ~ 0.337351 GBps 
+PL PS Throughput ~ 0.337314 GBps 
+PL PS Throughput ~ 0.337278 GBps 
+PL PS Throughput ~ 0.337243 GBps 
+PL PS Throughput ~ 0.337206 GBps 
+PL PS Throughput ~ 0.337171 GBps 
+PL PS Throughput ~ 0.337135 GBps 
+PL PS Throughput ~ 0.337099 GBps 
+PL PS Throughput ~ 0.337063 GBps 
+PL PS Throughput ~ 0.337027 GBps 
+PL PS Throughput ~ 0.336991 GBps 
+PL PS Throughput ~ 0.336955 GBps 
+PL PS Throughput ~ 0.336919 GBps 
+PL PS Throughput ~ 0.336883 GBps 
+PL PS Throughput ~ 0.336847 GBps 
+PL PS Throughput ~ 0.336811 GBps 
+PL PS Throughput ~ 0.336775 GBps 
+PL PS Throughput ~ 0.336739 GBps 
+PL PS Throughput ~ 0.336703 GBps 
+PL PS Throughput ~ 0.336668 GBps 
+PL PS Throughput ~ 0.336632 GBps 
+PL PS Throughput ~ 0.336596 GBps 
+PL PS Throughput ~ 0.336560 GBps 
+PL PS Throughput ~ 0.336524 GBps 
+PL PS Throughput ~ 0.336488 GBps 
+PL PS Throughput ~ 0.336453 GBps 
+PL PS Throughput ~ 0.336417 GBps 
+PL PS Throughput ~ 0.336381 GBps 
+PL PS Throughput ~ 0.336345 GBps 
+PL PS Throughput ~ 0.336309 GBps 
+PL PS Throughput ~ 0.336274 GBps 
+PL PS Throughput ~ 0.336238 GBps 
+PL PS Throughput ~ 0.336202 GBps 
+PL PS Throughput ~ 0.336166 GBps 
+PL PS Throughput ~ 0.336130 GBps 
+PL PS Throughput ~ 0.336095 GBps 
+PL PS Throughput ~ 0.336059 GBps 
+PL PS Throughput ~ 0.336023 GBps 
+PL PS Throughput ~ 0.335
+Starting Tests
+
+Starting Tests
+PL PS Throughput ~ 0.211925 GBps 
+out PL PS Throughput ~ 0.211925 GBps 
+Tests Complete
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+
+Starting Tests
+ 
+Starting Tests
+
+Starting Tests
+cycles to write 800000000 OCM bytes: 252801182
+Throughput ~ 3.797451 GBps 
+cycles to read 800000000 OCM bytes: 1252158927
+Throughput ~ 0.766676 GBps 
+
+cycles to write 800000000 CACHE bytes: 251147615
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 CACHE bytes: 209481079
+Throughput ~ 4.582753 GBps 
+
+cycles to write 800000000 OCM bytes: 251147637
+Throughput ~ 3.822453 GBps 
+cycles to read 800000000 OCM bytes: 1252156729
+Throughput ~ 0.766677 GBps 
+
+PL PS Throughput ~ 0.353805 GBps 
+out PL PS Throughput ~ 0.353804 GBps 
+Tests Complete

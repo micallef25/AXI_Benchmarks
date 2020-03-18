@@ -123,3 +123,59 @@ CACHE test run cycles 10253632
 Throughput ~ 2.808761 GBps
 128 bit Tests Completed
 
+
+
+
+Presence Bit .6 GBps
+Read Write .35 GBps
+
+
+
+
+
+
+Fast flow
+Starting Tests
+cycles to write 800000000 OCM bytes: 270097518
+Throughput ~ 3.554272 GBps
+cycles to read 800000000 OCM bytes: 625923678
+Throughput ~ 1.533733 GBps
+
+cycles to write 800000000 CACHE bytes: 270097507
+Throughput ~ 3.554272 GBps
+cycles to read 800000000 CACHE bytes: 267386417
+Throughput ~ 3.590309 GBps
+
+cycles to write 800000000 OCM bytes: 270097513
+Throughput ~ 3.554272 GBps
+cycles to read 800000000 OCM bytes: 625924232
+Throughput ~ 1.533732 GBps
+
+
+Normal Flow
+Starting Tests
+cycles to write 800000000 OCM bytes: 251147657
+Throughput ~ 3.822453 GBps
+cycles to read 800000000 OCM bytes: 1257563700
+Throughput ~ 0.763381 GBps
+
+cycles to write 800000000 CACHE bytes: 251147609
+Throughput ~ 3.822453 GBps
+cycles to read 800000000 CACHE bytes: 209481104
+Throughput ~ 4.582752 GBps
+
+cycles to write 800000000 OCM bytes: 251147613
+Throughput ~ 3.822453 GBps
+cycles to read 800000000 OCM bytes: 1257559015
+Throughput ~ 0.763384 GBps
+
+(unpiped)
+PL PS Throughput ~ 0.072727 GBps
+Tests Complete
+
+PS PS Throughput ~ 0.35 GBps
+Tests Complete
+
+(piped)
+PL PS Throughput ~ 0.353805 GBps
+out PL PS Throughput ~ 0.353804 GBps

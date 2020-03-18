@@ -52,30 +52,28 @@
 #include "Overlays/stream.h"
 #include "xtime_l.h"
 
+#define BUFFER_SIZE 100
+#define TESTS 10
 
 int main()
 {
     init_platform();
+    printf("Starting Tests\r\n");
 
-    run_benchmark_memory( 100, DDR,100, HPC0 );
+    //run_benchmark_ps_pl_flow( 100, OCM,200, HP0 );
     run_benchmark_memory( 100, OCM,100, HPC0 );
-    run_benchmark_memory( 100, CACHE,100, HPC0 );
-    run_benchmark_memory( 100, OCM,100, HPC0 );
 
-    // run_benchmark( 100, DDR,200, HP0 );
-    run_benchmark( 100, OCM,200, HP0 );
+//for(int test = 0; test < TESTS; test++)
+//	run_benchmark_ps_ps_flow( 100, OCM,200, HP0 );
 
-    //run_benchmark( 100, DDR,200, HPC0 );
-    //run_benchmark( 100, OCM,200, HPC0 );
-    run_benchmark( 100, CACHE,200, HPC0 );
+    run_benchmark_ps_pl_flow( 100, OCM,200, HP0 );
 
-//    run_benchmark( 100, CACHE,100 );
+//    run_benchmark( 100, DDR,200, HPC0 );
+//    run_benchmark( 100, CACHE,200, HPC0 );
+//    run_benchmark( 100, OCM,200, HPC0 );
 
-//    run_benchmark( 100, DDR,100, HP0 );
-//    run_benchmark( 100, OCM,200, HP0 );
 
-    //run_benchmark( 100, CACHE,100 );
-    printf("Tests Completed\n");
+    printf("Tests Complete\n");
     cleanup_platform();
     return 0;
 }

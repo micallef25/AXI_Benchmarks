@@ -18,8 +18,7 @@
 #include "assert.h"
 #include "xmutex.h"
 
-
-
+#define ACTIVE_CORES 3
 
 void delay(int delay)
 {
@@ -29,72 +28,6 @@ void delay(int delay)
 	}
 }
 
-//volatile int count = 0;
-//XScuGic InterruptController; /* Instance of the Interrupt Controller */
-//static XScuGic_Config *GicConfig;/* The configuration parameters of the controller */
-//
-//
-//void XTmrCtr_InterruptHandler()
-//{
-//	//printf("XExample_IsDone() %d\n",XExample_rx_IsDone(AXI_Configrx));
-//	//printf("XExample_InterruptGetStatus() %d\n",XExample_rx_InterruptGetStatus(AXI_Configrx));
-//	//XExample_rx_InterruptClear(AXI_Configrx,XExample_rx_InterruptGetStatus(AXI_Configrx));
-//	count = 10;
-//}
-//
-//int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr)
-//{
-//	/*
-//    * Connect the interrupt controller interrupt handler to the hardware
-//	* interrupt handling logic in the ARM processor.
-//	*/
-//	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,(Xil_ExceptionHandler) XScuGic_InterruptHandler,XScuGicInstancePtr);
-//	/*
-//    * Enable interrupts in the ARM
-//	*/
-//	Xil_ExceptionEnable();
-//	return XST_SUCCESS;
-//}
-//
-//int ScuGicInterrupt_Init(u16 DeviceId, XExample_rx* AXI_Config)
-//{
-//int Status;
-///*
-//* Initialize the interrupt controller driver so that it is ready to
-//* use.
-//* */
-//	GicConfig = XScuGic_LookupConfig(DeviceId);
-//	if (NULL == GicConfig) {
-//	return XST_FAILURE;
-//	}
-//	Status = XScuGic_CfgInitialize(&InterruptController, GicConfig,	GicConfig->CpuBaseAddress);
-//	if (Status != XST_SUCCESS)
-//	{
-//		return XST_FAILURE;
-//	}
-///*
-//* Setup the Interrupt System
-//* */
-//	Status = SetUpInterruptSystem(&InterruptController);
-//	if (Status != XST_SUCCESS) {
-//		return XST_FAILURE;
-//	}
-///*
-//* Connect a device driver handler that will be called when an
-//* interrupt for the device occurs, the device driver handler performs
-//* the specific interrupt processing for the device
-//*/
-//	Status = XScuGic_Connect(&InterruptController,XPAR_FABRIC_EXAMPLE_RX_0_INTERRUPT_INTR,(Xil_ExceptionHandler)XTmrCtr_InterruptHandler,(void *)AXI_Config);
-//	if (Status != XST_SUCCESS) {
-//		return XST_FAILURE;
-//	}
-///*
-//* Enable the interrupt for the device and then cause (simulate) an
-//* interrupt so the handlers will be called
-//*/
-//	XScuGic_Enable(&InterruptController, XPAR_FABRIC_EXAMPLE_RX_0_INTERRUPT_INTR);
-//	return XST_SUCCESS;
-//}
 
 XMutex Mutex[4];	/* Mutex instance */
 #define MUTEX_NUM 0
@@ -157,7 +90,7 @@ void synchronize()
 		XMutex_Lock(&Mutex[XPAR_CPU_ID], MUTEX_NUM);	/* Acquire lock */
 
 		// default value of OCM is set to 0xdeadbeef so first processor to grab lock can clear
-		if(*ptr == 0xdeadbeef || ((*ptr % 2) == 0) )
+		if(*ptr == 0xdeadbeef || ((*ptr % ACTIVE_CORES) == 0) )
 		{
 			*ptr = 0;
 			*ptr = *ptr + 1;
@@ -171,7 +104,7 @@ void synchronize()
 			break;
 		}
 	}
-	while(*ptr != 2)
+	while(*ptr != ACTIVE_CORES)
 	{
 		usleep(1);
 	}
@@ -337,6 +270,7 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 	//
 	// Send data
 	for(int k = 0; k < buffer_size; k++)
+	for(int k = 0; k < buffer_size; k++)
 	for(int j = 0; j < buffer_size; j++)
 	for(int i = 0; i < buffer_size; i++)
 	{
@@ -345,9 +279,9 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 
 	XTime_GetTime(&timer_end);
 
-	printf("cycles to write %u %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),mem_type_to_str(memory),timer_end-timer_start);
+	printf("cycles to write %u %s bytes: %lu\n",buffer_size * buffer_size*buffer_size*buffer_size*sizeof(uint64_t),mem_type_to_str(memory),timer_end-timer_start);
 	float cycles = timer_end-timer_start;
-	float bytes = buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
+	float bytes = buffer_size * buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
 	float tput = (bytes/cycles) * 1.2;
 	printf("Throughput ~ %f GBps \n",tput);
 
@@ -357,63 +291,48 @@ int run_benchmark_memory( int buffer_size, memory_type memory, int time, axi_por
 	//
 	// Read data and confirm
 	for(int k = 0; k < buffer_size; k++)
+	for(int k = 0; k < buffer_size; k++)
 	for(int j = 0; j < buffer_size; j++)
 	for(int i = 0; i < buffer_size; i++)
 	{
 		simple_read( STREAM_ID_1 );
 	}
+
 	XTime_GetTime(&timer_end);
-	printf("cycles to read %u %s bytes: %lu\n",buffer_size*buffer_size*buffer_size*sizeof(uint64_t),mem_type_to_str(memory),timer_end-timer_start);
+
+
+	printf("cycles to read %u %s bytes: %lu\n",buffer_size *buffer_size*buffer_size*buffer_size*sizeof(uint64_t),mem_type_to_str(memory),timer_end-timer_start);
 	cycles = timer_end-timer_start;
-	bytes = buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
+	bytes = buffer_size * buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
 	tput = (bytes/cycles) * 1.2;
 	printf("Throughput ~ %f GBps \r\n\n",tput);
+
 	//
 	//
 	// destroy streams
 	stream_destroy( STREAM_ID_0 );
 	stream_destroy( STREAM_ID_1 );
 
-	//
-	//
-	// print results
-	//printf("Metrics %d\n",Metrics);
-
 	return XST_SUCCESS;
 }
 
 
-int run_benchmark_flow( int buffer_size, memory_type memory, int time, axi_port_type port )
+int run_benchmark_ps_ps_flow( int buffer_size, memory_type memory, int time, axi_port_type port )
 {
-	int Status;
-	u32 Metrics;
-	u32 ClkCntHigh = 0x0;
-	u32 ClkCntLow = 0x0;
+	//
+	//
 	clear_streams();
-
-	//Status = Setup_AxiPmon(0);
-	//if (Status != XST_SUCCESS) {
-	//	xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
-	//	return XST_FAILURE;
-	//}
 
 	//
 	//
 	// Create tx Stream
-	//stream_create( STREAM_ID_0, buffer_size, TX, memory, port );
-	//stream_init(STREAM_ID_0 );
+	stream_create( STREAM_ID_0, buffer_size, RX, memory, port );
+	stream_init(STREAM_ID_0 );
 
-	//
-	//
-	// Create rx stream
-	stream_create( STREAM_ID_1, buffer_size, RX, memory, port );
-	stream_init(STREAM_ID_1 );
-	start_stream( STREAM_ID_1 );
 	setup_mutex();
 
 	synchronize();
 
-//	start_stream( STREAM_ID_5 );
 	int expected = 0;
 	//
 	//
@@ -421,21 +340,18 @@ int run_benchmark_flow( int buffer_size, memory_type memory, int time, axi_port_
 	for(int w = 0; w < buffer_size; w++)
 	for(int k = 0; k < buffer_size; k++)
 	for(int j = 0; j < buffer_size; j++)
+	for(int i = 0; i < buffer_size; i++)
 	{
-		for(int i = 0; i < buffer_size; i++)
+		uint32_t data = circular_read( STREAM_ID_0 );
+		if(expected != data)
 		{
-			uint32_t data = block_read( STREAM_ID_1);
-			//printf("%s,%s,%u,%u,%u,%u,%u,%u\n",port_type_to_str(port),mem_type_to_str(memory),query_metric(0),query_metric(1),query_metric(2),query_metric(3),query_metric(4),query_metric(5));
-			//printf("is done %d\n",is_stream_done( STREAM_ID_5 ));
-			//printf("data received from read: %d \n",data);
-			if(expected != data)
-			{
-				printf("Expected: %d received: %d \n",expected,data);
-				assert(expected == data);
-			}
-			expected++;
+			printf("Expected: %d received: %d \n",expected,data);
+			print_state(STREAM_ID_0);
+			assert(expected == data);
 		}
+		expected++;
 	}
+
 	XTime timer_end;
 	XTime timer_start;
 	XTime_GetTime(&timer_end);
@@ -445,69 +361,39 @@ int run_benchmark_flow( int buffer_size, memory_type memory, int time, axi_port_
 	float cycles = timer_end-timer_start;
 	float bytes = buffer_size *buffer_size * buffer_size * buffer_size * sizeof(uint64_t);
 	float tput = (bytes/cycles) * 1.2;
-	printf("Throughput ~ %f GBps \n",tput);
+	printf("PS PS Throughput ~ %f GBps \n",tput);
 
 	//
 	//
 	// destroy streams
-	stream_destroy( STREAM_ID_1 );
-//	stream_destroy( STREAM_ID_3 );
+	stream_destroy( STREAM_ID_0 );
 
-	//
-	//
-	// print results
-	//Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
-	//if (Status != XST_SUCCESS) {
-	//	xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");
-	//	return XST_FAILURE;
-	//}
+	synchronize();
 
 	return XST_SUCCESS;
 }
 
-int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port_type port )
+int run_benchmark_ps_pl_flow( int buffer_size, memory_type memory, int time, axi_port_type port )
 {
-	int Status;
-	u32 Metrics;
-	u32 ClkCntHigh = 0x0;
-	u32 ClkCntLow = 0x0;
+	//
+	//
 	clear_streams();
 
-
-	uint64_t test[200];
-
-	for(int i = 0; i < 200; i++)
-	{
-		test[i] = 0;
-	}
-
-	//Status = Setup_AxiPmon(0);
-	//if (Status != XST_SUCCESS) {
-	//	xil_printf("AXI Performance Monitor Polled Failed To Start\r\n");
-	//	return XST_FAILURE;
-	//}
-
-	//
-	//
-	// Create tx Stream
-	//stream_create( STREAM_ID_0, buffer_size, TX, memory, port );
-	//stream_init(STREAM_ID_0 );
 
 	//
 	//
 	// Create rx stream
-	stream_create( STREAM_ID_0, buffer_size, RX, memory, port );
-	stream_init(STREAM_ID_0 );
-	start_stream( STREAM_ID_0 );
+	stream_create( STREAM_ID_3, buffer_size, RX, memory, port );
+	stream_init(STREAM_ID_3 );
+//	print_state(STREAM_ID_1);
+	start_stream( STREAM_ID_3 );
+
 	setup_mutex();
 
 	synchronize();
 
-	int expected = 0;
-
-	volatile XTime*  deadptr = (0xFFFC0320);
-	//*deadptr = 0;
-
+	uint64_t expected = 0;
+	int end = (buffer_size*buffer_size*buffer_size*buffer_size)-80;
 	//
 	//
 	// Send data
@@ -516,49 +402,45 @@ int run_benchmark_flow2( int buffer_size, memory_type memory, int time, axi_port
 	for(int j = 0; j < buffer_size; j++)
 	for(int i = 0; i < buffer_size; i++)
 	{
-			uint32_t data = block_read2( STREAM_ID_0);
+		    //print_state(STREAM_ID_1);
+		    //print_state(STREAM_ID_1);
+		    uint64_t data = circular_read( STREAM_ID_3 );
+			//printf("core-0 read %d\n",data);
+//			print_state(STREAM_ID_3);
 			if(expected != data)
 			{
-				*deadptr = 1;
-//				volatile XTime* ptr1 = (0xFFFC0318);
-//				volatile XTime* ptr2 = (0xFFFC0310);
-//				volatile XTime* ptr3 = (0xFFFC0308);
-//				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
 				printf("Expected: %d received: %d \n",expected,data);
-				print_state(STREAM_ID_0);
-//				printf("head : %u tail %u full %u \n",*ptr1,*ptr2,*ptr3);
+				print_state(STREAM_ID_1);
 				assert(expected == data);
 			}
 			expected++;
-			if(rand()%25 == 15)
-				usleep(rand()%100);
+//			works
+//			if(rand() % 15 == 11)
+//			{
+//				usleep( (rand()%20) );
+//			}
+			if(expected >= end ){
+				break;
+			}
 	}
+
 	XTime timer_end;
 	XTime timer_start;
 	XTime_GetTime(&timer_end);
 
-//	volatile XTime* ptr = (0xFFFE0008);
-//	timer_start = *ptr;
+	volatile XTime* ptr = (0xFFFE0008);
+	timer_start = *ptr;
 	float cycles = timer_end-timer_start;
-	float bytes = buffer_size* buffer_size *buffer_size * buffer_size * sizeof(uint64_t);
+	float bytes = expected * sizeof(uint64_t);
 	float tput = (bytes/cycles) * 1.2;
-	printf("Throughput ~ %f GBps \n",tput);
+	printf("PL PS Throughput ~ %f GBps \n",tput);
 
 	//
 	//
 	// destroy streams
-	stream_destroy( STREAM_ID_0 );
-//	stream_destroy( STREAM_ID_3 );
+	stream_destroy( STREAM_ID_3 );
 
 	synchronize();
-	//
-	//
-	// print results
-	//Status = Shutdown_AxiPmon(&Metrics,&ClkCntHigh,&ClkCntLow);
-	//if (Status != XST_SUCCESS) {
-	//	xil_printf("AXI Performance Monitor Polled Failed To Shutdown\r\n");
-	//	return XST_FAILURE;
-	//}
 
 	return XST_SUCCESS;
 }
