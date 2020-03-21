@@ -55,8 +55,8 @@ static uint8_t id_array[MAX_NUMBER_OF_STREAMS] = {
 		XPAR_EXAMPLE_RX_PIPED64_0_DEVICE_ID, // stream 1 reads from PL on device 0
 		XPAR_EXAMPLE_TX_PIPED64_1_DEVICE_ID, // stream 2 transmits to pl on device 1
 		XPAR_EXAMPLE_RX_PIPED64_1_DEVICE_ID, // stream 3 reads from pl on device 1
-//		XPAR_EXAMPLE_TX_PIPED64_2_DEVICE_ID, // stream 4 reads from pl on device 2
-//		XPAR_EXAMPLE_RX_PIPED64_2_DEVICE_ID, // stream 5 reads from pl on device 2
+		XPAR_EXAMPLE_TX_PIPED64_2_DEVICE_ID, // stream 4 reads from pl on device 2
+		XPAR_EXAMPLE_RX_PIPED64_2_DEVICE_ID, // stream 5 reads from pl on device 2
 };
 
 #define PRESENCE_BIT ( 0x100000000 ) // 1 << 32

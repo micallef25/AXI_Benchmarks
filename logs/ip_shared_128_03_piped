@@ -179,3 +179,14 @@ Tests Complete
 (piped)
 PL PS Throughput ~ 0.353805 GBps
 out PL PS Throughput ~ 0.353804 GBps
+
+cycles to write 800000000 OCM bytes: 86097447
+Throughput ~ 11.150156 GBps
+cycles to read 800000000 OCM bytes: 437589469
+Throughput ~ 2.193837 GBps
+
+
+PS PS Throughput ~ 1.021491 GBps
+PL PS Throughput ~ 1.020904 GBps
+
+

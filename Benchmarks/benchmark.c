@@ -18,7 +18,7 @@
 #include "assert.h"
 #include "xmutex.h"
 
-#define ACTIVE_CORES 3
+#define ACTIVE_CORES 4
 
 void delay(int delay)
 {
@@ -383,17 +383,17 @@ int run_benchmark_ps_pl_flow( int buffer_size, memory_type memory, int time, axi
 	//
 	//
 	// Create rx stream
-	stream_create( STREAM_ID_3, buffer_size, RX, memory, port );
-	stream_init(STREAM_ID_3 );
+	stream_create( STREAM_ID_5, buffer_size, RX, memory, port );
+	stream_init(STREAM_ID_5 );
 //	print_state(STREAM_ID_1);
-	start_stream( STREAM_ID_3 );
+	start_stream( STREAM_ID_5 );
 
 	setup_mutex();
 
 	synchronize();
 
 	uint64_t expected = 0;
-	int end = (buffer_size*buffer_size*buffer_size*buffer_size)-80;
+	int end = (buffer_size*buffer_size*buffer_size*buffer_size);
 	//
 	//
 	// Send data
@@ -404,7 +404,7 @@ int run_benchmark_ps_pl_flow( int buffer_size, memory_type memory, int time, axi
 	{
 		    //print_state(STREAM_ID_1);
 		    //print_state(STREAM_ID_1);
-		    uint64_t data = circular_read( STREAM_ID_3 );
+		    uint64_t data = circular_read( STREAM_ID_5 );
 			//printf("core-0 read %d\n",data);
 //			print_state(STREAM_ID_3);
 			if(expected != data)
@@ -419,9 +419,9 @@ int run_benchmark_ps_pl_flow( int buffer_size, memory_type memory, int time, axi
 //			{
 //				usleep( (rand()%20) );
 //			}
-			if(expected >= end ){
-				break;
-			}
+//			if(expected >= end ){
+//				break;
+//			}
 	}
 
 	XTime timer_end;
@@ -438,7 +438,7 @@ int run_benchmark_ps_pl_flow( int buffer_size, memory_type memory, int time, axi
 	//
 	//
 	// destroy streams
-	stream_destroy( STREAM_ID_3 );
+	stream_destroy( STREAM_ID_5 );
 
 	synchronize();
 
